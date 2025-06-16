@@ -35,9 +35,9 @@ This is the central notes repository for my setup, configurations, and tool expl
 
 1. [delta-trace](<https://github.com/delta-domain-rnd/delta-trace>)
 	- Notes and articles on creating proofs of concepts, researching, and studying.
-. [lan-setup-notes](<https://github.com/LanHikari22/lan-setup-notes>)
+2. [lan-setup-notes](<https://github.com/LanHikari22/lan-setup-notes>)
 	- For notes on configurations and setting up of projects and systems! **You are here!**
-2. [dism-exe-notes](<https://github.com/dism-exe/dism-exe-notes/>)
+3. [dism-exe-notes](<https://github.com/dism-exe/dism-exe-notes/>)
 	- For notes on the process of reverse engineering games, running code analysis, and creating new tools!
 
 # 3 Contributing
