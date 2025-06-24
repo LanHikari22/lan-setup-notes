@@ -31,6 +31,8 @@ Welcome!
 
 This is the central notes repository for my setup, configurations, and tool exploration work!
 
+Many great projects and ideas do not get off the ground because of friction with system integration, building, or just getting far enough to be able to do something useful. Let's get to that step!
+
 # 2 See also
 
 1. [delta-trace](<https://github.com/delta-domain-rnd/delta-trace>)
