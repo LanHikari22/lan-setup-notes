@@ -91,3 +91,14 @@ Traceback (most recent call last):
 FileNotFoundError: [Errno 2] No such file or directory: '/home/lan/snap/steam/common/.local/share/Steam/steamapps/compatdata/1938090/pfx.lock'
 ```
 
+2025-06-18 Wk 25 Wed - 09:52
+
+Let's check `protondb`. This one was for  [Clair Obscur: Expedition 33](<https://www.protondb.com/app/1903340>) and this one is for [CoD](<https://www.protondb.com/app/1938090>)
+
+![[Pasted image 20250618095452.png]]
+
+There they report that it's "BORKED" and unsupported.
+
+##### 0.1.4.1.1 On the comment there by Spoon "Unsupported Anti-Cheat (Ricochet Anti-Cheat)"
+
+They flag Kernel-Level Anti-Cheat as the issue. Labeling it "Ricochet Anti-Cheat". They say this has become standard since the 2019 reboot of the MW series and it uses elements exclusive to the windows kernel. They said the developer mentioned if someone finds a workaround they won't be punished so long as they do not interfere with the anti-cheat's functions.
