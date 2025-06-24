@@ -38,11 +38,11 @@ Many great projects and ideas do not get off the ground because of friction with
 1. [delta-trace](<https://github.com/delta-domain-rnd/delta-trace>)
 	- Notes and articles on creating proofs of concepts, researching, and studying.
 2. [lan-setup-notes](<https://github.com/LanHikari22/lan-setup-notes>) **You are here!**
-	- For notes on configurations and setting up of projects and systems!
+	- For notes on configurations and setting up of projects and systems.
 3. [dism-exe-notes](<https://github.com/dism-exe/dism-exe-notes/tree/main/lan>)
-	- For notes on the process of reverse engineering games, running code analysis, and creating new tools!
+	- For notes on the process of reverse engineering games, running code analysis, and creating new tools! This is about reverse engineering the Mega Man Battle Network series.
 4. [goldensun-notes](<https://github.com/FutureFractal/goldensun-notes/tree/main/lan>)
-	1. Similar to `dism-exe-notes` but for reverse engineering the `goldensun` games on the `GBA`!
+	- Similar to `dism-exe-notes` but for reverse engineering the `goldensun` games on the `GBA`!
 
 
 
@@ -50,7 +50,7 @@ Many great projects and ideas do not get off the ground because of friction with
 
 All contributions are welcome! Please feel free to contact me by opening an issue ticket or emailing lanhikarixx@gmail.com.
 
-You can always chat with me. Just email me and please start the title with `"GITCHAT"` so that I can find you!
+You can always chat with me. Please start the email title with `"GITCHAT"` so that I can find you!
 
 As this is about general notes on setup and system issues, please feel free to suggest problems you would like to be solved. This helps me get an idea of where developers face high friction in system builds and setups and I would appreciate it a lot.
 

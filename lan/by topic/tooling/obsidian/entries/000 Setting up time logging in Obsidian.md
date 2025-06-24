@@ -1,4 +1,4 @@
-#lan #tooling #obsidian #time #logging 
+#lan #tooling #obsidian #time #logging #external
 
 
 ![[Pasted image 20250622183338.png]]

@@ -3,7 +3,7 @@
 # 1 Add script for opening obsidian note quickly
 # 2 Objective
 
-For general setup, see [[Wk 25 000 Setting up time logging in Obsidian]].
+For general setup, see [[000 Setting up time logging in Obsidian]].
 
 I have `Lan Start Log` which logs to `scripts/templater/data/lan`. It uses `start_log.js` in `scripts/templater/` and the `Lan Start Log.md` basically passes it an identity like so:
 
