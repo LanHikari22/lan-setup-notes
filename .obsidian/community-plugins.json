@@ -11,5 +11,7 @@
   "local-gpt",
   "ai-providers",
   "simple-time-tracker",
-  "chronology"
+  "chronology",
+  "dataview",
+  "obsidian-charts"
 ]

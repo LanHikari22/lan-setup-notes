@@ -8,11 +8,14 @@
 To be able to have an automatic start/stop time logging functionality with events and summary. 
 
 It should:
-1. Be easy to use. Start/Stop with cursor at the note beginning or at some header, and reflect that header.
-2. Be collaborative, multiple people should be able to use it in the same vault
-3. Generate weekly event log files automatically
-4. Be able generate summary reports
-5. Be able to accumulate all time events from headers to the note.
+- [x] Be easy to use. Just Start/Stop with the cursor pointing to beginning of the note or to some header. It should be able to differentiate based on this if it's a note-wide log or a note#header log. 
+- [x] Be collaborative, multiple people should be able to use it in the same vault
+- [x] Generate weekly event log files automatically
+- [x] Be able generate summary reports
+- [x] Be able to accumulate all time events from headers to the note.
+- [x] Link back to the notes/headers so that it can be used to navigate context in time.
+- [x] Be able to use other links too and not just headers.
+- [ ] Be resistant to changes in link names and renaming files.
 
 # 2 Journal
 

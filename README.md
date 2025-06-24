@@ -58,6 +58,10 @@ If you also have solution for the problem, you can open a PR with your own obsid
 
 If you have ideas or would like to discuss integrations with other public issue tracking systems and forums, please reach out.
 
+If you have any criticisms on any entries here please reach out or open an issue. This could be on matters of performance, ergonomics, security, accuracy, or otherwise. Part of making most notes public is to make the creative process transparent and open to critique from others and the creators themselves. Questions and comments are also welcome!
+
+If you have any business related inquiries, please also reach out to me via email <lanhikarixx@gmail.com> and start the email title with `"GITBUSINESS"` so I can find you.
+
 # 4 License
 
 This theme is licensed under the [MIT license](https://opensource.org/licenses/mit-license.php) © 2025 Mohammed Alzakariya.
