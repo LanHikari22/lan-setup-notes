@@ -48,7 +48,15 @@ Many great projects and ideas do not get off the ground because of friction with
 
 # 3 Contributing
 
-All contributions are welcome! Please feel free to contact me by opening an issue ticket or emailing lanhikarixx@gmail.com if you want to chat. If you do, please start the email title with `"GITHUB"`.
+All contributions are welcome! Please feel free to contact me by opening an issue ticket or emailing lanhikarixx@gmail.com.
+
+You can always chat with me. Just email me and please start the title with `"GITCHAT"` so that I can find you!
+
+As this is about general notes on setup and system issues, please feel free to suggest problems you would like to be solved. This helps me get an idea of where developers face high friction in system builds and setups and I would appreciate it a lot.
+
+If you also have solution for the problem, you can open a PR with your own obsidian note under `contrib/` and I can review them and integrate them in.
+
+If you have ideas or would like to discuss integrations with other public issue tracking systems and forums, please reach out.
 
 # 4 License
 
