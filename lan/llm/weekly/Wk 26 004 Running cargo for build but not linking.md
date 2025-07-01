@@ -1,3 +1,4 @@
+#lan #llm #rust #build #linking #pend
 
 # 1 Running cargo for build but not linking
 

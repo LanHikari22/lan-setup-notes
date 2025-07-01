@@ -43,6 +43,10 @@ Categories=Game;
 
 OK. We know we are ID 1938090 for CoD.
 
+2025-07-01 Wk 27 Tue - 14:10
+
+Also see [[000 Copy save data from Clair Obscur Expedition 33#2.1 Finding the ID via the steam store page|Finding the ID via the steam store page]].
+
 ### 0.1.4 Launching the game via the terminal via proton
 
 Just Launch:

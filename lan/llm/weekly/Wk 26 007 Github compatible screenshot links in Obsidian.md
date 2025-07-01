@@ -1,5 +1,5 @@
 
-#lan #llm #obsidian #tooling #templater
+#lan #llm #obsidian #tooling #templater #todo 
 # 1 Wk 26 007 Github compatible screenshot links in Obsidian
 
 # 2 Objective
