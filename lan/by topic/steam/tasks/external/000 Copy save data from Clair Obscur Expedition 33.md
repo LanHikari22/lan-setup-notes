@@ -76,7 +76,7 @@ But this is a big folder. It has a whole `drive_c`. It's not specific enough.
 
 It seems every game has its own scheme for saving data. It's not standardized.
 
-In [post on clair obscur expedition 33 save location](<https://primagames.com/tips/clair-obscur-expedition-33-save-file-location>) [[#^2]], 
+In [expedition save location by Ali Hashmi](<https://primagames.com/tips/clair-obscur-expedition-33-save-file-location>) [[#^2]],
 
 ```
 C:\Users\**[Windows Username]**\AppData\Local\Sandfall\Saved\**SaveGames**
@@ -373,12 +373,18 @@ Seems to have a queue where it adds a new back up and deletes the oldest each ti
 
 Since I was able to resolve this for me, let's link this technical journal over there.
 
-- [ ] Corresponds with to [post on clair obscur expedition 33 save location](<https://primagames.com/tips/clair-obscur-expedition-33-save-file-location>) [[#^2]]
+- [ ] Corresponds with to [expedition save location by Ali Hashmi](<https://primagames.com/tips/clair-obscur-expedition-33-save-file-location>) [[#^2]]
 
 Seems I'm unable to sign up to leave a comment... Let's just email them: [feedback@primagames.com](mailto://feedback@primagames.com)
 
+- [expedition save location by Siddhant Rasaily](<https://digistatement.com/clair-obscur-expedition-33-save-file-location-where-is-it/>) [[#^3]]
+
+2025-07-01 Wk 27 Tue - 18:26
+
+No way to leave comments. Let's contact them on that over info@digistatement.com
 
 # 4 References
 
 1. [steam forum: on save data](<https://steamcommunity.com/discussions/forum/1/1643170269579547670/>) ^1
-2. [post on clair obscur expedition 33 save location](<https://primagames.com/tips/clair-obscur-expedition-33-save-file-location>) ^2
+2. [expedition save location by Ali Hashmi](<https://primagames.com/tips/clair-obscur-expedition-33-save-file-location>) ^2
+3. [expedition save location by Siddhant Rasaily](<https://digistatement.com/clair-obscur-expedition-33-save-file-location-where-is-it/>) ^3

@@ -10,7 +10,6 @@ kanban-plugin: list
 
 ## Todo
 
-- [ ] [[000 Copy save data from Clair Obscur Expedition 33]]
 
 
 ## Active
@@ -19,6 +18,7 @@ kanban-plugin: list
 
 ## Done
 
+- [ ] [[000 Copy save data from Clair Obscur Expedition 33]]
 
 
 ## Rejected
