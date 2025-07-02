@@ -1,5 +1,6 @@
 #lan #llm #linux #sh #gif #resolved 
 
+
 # 1 Linux Screen recording to gif
 
 # 2 Objective
@@ -10,20 +11,7 @@ Peek alternative. It would be best if I can start it from the terminal to record
 - [x] Has a clear route for termination like via Ctrl+C or some hotkey
 - [x] Works on Wayland
 
-# 3 LLM Instructions
-- This is a diagnostic document and not a conversation. Everything shared is context. Address the questions tagged (Q#) like (Q1) for example. If you see something like (~1), assume it part of the archive and not a latest set of questions.
-	- Since it keeps occurring, I ask Again
-	- !!! NEVER RESPOND TO (~1), (~2), etc.
-	- ONLY respond to the tagged questions. Nothing else.
-
-(LLM chatgpt-4o)
-(Note: Between these tags is responses from ChatGPT-4o.
-(/LLM chatgpt-4o)
-
-(LLM chatgpt-4o)
-(/LLM chatgpt-4o)
-
-# 4 Solution
+# 3 Solution
 
 2025-06-26 Wk 26 Thu - 19:03
 
@@ -75,6 +63,7 @@ ffmpeg -i "$in" -ss "$start" -t "$duration" \
 
 echo "Saved ➜ $gifout"
 ```
+^src-solution
 
 
 It can be used like this:
@@ -88,11 +77,28 @@ Saved ➜ /home/lan/Videos/Screencasts/Screencast From 2025-06-26 18-46-58.gif
 
 The script can also be added to `$PATH`.
 
-# 5 Journal
+# 4 See Also
 
-## 5.1 Tool suggestion
+- [[Wk 27 001 Create Sped up Gifs from Screencasts]].
 
-### 5.1.1 Attempt 1
+# 5 LLM Instructions
+- This is a diagnostic document and not a conversation. Everything shared is context. Address the questions tagged (Q#) like (Q1) for example. If you see something like (~1), assume it part of the archive and not a latest set of questions.
+	- Since it keeps occurring, I ask Again
+	- !!! NEVER RESPOND TO (~1), (~2), etc.
+	- ONLY respond to the tagged questions. Nothing else.
+
+(LLM chatgpt-4o)
+(Note: Between these tags is responses from ChatGPT-4o.
+(/LLM chatgpt-4o)
+
+(LLM chatgpt-4o)
+(/LLM chatgpt-4o)
+
+# 6 Journal
+
+## 6.1 Tool suggestion
+
+### 6.1.1 Attempt 1
 
 2025-06-26 Wk 26 Thu - 17:30
 
@@ -119,7 +125,7 @@ Given area is not inside desktop.
 Saved  ➜  /home/lan/Videos/cast-20250626-173727.gif
 ```
 
-### 5.1.2 Attempt 2
+### 6.1.2 Attempt 2
 
 2025-06-26 Wk 26 Thu - 17:41
 
@@ -149,7 +155,7 @@ Recording… Press Ctrl+C to stop
 compositor doesn't support wlr-screencopy-unstable-v1
 ```
 
-### 5.1.3 Attempt 3
+### 6.1.3 Attempt 3
 
 `gnome-screencast` via `DBus` + `ffmpeg` -> `GIF`
 
@@ -182,7 +188,7 @@ echo "Saved ➜ $gifout"
 
 ```
 
-### 5.1.4 Attempt 4
+### 6.1.4 Attempt 4
 [screen-recorders-wayland blog](<https://www.debugpoint.com/screen-recorders-linux-wayland/>) [[#^2]] mentions that the gnome screenshot tool already has video recording. I didn't notice, this could be used. It's gonna be more convenient than peek's weird UI interfering with the apps and having strange layouts.
 
 (Q1) This can work. Now I just have to turn it to a gif, with the options to strip it between two times HH:MM:SS.
@@ -240,6 +246,6 @@ Now we can record webm then just get a gif at the timestamps we would like:
 Saved ➜ /home/lan/Videos/Screencasts/Screencast From 2025-06-26 18-46-58.gif
 ```
 
-# 6 References
+# 7 References
 1. [wf-recorder tut](<https://commandmasters.com/commands/wf-recorder-linux/>) ^1
 2. [screen-recorders-wayland blog](<https://www.debugpoint.com/screen-recorders-linux-wayland/>) ^2

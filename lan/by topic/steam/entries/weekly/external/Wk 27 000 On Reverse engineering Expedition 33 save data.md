@@ -76,9 +76,102 @@ compress = zlib.compressobj(
 data_compressed += compress.compress(data_gvas)
 ```
 
+## 1.2 Decompressing the zlib file
+
+2025-07-03 Wk 27 Thu - 01:29
+
+Based on [stackexchange: zlib decompress by Catskul](<https://unix.stackexchange.com/a/240060>) [[#^5]],
+
+```sh
+sudo apt-get install qpdf
+```
+
+```sh
+# in /home/lan/data/re/expedition-sav
+zlib-flate -uncompress < EXPEDITION_0.NEW.savegame > a
+
+# output
+zlib-flate: flate: inflate: data: incorrect header check
+```
+
+It is not going to be able to do it immediately because it's packed with other information. Let's modify the script to also just write the compressed archive:
+
+```sh
+# in /home/lan/data/re/expedition-sav
+cp scripts/ue4_save_game_extractor_recompressor.py scripts/ue4_save_game_extractor_recompressor.1.py
+```
+
+Edit it to produce the following diff:
+
+```sh
+diff -u  scripts/ue4_save_game_extractor_recompressor.py scripts/ue4_save_game_extractor_recompressor.1.py
+```
+
+```diff
+--- scripts/ue4_save_game_extractor_recompressor.py     2025-07-01 19:05:22.561601097 +0300
++++ scripts/ue4_save_game_extractor_recompressor.1.py   2025-07-03 01:41:51.026114272 +0300
+@@ -92,8 +92,13 @@
+             memLevel=zlib.DEF_MEM_LEVEL,
+             strategy=zlib.Z_DEFAULT_STRATEGY,
+         )
++
+         data_compressed += compress.compress(data_gvas)
+         data_compressed += compress.flush()
++
++        with open(filename_out + '.zlib', 'wb') as zlib_file:
++            compressed.write(data_compressed)
++
+         compressed.write(HEADER_FIXED_BYTES)
+         compressed.write(len(data_gvas).to_bytes(HEADER_RAW_SIZE_LEN, byteorder='little'))
+         compressed.write(data_compressed)
+```
+
+Now let's compress again with our new script:
+
+```sh
+/home/lan/data/re/expedition-sav/scripts/ue4_save_game_extractor_recompressor.1.py --compress --filename EXPEDITION_0.sav
+```
+
+Now we should have `EXPEDITION_0.NEW.savegame.zlib`.
+
+2025-07-03 Wk 27 Thu - 01:50
+
+But we're not getting anything from decompressing it.
+
+```sh
+zlib-flate -uncompress < EXPEDITION_0.NEW.savegame.zlib
+```
+
+When we try to open the `*.sav` file with visidata, it recommends us to install
+
+```sh
+python3 -m pip install savReaderWriter
+```
+
+![[Pasted image 20250703015301.png]]
+
+We can't import `'Iterable'`... [here](<https://stackoverflow.com/a/69882451/6944447>) they claim that it is deprecated.
+
+Also the repository for [savReaderWriter](<https://bitbucket.org/fomcl/savreaderwriter/src/master/>) is very outdated. Should Visidata recommend this? ^log-issue1
+
+See [[#2.1 Filing to Visidata about outdated recommendation log-issue1|here]] for information on filing this issue.
+
+2025-07-03 Wk 27 Thu - 01:59
 
 
-# 2 References
+# 2 Issues
+
+## 2.1 Filing to Visidata about outdated recommendation [[#^log-issue1]]
+
+
+
+
+# 3 Open Source Contribution Tasks
+
+- [ ] Open issue in visidata about the savReaderWriter issue [[#^log-issue1]]
+
+
+# 4 References
 1. [github: 13xforever/gvas-converter](<https://github.com/13xforever/gvas-converter>) ^1
 2. [stackoverflow: on reading gvas](<https://stackoverflow.com/questions/76498125/read-sav-file-with-gvas-format-in-python>) ^2
 3. [stackoverflow user: code-apprentice](<https://stackoverflow.com/users/1440565/code-apprentice>) ^3
