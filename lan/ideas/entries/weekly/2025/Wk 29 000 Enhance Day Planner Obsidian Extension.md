@@ -1,3 +1,6 @@
+---
+is_idea:
+---
 #lan #idea #tooling #obsidian #schedule
 
 2025-07-18 Wk 29 Fri - 20:19

@@ -1,3 +1,6 @@
+---
+resolved: "false"
+---
 #lan #entry #unresolved #gaming #automation
 
 # 1 Objective

@@ -1,3 +1,6 @@
+---
+status: done
+---
 #lan #docker #linux #ubuntu #st/done #external 
 
 # 1 Objective
@@ -71,6 +74,18 @@ But the application in this instance just prints `Hello world!` and exits, so th
 2025-07-19 Wk 29 Sat - 02:39
 
 Made `docker_sh.sh` and `docker_stop.sh` for a cleaner solution on starting a shell (and booting the container initially) and stopping or removing the container.
+
+## 3.3 Create edit_app_name.sh for hardcoded name for web use
+
+### 3.3.1 Objective
+
+Since we will often use these scripts via curl, we do not want to get the app_name from an adjacent file. The app_name should simply be the current folder name.
+
+- [ ] edit_app_name.sh changes all `$app_name` variables in the current folder scripts.
+
+### 3.3.2 Journal
+
+2025-07-19 Wk 29 Sat - 04:27
 
 # 4 Issues
 
@@ -167,6 +182,35 @@ TAG="ubuntu_25.04" MOUNT="." sh <(curl -L https://raw.githubusercontent.com/delt
 ```
 
 
+## 4.3 Unable to use apt install within box
+
+- [x] 
+
+```sh
+apt install python3
+
+# out
+Error: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)
+Error: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+```
+
+Diagnostics similar to those running in this [post](https://forums.docker.com/t/not-able-to-install-anything-with-apt-get-on-a-docker-container/1595),
+
+```
+$ uname -r
+6.14.0-23-generic
+$ uname -a
+Linux c06c8bc1c33e 6.14.0-23-generic #23-Ubuntu SMP PREEMPT_DYNAMIC Fri Jun 13 23:02:20 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux
+```
+
+2025-07-19 Wk 29 Sat - 05:38
+
+LLM Assist is [[Wk 29 000 - Use apt install within Ubuntu container|here]].
+
+2025-07-19 Wk 29 Sat - 06:54
+
+Had to install tzdata for automated apt installs without it asking me for timezone info. And created a root shell starting script.
+
 # 5 Investigation
 
 ## 5.1 On Dockerfile and compose.yml
@@ -175,7 +219,7 @@ TAG="ubuntu_25.04" MOUNT="." sh <(curl -L https://raw.githubusercontent.com/delt
 
 In this [forum question](https://stackoverflow.com/questions/29480099/whats-the-difference-between-docker-compose-vs-dockerfile), multiple explain how compose.yml is more to do with orchastrating how docker images are run especially in case of multiple... Of course we can also use the CLI to pass specific options in.
 
-# 6 Techniques
+# 6 Howtos
 
 ## 6.1 Grepping Docker Containers
 
@@ -223,6 +267,62 @@ Giving it a default value seemed to fix this:
 ARG image=ubuntu:25.04
 ```
 
+## 6.4 Looping over lines in shell
+
+- [x] 
+
+2025-07-19 Wk 29 Sat - 04:36
+
+Similar to [answer](https://unix.stackexchange.com/a/670764),
+
+```sh
+echo 'A B C' | tr ' ' '\n' | while read line; do echo line: $line; done
+
+# out
+line: A
+line: B
+line: C
+```
+
+## 6.5 Space separated to line separated in shell
+
+- [x] 
+
+2025-07-19 Wk 29 Sat - 04:44
+
+From [answer](https://stackoverflow.com/a/24704539/6944447),
+
+```sh
+echo 'foo bar boo you too' | tr ' ' '\n'
+```
+
+## 6.6 Simulating exit signals in Linux shell
+
+- [x] 
+
+
+2025-07-19 Wk 29 Sat - 06:27
+
+```sh
+$ ( exit 0 ) && echo 'haha'
+haha
+$ ( exit 34 ) && echo 'haha'
+$ echo $?
+34
+```
+
+For values >256, it just mods 256.
+
+```sh
+$ ( exit 258 ) && echo 'haha'
+$ echo $?
+2
+```
+
 # 7 References
 
 1. [gh docker awesome-compose ex](https://github.com/docker/awesome-compose/tree/master/wireguard) ^1
+
+**Search**
+
+1. techoverflow.net/2021/01/13/how-to-use-apt-install-correctly-in-your-dockerfile/

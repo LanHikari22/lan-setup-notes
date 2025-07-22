@@ -1,8 +1,12 @@
+---
+resolved: "false"
+status: pend
+---
 #lan #setup #gaming #unresolved
 
 # 1 Objective
 
-- [ ] Install Osu on Ubuntu 25.04
+- [x] Install Osu on Ubuntu 25.04
 
 # 2 Journal
 

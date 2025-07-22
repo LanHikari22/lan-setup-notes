@@ -1,3 +1,6 @@
+---
+status: pend
+---
 2025-07-17 Wk 29 Thu - 05:07
 # 1 Journal
 

@@ -1,3 +1,6 @@
+---
+is_template:
+---
 # 1 TODO
 
 # 2 Objective

@@ -1,3 +1,6 @@
+---
+is_wiki:
+---
 #lan #entry #wiki #reference #todo #products #hardware
 
 # 1 Objective

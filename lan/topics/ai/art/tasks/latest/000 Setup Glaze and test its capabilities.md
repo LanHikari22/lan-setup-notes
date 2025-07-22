@@ -1,3 +1,6 @@
+---
+status: pend
+---
 #lan #task #todo #ai #privacy #art
 
 2025-06-26 Wk 26 Thu - 07:25

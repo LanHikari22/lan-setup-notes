@@ -1,3 +1,6 @@
+---
+status: done
+---
 #lan #task #issue #linux #ubuntu #clipboard #vim #st/done 
 
 

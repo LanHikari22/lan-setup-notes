@@ -1,4 +1,8 @@
+---
+status: todo
+---
 #lan #task #todo #youtube #grep #search #tooling 
+
 
 
 # 1 Objective
@@ -25,7 +29,56 @@ Any LLM use goes [[Wk 27 000 Grep all comments on videos I have liked on youtube
 
 I have done this before. I should see what I used in my prior scripts.
 
+## 3.1 Trying to use the old scripts again
 
-# 4 References
+2025-07-19 Wk 29 Sat - 05:21
+
+Since we did [[002 Creating base system for installation testing]], we now have box000 for a blank system to test on!
+
+
+# 4 Techniques
+
+## 4.1 Visidata Word Wrapping
+
+- [x] 
+
+2025-07-19 Wk 29 Sat - 17:04
+
+From [discussion #1080](https://github.com/saulpw/visidata/discussions/1080),
+
+You can press "v" to wrap text for the current row or toggle it.
+
+v is not in the  [cheat sheet](https://jsvine.github.io/visidata-cheat-sheet/en/)...
+
+Not in the [reference](https://www.visidata.org/docs/columns/) either...
+
+I added a comment about that in [discussion #1080](https://github.com/saulpw/visidata/discussions/1080).
+
+2025-07-19 Wk 29 Sat - 17:40
+
+I have an old private entry `Adding keybinding to visidata to quickly view text` from 2023 Wk 43. 
+
+It expands text by modifying `~/.visidatarc`,
+
+```python
+@Sheet.api
+def expand_cell(sheet):
+	sheet.execCommand('dive-cell')
+	new_sheet = vd.sheets[0]
+	new_sheet.execCommand('visibility-sheet')
+
+# `sheet` members and `vd` members are available in the execstr scope
+BaseSheet.addCommand(None, 'expand-cell', 'expand_cell()', 'Expands cell')
+BaseSheet.bindKey('KEY_F(2)', 'expand-cell')
+```
+
+Also comments on z + enter. This opens the text itself, and then v can be used. Adding to [discussion #1080](https://github.com/saulpw/visidata/discussions/1080)
+
+Seems I've discovered that from the [source pyobj](https://github.com/saulpw/visidata/blob/e9006352929ebe93ecababe884987ee885b25b8b/visidata/pyobj.py#L276).
+
+```sh
+TAG="ubuntu_25.04" MOUNT="." sh <(curl -sSf https://raw.githubusercontent.com/{my_org}/{my_repo}/refs/heads/main/box/box000_blank_system/docker_root_sh.sh)
+```
+
+# 5 References
 1. [gh yt-cli](<https://github.com/BishrGhalil/yt-cli>) ^1
-2. 

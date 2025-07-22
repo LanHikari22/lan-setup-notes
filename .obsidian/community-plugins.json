@@ -13,5 +13,6 @@
   "simple-time-tracker",
   "chronology",
   "dataview",
-  "obsidian-charts"
+  "obsidian-charts",
+  "graph-link-types"
 ]

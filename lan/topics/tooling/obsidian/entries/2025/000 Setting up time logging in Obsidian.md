@@ -1,3 +1,6 @@
+---
+external:
+---
 #lan #tooling #obsidian #time #logging #external
 
 
