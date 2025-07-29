@@ -1,5 +1,5 @@
 ---
-status: todo
+status: pend
 ---
 #lan #task #todo #youtube #grep #search #tooling 
 

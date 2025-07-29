@@ -1,6 +1,6 @@
 ---
 resolved: "false"
-status: pend
+status: todo
 ---
 #lan #setup #gaming #unresolved
 
@@ -82,12 +82,31 @@ Maybe because I am using bluetooth speakers, which is a bit odd.
 
 It works fine on headphones.
 
-# 3 Open Source Contribution Tasks
+# 3 Tasks
+
+## 3.1 Try to play songs using tablet
+
+- [ ] 
+
+### 3.1.1 Pend
+
+# 4 Issues
+
+## 4.1 Downloaded songs cannot be played
+
+- [ ] 
+
+
+### 4.1.1 Pend
+
+# 5 Ideas
+
+## 5.1 Open source contribution
 
 2025-07-03 Wk 27 Thu - 00:59
 
 - [ ] Clarify pactl installation in README for osu [[#^doc-issue1]]
 	- [ ]  Open Issue on this
-# 4 References
+# 6 References
 1. [github: Installing Osu](<https://github.com/NelloKudo/osu-winello?tab=readme-ov-file>) ^1
 2. [github: Installing PipreWire](<https://github.com/NelloKudo/osu-winello/wiki/Installing-PipeWire>) ^2

@@ -50,7 +50,7 @@ We could use `_notImplemented` from this [forum answer](<https://stackoverflow.c
 
 General typescript documentation is [here](<https://www.typescriptlang.org/>). 
 
-Specifically for optional parameters [here](<handbook/2/functions.html#optional-parameters>).
+Specifically for optional parameters `handbook/2/functions.html#optional-parameters`.
 
 There is a `?` operator that marks variables optional. `x? : number` seems to signify `x? : number | undefined`. 
 
@@ -173,6 +173,138 @@ When editing textareas, or the change shows visually but seems to be overwritten
 
 Just setting `.value` and reading textarea value every n ms seems sufficient for this.
 
+## 1.7 Creating Command that can be summoned via console to retrieve information
+
+- [ ] Able to invoke a command from the web console
+- [ ] Able to fetch data to a file to be downloaded
+
+2025-07-26 Wk 30 Sat - 04:27
+ 
+ [Greasemonkey manual](https://wiki.greasespot.net/Greasemonkey_Manual) [[#^2]].
+
+We're using this build script currently to generate a single `app.js` to be used in GreaseMonkey from our typescript project:
+
+```sh
+#!/bin/bash
+
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+
+build() {
+    basename="$1"
+
+    npx esbuild "$basename.ts" --bundle --format=iife --outfile=build/$basename.body.js
+    awk '/\/\/ ==\/UserScript==/ { print; exit } { print }' $basename.ts > build/$basename.js
+    echo >> build/$basename.js
+    cat build/$basename.body.js >> build/$basename.js
+    rm build/$basename.body.js
+}
+
+pushd $SCRIPT_DIR
+
+build app
+
+popd
+```
+
+Which generates a file that looks like
+
+```js
+// ==UserScript==
+// @name         some_app_naame
+// @namespace    some_namespace
+// @version      1.0
+// @description  Some App description
+// @author       Lan
+// @match        *://*/*
+// @grant        none
+// ==/UserScript==
+
+(() => {
+  // ../../../../../cloned/gh/LanHikari22/lan-exp-scripts/scripts/2025/persistent/000-greasemonkey/common.ts
+  var DEFAULT_VERBOSE = true;
+  function stamp() {
+    return (/* @__PURE__ */ new Date()).toLocaleString(void 0, { hour12: false });
+  }
+  function log_info(s) {
+    console.log(`${stamp()} - INFO - ${s}`);
+  }
+  // ...
+
+  // my_app.ts
+  // ...
+
+  // some_module.ts
+  // ...
+  
+  // some_other_module.ts
+  function on_interval() {
+    const typed = read_textarea();
+    if (typed == void 0) {
+      return;
+    }
+    if (typed.startsWith("/hello")) {
+      log_info("Hello!");
+      write_textarea("You said Hi!");
+    }
+	// ...
+  }
+  function main() {
+    watch_on_dom_text_change(
+      ["Some Match Text"],
+      () => click_button("SomeButton")
+    );
+    watch_on_dom_text_change(
+      [
+        //_
+        "This text",
+        "That text",
+        "This other text"
+      ],
+      //_
+      //   .map((item) => `Preserved commented out map?`)
+      () => {
+        click_button("Button1");
+        click_button("Button2);
+      }
+    );
+    setInterval(on_interval, 1e3);
+  }
+  (function() {
+    "use strict";
+    log_info(`TRIGGER`);
+    main();
+  })();
+})();
+```
+
+
+None  of those functions are exposed to us in web_console. For example, we cannot use `log_info`.
+
+Let's try to add this to the top after the UserScript comment
+
+```diff
+// ==UserScript==
+// @name         some_app_naame
+// @namespace    some_namespace
+// @version      1.0
+// @description  Some App description
+// @author       Lan
+// @match        *://*/*
+// @grant        none
+// ==/UserScript==
++ 
++ function do_I_exist() {
++   console.log("I do exist!");
++ }
+```
+
+We cannot access `do_I_exist()` not even if we make the function an export.
+
+2025-07-26 Wk 30 Sat - 04:55
+
+### 1.7.1 Pend
+
+
 # 2 Investigations
 
 ## 2.1 On functional programming alternatives to typescript
@@ -194,9 +326,11 @@ Languages,
 I found it! It was [ReasonML](<https://reasonml.github.io/>)!
 
 
-# 3 Issues
+# 3 Tasks
 
-## 3.1 No trigger on text grep using MutationObserver
+# 4 Issues
+
+## 4.1 No trigger on text grep using MutationObserver
 
 - [ ] 
 
@@ -204,8 +338,11 @@ I found it! It was [ReasonML](<https://reasonml.github.io/>)!
 
 This works but if the string contains `|` or `@` it does not seem to.
 
+### 4.1.1 Archived
 
-# 4 References
+
+
+# 6 References
 
 1. [esbuild docs](<https://esbuild.github.io/getting-started/>) ^1
 2. [greasemonkey manual](<https://wiki.greasespot.net/Greasemonkey_Manual>) ^2

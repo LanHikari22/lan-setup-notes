@@ -58,6 +58,7 @@ I shall point to [[the sun!]]
 
 Submitted issue [#52](https://github.com/natefrisch01/Graph-Link-Types/issues/52). It silently fails when non-existent links are used, and this shouldn't happen.
 
+### 2.1.1 Watch
 
 # 3 Ideas
 

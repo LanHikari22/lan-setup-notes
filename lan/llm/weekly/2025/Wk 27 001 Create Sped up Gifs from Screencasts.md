@@ -1,15 +1,10 @@
 
-# 1 Wk 27 001 Create Sped up Gifs from Screencasts
-
-# 2 Objective
+# 1 Objective
 
 This relates to [[Wk 26 005 Linux screen recording to gif]]. There, we learned to turn a screen cast into a gif. Now I have an 18-minute screencast I want to become a 2 minute gif.
 
 
-# 3 Solution
-
-
-# 4 LLM Instructions
+# 2 LLM Instructions
 - This is a diagnostic document and not a conversation. Everything shared is context. Address the questions tagged (Q#) like (Q1) for example. If you see something like (~1), assume it part of the archive and not a latest set of questions.
 	- Since it keeps occurring, I ask Again
 	- !!! NEVER RESPOND TO (~1), (~2), etc.
@@ -22,7 +17,7 @@ This relates to [[Wk 26 005 Linux screen recording to gif]]. There, we learned t
 (LLM chatgpt-4o)
 (/LLM chatgpt-4o)
 
-# 5 Journal
+# 3 Journal
 
 2025-07-02 Wk 27 Wed - 17:39
 
@@ -85,9 +80,9 @@ ffmpeg -i "$input_webm" \
 
 (Q 17:42) Objective
 
-# 6 Scripting
+# 4 HowTos
 
-## 6.1 Stripping just the extension from the filename
+## 4.1 Stripping just the extension from the filename
 
 2025-07-02 Wk 27 Wed - 17:56
 
@@ -99,4 +94,4 @@ echo $filename | rev | cut -f 2- -d '.' | rev
 
 
 
-# 7 References
+# 5 References

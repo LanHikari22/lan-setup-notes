@@ -1,14 +1,14 @@
 {
   "collapse-filter": false,
-  "search": "HowTos",
+  "search": "[status:todo]",
   "showTags": false,
   "showAttachments": false,
-  "hideUnresolved": false,
+  "hideUnresolved": true,
   "showOrphans": true,
   "collapse-color-groups": false,
   "colorGroups": [
     {
-      "query": "file:Wk 29",
+      "query": "file:\"Wk 30\"",
       "color": {
         "a": 1,
         "rgb": 14701138
@@ -36,14 +36,14 @@
       }
     },
     {
-      "query": "",
+      "query": "[status:pend]",
       "color": {
         "a": 1,
         "rgb": 5431473
       }
     }
   ],
-  "collapse-display": false,
+  "collapse-display": true,
   "showArrow": true,
   "textFadeMultiplier": 0,
   "nodeSizeMultiplier": 1,
@@ -53,6 +53,6 @@
   "repelStrength": 10,
   "linkStrength": 1,
   "linkDistance": 250,
-  "scale": 1.1231070212661454,
+  "scale": 1.6846605318992147,
   "close": false
 }

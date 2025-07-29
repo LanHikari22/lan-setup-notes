@@ -1,4 +1,7 @@
-#lan #git #setup #entry #st/done 
+---
+status: done
+---
+#lan #git #setup #entry
 
 # 1 Objective
 
@@ -23,6 +26,7 @@ git clone /path/to/bare/repo.git /path/to/work
 git config user.email "email"
 git config user.name "name"
 ```
+^process
 
 
 ## 2.2 Adding SSH key to remote server
@@ -38,5 +42,6 @@ From this [tutorial](<https://linuxhandbook.com/add-ssh-public-key-to-server/>),
 ```sh
 ssh-copy-id -i ~/.ssh/id_rsa.pub YOUR_USER_NAME@IP_ADDRESS_OF_THE_SERVER
 ```
+^add-ssh-key
 
 # 3 References

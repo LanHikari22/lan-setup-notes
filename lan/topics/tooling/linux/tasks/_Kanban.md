@@ -11,6 +11,7 @@ kanban-plugin: list
 ## Todo
 
 - [ ] [[003 Run Windows games on Docker or VM in Linux if wine fails]]
+- [ ] [[004 Run Android games on Android emulation preferably with Docker]]
 
 
 ## Active
