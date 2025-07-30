@@ -34,9 +34,21 @@ Referenced in:
 
 ## 2.4 Rust Parquet serialize and deserialize
 
+2025-07-29 Wk 31 Tue - 09:39
 
 [entry](https://github.com/dism-exe/dism-exe-notes/blob/main/lan/llm/weekly/2025/Wk%2025%20003%20Rust%20Parquet%20serialize%20and%20deserialize.md).
 
 Referenced in:
 - [gh #7732](https://github.com/apache/arrow-rs/issues/7732)
 - [so #79674663](https://stackoverflow.com/questions/75124404/creating-datafusions-dataframe-from-vecstruct-in-rust/79674663#79674663)
+
+## 2.5 Making Greasemonkey Scripts
+
+2025-07-30 Wk 31 We - 04:42d
+
+[entry](https://github.com/LanHikari22/lan-setup-notes/blob/3fbc4bad0a8e4f49739119f1acd88bf23f039bfb/lan/topics/tooling/web/entries/latest/000%20Making%20Greasemonkey%20scripts.md#16-creating-command-code-that-runs-every-t-ms).
+
+[[000 Making Greasemonkey scripts|internal]].
+
+Referenced in:
+- [delta trace entry](https://github.com/delta-domain-rnd/delta-trace/blob/main/lan/topics/practice/ctf/topic/entries/2025/000%20Solving%20Mountain%20and%20Dragon%20CTF.md)

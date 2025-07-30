@@ -1,6 +1,8 @@
 ---
 status: pend
 ---
+#external 
+
 2025-07-17 Wk 29 Thu - 05:07
 # 1 Journal
 
@@ -302,6 +304,11 @@ We cannot access `do_I_exist()` not even if we make the function an export.
 
 2025-07-26 Wk 30 Sat - 04:55
 
+2025-07-30 Wk 31 Wed - 14:32
+
+The resolution of this [issue](https://github.com/delta-domain-rnd/delta-trace/blob/main/lan/topics/practice/ctf/topic/entries/2025/000%20Solving%20Mountain%20and%20Dragon%20CTF.md#43-firefox-cannot-establish-connection-to-server-at-localhost) can help us here. We should be able to setup a command line interface via websockets.
+
+
 ### 1.7.1 Pend
 
 
@@ -342,7 +349,7 @@ This works but if the string contains `|` or `@` it does not seem to.
 
 
 
-# 6 References
+# 5 References
 
 1. [esbuild docs](<https://esbuild.github.io/getting-started/>) ^1
 2. [greasemonkey manual](<https://wiki.greasespot.net/Greasemonkey_Manual>) ^2
