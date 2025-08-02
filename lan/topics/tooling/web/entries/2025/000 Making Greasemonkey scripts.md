@@ -348,8 +348,12 @@ This works but if the string contains `|` or `@` it does not seem to.
 ### 4.1.1 Archived
 
 
+# 5 External Links
 
-# 5 References
+Referenced by
+1. [Solving Mountain and Dragon CTF](https://github.com/delta-domain-rnd/delta-trace/blob/main/lan/topics/practice/ctf/topic/entries/2025/000%20Solving%20Mountain%20and%20Dragon%20CTF.md)
+
+# 6 References
 
 1. [esbuild docs](<https://esbuild.github.io/getting-started/>) ^1
 2. [greasemonkey manual](<https://wiki.greasespot.net/Greasemonkey_Manual>) ^2

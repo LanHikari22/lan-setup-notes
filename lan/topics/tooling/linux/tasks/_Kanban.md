@@ -12,6 +12,7 @@ kanban-plugin: list
 
 - [ ] [[003 Run Windows games on Docker or VM in Linux if wine fails]]
 - [ ] [[004 Run Android games on Android emulation preferably with Docker]]
+- [ ] [[006 Investigate input leap system freezing issues]]
 
 
 ## Active

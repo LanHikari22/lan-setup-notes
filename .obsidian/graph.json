@@ -1,6 +1,6 @@
 {
   "collapse-filter": false,
-  "search": "",
+  "search": "[status:todo]",
   "showTags": false,
   "showAttachments": false,
   "hideUnresolved": true,
@@ -41,6 +41,13 @@
         "a": 1,
         "rgb": 5431473
       }
+    },
+    {
+      "query": "[status:backlog]",
+      "color": {
+        "a": 1,
+        "rgb": 9221839
+      }
     }
   ],
   "collapse-display": true,
@@ -53,6 +60,6 @@
   "repelStrength": 10,
   "linkStrength": 1,
   "linkDistance": 250,
-  "scale": 0.4991586761182851,
+  "scale": 1.1231070212661405,
   "close": false
 }

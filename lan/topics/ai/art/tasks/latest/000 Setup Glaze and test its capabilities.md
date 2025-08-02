@@ -1,5 +1,5 @@
 ---
-status: pend
+status: backlog
 ---
 #lan #task #todo #ai #privacy #art
 
