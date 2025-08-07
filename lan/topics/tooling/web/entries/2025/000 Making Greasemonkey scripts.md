@@ -312,9 +312,71 @@ The resolution of this [issue](https://github.com/delta-domain-rnd/delta-trace/b
 ### 1.7.1 Pend
 
 
-# 2 Investigations
+# 2 Tasks
 
-## 2.1 On functional programming alternatives to typescript
+## 2.1 Create a websocket console to issue commands from
+
+- [ ] 
+
+2025-08-05 Wk 32 Tue - 04:57
+
+Previously we just used some textbox to issue commands. But we can do better with websockets.
+
+The script implementing these commands is private, so we will report mostly status here. But the code and method are similar to this [puzzle issue](https://github.com/delta-domain-rnd/delta-trace/blob/main/lan/topics/practice/ctf/topic/entries/2025/000%20Solving%20Mountain%20and%20Dragon%20CTF.md#43-firefox-cannot-establish-connection-to-server-at-localhost).
+
+Our starting commands:
+
+| Command     | Purpose                                                                                         |
+| ----------- | ----------------------------------------------------------------------------------------------- |
+| `/hello`    | Testing                                                                                         |
+| `/help`     | Displays what the commands are and what they do                                                 |
+| `/connect`  | Starts a new websocket client over a port 3005. Will be used for sending data.                  |
+| `/download` | A command to download some structured data from the website. Received over websocket port 3005. |
+
+2025-08-05 Wk 32 Tue - 05:34
+
+We would like our `on_update` for web_control to run continuously. We run `start` once, and then update regularly. In main, we add
+
+```ts
+wctrl.start()
+setInterval(wctrl.on_update, 100);
+```
+
+The reason is that in other circumstances `on_update` may be externally provided synchronized to frame draw.
+
+### 2.1.1 Pend
+
+# 3 Issues
+
+## 3.1 No trigger on text grep using MutationObserver
+
+- [x] Archived
+
+2025-07-13 Wk 28 Sun - 19:36
+
+This works but if the string contains `|` or `@` it does not seem to.
+
+### 3.1.1 Archived
+
+# 4 HowTos
+
+## 4.1 Modify git email and name for a commit
+
+- [x] 
+
+2025-08-05 Wk 32 Tue - 05:01
+
+From this [stackoverflow answer](https://stackoverflow.com/a/1320317),
+
+```sh
+git commit --amend --no-edit --reset-author
+```
+
+This should allow the last commit to get the updated email/name.
+
+# 5 Investigations
+
+## 5.1 On functional programming alternatives to typescript
 
 2025-07-13 Wk 28 Sun - 11:06
 
@@ -332,28 +394,12 @@ Languages,
 
 I found it! It was [ReasonML](<https://reasonml.github.io/>)!
 
-
-# 3 Tasks
-
-# 4 Issues
-
-## 4.1 No trigger on text grep using MutationObserver
-
-- [ ] 
-
-2025-07-13 Wk 28 Sun - 19:36
-
-This works but if the string contains `|` or `@` it does not seem to.
-
-### 4.1.1 Archived
-
-
-# 5 External Links
+# 6 External Links
 
 Referenced by
 1. [Solving Mountain and Dragon CTF](https://github.com/delta-domain-rnd/delta-trace/blob/main/lan/topics/practice/ctf/topic/entries/2025/000%20Solving%20Mountain%20and%20Dragon%20CTF.md)
 
-# 6 References
+# 7 References
 
 1. [esbuild docs](<https://esbuild.github.io/getting-started/>) ^1
 2. [greasemonkey manual](<https://wiki.greasespot.net/Greasemonkey_Manual>) ^2

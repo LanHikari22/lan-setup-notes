@@ -46,7 +46,9 @@ We are able to get `totem` working with `GDK_GL=gles` on Wayland according to [[
 
 ## 3.1 Reporting video seek issue
 
-- [ ] 
+- [ ] Watch0
+
+See issue [#643](https://gitlab.gnome.org/GNOME/totem/-/issues/643).
 
 2025-07-27 Wk 30 Sun - 05:09
 
@@ -65,7 +67,12 @@ The [gstreamer topic](<https://gitlab.gnome.org/explore/projects/topics/gstreame
 
 There is the [gitlab GNOME/totem](https://gitlab.gnome.org/GNOME/totem) project. This could be a good place to report, noting that the issue is likely more general than totem.
 
-### 3.1.1 Pend
+2025-08-07 Wk 32 Thu - 04:36
+
+Reported [#643](https://gitlab.gnome.org/GNOME/totem/-/issues/643).
+
+
+### 3.1.1 Watch0
 
 # 4 Issues
 

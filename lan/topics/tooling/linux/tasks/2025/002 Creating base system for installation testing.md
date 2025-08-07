@@ -27,7 +27,7 @@ docker run --rm -it -v .:/mnt/ --user $(id -u):$(id -g) lan22h/dbmint:latest gen
 
 This fetches the image itself however, and not from repository by box id like we're planning here.
 
-For [rs_repro](git clone https://github.com/LanHikari22/rs_repro.git && cd rs_repro && cargo run --features "repro003"), 
+For rs_repo,
 
 ```rust
 git clone https://github.com/LanHikari22/rs_repro.git && cd rs_repro && cargo run --features "repro003"
