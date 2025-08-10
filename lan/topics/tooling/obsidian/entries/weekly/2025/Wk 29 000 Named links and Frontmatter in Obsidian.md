@@ -58,7 +58,7 @@ I shall point to [[the sun!]]
 
 Submitted issue [#52](https://github.com/natefrisch01/Graph-Link-Types/issues/52). It silently fails when non-existent links are used, and this shouldn't happen.
 
-### 2.1.1 Watch
+### 2.1.1 Watch1
 
 # 3 Ideas
 
@@ -73,3 +73,5 @@ A user there also mentioned a plugin that adds created/modified metadata through
 2025-07-21 Wk 30 Mon - 01:41
 
 Actually when I tried local graph, it's just graph filtered by the current note. I want an actual graph of headings!
+
+## 3.2 Fork and merge the latest PR and deploy 

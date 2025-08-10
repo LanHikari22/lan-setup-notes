@@ -1,6 +1,6 @@
 {
   "collapse-filter": false,
-  "search": "[status:todo]",
+  "search": "[status:pend]",
   "showTags": false,
   "showAttachments": false,
   "hideUnresolved": true,
