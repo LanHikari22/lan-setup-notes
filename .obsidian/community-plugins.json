@@ -15,5 +15,7 @@
   "dataview",
   "obsidian-charts",
   "graph-link-types",
-  "vimium"
+  "vimium",
+  "better-export-pdf",
+  "obsidian-excalidraw-plugin"
 ]

@@ -1,7 +1,7 @@
 ---
-status: todo
+status: watch0
 ---
-
+2025-08-08 Wk 32 Fri - 04:112025-08-08 Wk 32 Fri - 04:47
 # 1 Objective
 
 I need to find some video editing software, and also some video playing software. For some reason Videos is not able to open my screencasts...

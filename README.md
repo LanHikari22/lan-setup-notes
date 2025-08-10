@@ -31,7 +31,10 @@ Welcome!
 
 This is the central notes repository for my setup, configurations, and tool exploration work!
 
-Many great projects and ideas do not get off the ground because of friction with system integration, building, or just getting far enough to be able to do something useful. Let's get to that step!
+Many great projects and ideas do not get off the ground because of friction with system integration, building, 
+or just getting far enough to be able to do something useful. Let's get to that step!
+
+For higher browser viewing compatibility, switch to the [webview branch](https://github.com/LanHikari22/lan-setup-notes/tree/webview).
 
 # 2 See also
 
