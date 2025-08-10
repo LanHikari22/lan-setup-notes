@@ -2,6 +2,13 @@
 #lan #llm #obsidian #tooling #templater #todo 
 # 1 Wk 26 007 Github compatible screenshot links in Obsidian
 
+
+> [!NOTE] 2025 Wk 32 Update
+> This is no longer needed thanks to the webview export solution which displays all images.
+
+See [[003 Making obsidian repositories appear nicer in browser]].
+
+
 # 2 Objective
 
 See this link below:
