@@ -99,4 +99,42 @@ force_push() {
 force_push ~/src/cloned/gh/dism-exe dism-exe-notes main || exit 1
 ```
 
+^ebe248
+
 This will always create a new remote `web_view` branch with the same content as `pull_branch` but with an extra commit "webview sync". 
+
+# 3 Tasks
+
+# 4 Issues
+
+# 5 HowTos
+
+# 6 Investigations
+
+# 7 Ideas
+
+# 8 Side Notes
+## 8.1 LaTeX double dollar sign viewing discrepancies
+
+These will not render in the browser:
+
+```
+$$
+y_i \equiv \frac{e^{x_i}}{\sum^n_{j=1}{e^{x_j}}}
+$$
+^softmax-eq
+```
+
+```
+$$
+
+{equation}
+
+$$
+```
+
+![[Pasted image 20250811035706.png]]
+
+# 9 External Links
+
+# 10 References
