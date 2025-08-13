@@ -14,16 +14,14 @@
   </a>
 </p>
 
-
 <div align="center">
   <sub>Built with ❤︎ by Mohammed Alzakariya</sub>
 </div>
 
-
 1. [1 What is this?](#1-what-is-this)
-2. [2 See also](#2-see-also)
-3. [3 Contributing](#3-contributing)
-4. [4 License](#4-license)
+1. [2 See also](#2-see-also)
+1. [3 Contributing](#3-contributing)
+1. [4 License](#4-license)
 
 # 1 What is this?
 
@@ -31,23 +29,21 @@ Welcome!
 
 This is the central notes repository for my setup, configurations, and tool exploration work!
 
-Many great projects and ideas do not get off the ground because of friction with system integration, building, 
+Many great projects and ideas do not get off the ground because of friction with system integration, building,
 or just getting far enough to be able to do something useful. Let's get to that step!
 
 For higher browser viewing compatibility, switch to the [webview branch](https://github.com/LanHikari22/lan-setup-notes/tree/webview).
 
 # 2 See also
 
-1. [delta-trace](<https://github.com/delta-domain-rnd/delta-trace>)
-	- Notes and articles on creating proofs of concepts, researching, and studying.
-2. [lan-setup-notes](<https://github.com/LanHikari22/lan-setup-notes>) **You are here!**
-	- For notes on configurations and setting up of projects and systems.
-3. [dism-exe-notes](<https://github.com/dism-exe/dism-exe-notes/tree/main/lan>)
-	- For notes on the process of reverse engineering games, running code analysis, and creating new tools! This is about reverse engineering the Mega Man Battle Network series.
-4. [goldensun-notes](<https://github.com/FutureFractal/goldensun-notes/tree/main/lan>)
-	- Similar to `dism-exe-notes` but for reverse engineering the `goldensun` games on the `GBA`!
-
-
+1. [delta-trace](https://github.com/delta-domain-rnd/delta-trace)
+   * Notes and articles on creating proofs of concepts, researching, and studying.
+1. [lan-setup-notes](https://github.com/LanHikari22/lan-setup-notes) **You are here!**
+   * For notes on configurations and setting up of projects and systems.
+1. [dism-exe-notes](https://github.com/dism-exe/dism-exe-notes/tree/main/lan)
+   * For notes on the process of reverse engineering games, running code analysis, and creating new tools! This is about reverse engineering the Mega Man Battle Network series.
+1. [goldensun-notes](https://github.com/FutureFractal/goldensun-notes/tree/main/lan)
+   * Similar to `dism-exe-notes` but for reverse engineering the `goldensun` games on the `GBA`!
 
 # 3 Contributing
 
