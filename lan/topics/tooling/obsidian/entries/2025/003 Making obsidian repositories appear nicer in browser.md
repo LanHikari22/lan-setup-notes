@@ -87,6 +87,7 @@ force_push() {
 		pushd "$base_location/branches/$repo_name@webview" || exit 1
 	    git checkout $pull_branch || exit 1
 	    git branch -D webview || exit 1
+		git reset --hard origin/$pull_branch || exit 1
 	    git pull origin $pull_branch || exit 1
 	    git checkout -b webview || exit 1
 	    obsidian-export "$base_location/$repo_name" "$base_location/branches/$repo_name@webview" || exit 1
