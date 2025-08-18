@@ -1,7 +1,7 @@
 ---
 status: todo
 ---
-
+2025-08-18 Wk 34 Mon - 07:35
 # 1 Objective
 
 # 2 Journal
@@ -26,7 +26,7 @@ Spawn [[#3.4 File issue about internal link behavior]] ^spawn-task-0ca517
 
 2025-08-13 Wk 33 Wed - 10:01
 
-From [[#^spawn-task-a5bc4a]].
+From [[#^spawn-task-a5bc4a]] in [[#2 Journal]]
 
 Basically the links used here, once we export this repository, we will not be able to click.
 
@@ -151,7 +151,7 @@ This is the heading HTML:
 
 So what gives here? Why is it adding this information in this case but not the previous one?
 
-Spawn [[#7.2 Why is github markdown rendering adding full repo information for some internal markdown links but not others?]] ^spawn-invst-767a80
+Spawn [[#6.2 Why is github markdown rendering adding full repo information for some internal markdown links but not others?]] ^spawn-invst-767a80
 
 Let's  modify the HTML and remove the extra user/repo/file information. Change 
 
@@ -210,7 +210,7 @@ It works!
 
 2025-08-13 Wk 33 Wed - 11:08
 
-Spawn [[#7.1 What does the markdown standard say about internal page links?]] ^spawn-invst-d8b7ce
+Spawn [[#6.1 What does the markdown standard say about internal page links?]] ^spawn-invst-d8b7ce
 
 2025-08-13 Wk 33 Wed - 12:45
 
@@ -321,7 +321,44 @@ Filed issue [#371](https://github.com/zoni/obsidian-export/issues/371) for the b
 
 Confirmed in gitlab that numbers are appended together also
 
+2025-08-17 Wk 33 Sun - 12:38
+
+Spawn [[#6.3 Investigate 370 numbered headings issue]] ^spawn-invst-cd3d77
+
 ### 3.4.1 Watch0
+
+## 3.5 Find the rules that generate the vscode and github heading links
+
+- [ ] 
+
+From [[#^spawn-task-b58ab0]] in [[#6.3 Investigate 370 numbered headings issue]]
+
+2025-08-17 Wk 33 Sun
+
+From [stackoverflow](https://stackoverflow.com/questions/51221730/markdown-link-to-header) - 22:52 -> [gitlab markdown docs](https://solscm.tomatosystem.co.kr/help/user/markdown.md#header-ids-and-links),
+
+```
+The IDs are generated from the content of the header according to the following rules:
+
+1. All text is converted to lowercase.
+2. All non-word text (such as punctuation or HTML) is removed.
+3. All spaces are converted to hyphens.
+4. Two or more hyphens in a row are converted to one.
+5. If a header with the same ID has already been generated, a unique incrementing number is appended, starting at 1.
+```
+
+This is not right, it gives `this-header-has-3-5-in-it-and-parentheses` for ` This header has 3.5 in it (and parentheses)` but numbers are close together...
+
+2025-08-17 Wk 33 Sun - 22:49
+
+Gitlab seems to have had a contradictory rule, and It doesn't seem specified in the standard? [CommonMark: Links](https://spec.commonmark.org/0.31.2/#links).
+
+We will need to ensure to keep it behind an option.
+
+Here we see they're called [link fragments](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md#md051---link-fragments-should-be-valid). 
+
+
+
 # 4 Issues
 
 # 5 HowTos
@@ -396,13 +433,13 @@ Nothing changes when we put another invalid class for the h3, so it might just n
 
 - [x] 
 
-From [[#^spawn-invst-d8b7ce]].
+From [[#^spawn-invst-d8b7ce]] in [[#3.1 Capture details on the broken links problem]]
 
 2025-08-13 Wk 33 Wed - 11:10
 
 Here is the [v0.31.2 CommonMark Spec](https://spec.commonmark.org/0.31.2/).
 
-Spawn [[#9.1 Commentary on things learned from CommonMark standard]] ^spawn-side-58a24b
+Spawn [[#8.1 Commentary on things learned from CommonMark standard]] ^spawn-side-58a24b
 
 2025-08-13 Wk 33 Wed - 11:40
 
@@ -432,19 +469,153 @@ So we need to learn about these fragment identifiers. They are not mentioned any
 
 - [ ] 
 
-From [[#^spawn-invst-767a80]]
-
+From [[#^spawn-invst-767a80]] in [[#3.1 Capture details on the broken links problem]]
 
 ### 6.2.1 Low Prio
+## 6.3 Investigate #370 numbered headings issue
+
+- [ ] 
+
+From [[#^spawn-invst-cd3d77]] in [[#3.4 File issue about internal link behavior]]
+
+2025-08-17 Wk 33 Sun - 12:39
+
+Let's clone the repository and investigate the issue. If we resolve it, we can fork and open a PR.
+
+```sh
+git clone git@github.com:zoni/obsidian-export.git ~/src/cloned/gh/zoni/branches/obsidian-export@fix-370-numbered-headings
+cd ~/src/cloned/gh/zoni/branches/obsidian-export@fix-370-numbered-headings
+git checkout -b fix-370-numbered-headings
+```
+
+```sh
+cargo build
+
+# out (relevant)
+info: downloading component 'rustc'
+error: component download failed for rustc-x86_64-unknown-linux-gnu: could not rename downloaded file from '/home/lan/.rustup/downloads/e8395c5c5756253b76107055e093ffbc4431af7b30aeebe72ce2684b9cb53973.partial' to '/home/lan/.rustup/downloads/e8395c5c5756253b76107055e093ffbc4431af7b30aeebe72ce2684b9cb53973': No such file or directory (os error 2)
+```
+
+But if you run it again, it builds fine. Weird.
+
+Check out [CONTRIBUTING.md](https://github.com/zoni/obsidian-export/blob/main/CONTRIBUTING.md).
+
+```sh
+rustup toolchain install nightly --component rustfmt
+```
+
+Spawn [[#7.1 Setting up rustfmt and clippy in CI]] ^spawn-idea-b9d8a7
+
+2025-08-17 Wk 33 Sun - 13:02
+
+Need to set up pre-commit
+
+```sh
+cat .pre-commit-config.yaml | grep entry:
+
+# out
+entry: cargo +nightly fmt --
+entry: cargo test --all-targets --all-features
+entry: cargo clippy --all-targets --all-features -- -D warnings
+```
+
+```sh
+python3 -m pip install pre-commit
+```
+
+```sh
+pre-commit install
+
+# out
+pre-commit installed at .git/hooks/pre-commit
+```
+
+We need to ensure to write integration tests and possibly also unit tests for our change here.
+
+2025-08-17 Wk 33 Sun - 13:33
+
+Let's make sure the pre-commit hooks all work
+
+```sh
+cargo +nightly fmt --
+cargo test --all-targets --all-features
+cargo clippy --all-targets --all-features -- -D warnings
+```
+
+2025-08-17 Wk 33 Sun
+
+`lib.rs > Exporter::make_link_to_file`  uses  [`slugify`](https://docs.rs/slugify/latest/slugify/) which has the documented usage
+
+```rust
+assert_eq!(slugify("My Test String!!!1!1"), "my-test-string-1-1");
+```
+
+This is not enough. For it to be correctly interpreted as a markdown link it needs to be interpreted as `#my-test-string11`, so we should not be using slugify for this.
+
+[[#3.5 Find the rules that generate the vscode and github heading links]] ^spawn-task-b58ab0
+
+
+### 6.3.1 Pend
+
 
 # 7 Ideas
+
+## 7.1 Setting up rustfmt and clippy in CI
+
+From [[#^spawn-idea-b9d8a7]] in [[#6.3 Investigate 370 numbered headings issue]]
+
+2025-08-17 Wk 33 Sun - 13:02
+
+In [obsidian-export > CONTRIBUTING.md](https://github.com/zoni/obsidian-export/blob/main/CONTRIBUTING.md),
+
+> In addition, [clippy](https://github.com/rust-lang/rust-clippy) is configured to be quite pedantic and all of its checks must also pass for CI builds to succeed.
+
+We could setup checks like this too for rust projects. clippy runs checks against the code base content, and rustfmt maintains consistent styling!
+
+We can even runs hooks directly:
+
+> This codebase is set up with the [pre-commit framework](https://pre-commit.com/) to automatically run the appropriate checks locally whenever you commit. Assuming you [have pre-commit installed](https://pre-commit.com/#install), all you need to do is run `pre-commit install` once to get this set up.
+
+2025-08-17 Wk 33 Sun - 13:15
+
+They also have cool github-friendly callout styles:
+
+> **💡 Tip:** Some tip
+> Content of the tip
+
+
+> **⚠ Warning**
+> Content of the warning!
+> Explained at length!
+
+2025-08-17 Wk 33 Sun - 13:20
+
+There's many cool practices in that [CONTRIBUTING.md](https://github.com/zoni/obsidian-export/blob/main/CONTRIBUTING.md) document! 
+
+auto-generated README, [towncrier](https://towncrier.readthedocs.io/en/stable/index.html) for autogenerated release notes from fragments...
+
+They also have cool guides to [rust documentation](https://doc.rust-lang.org/rustdoc/how-to-write-documentation.html)  from rust themselves and [rust by example](https://doc.rust-lang.org/rust-by-example/meta/doc.html). 
+
+In [rust documentation](https://doc.rust-lang.org/rustdoc/how-to-write-documentation.html), it mentions,
+
+> It is recommended that each item's documentation follows this basic structure:
+
+```text
+[short sentence explaining what it is]
+
+[more detailed explanation]
+
+[at least one code example that users can copy/paste to try it]
+
+[even more advanced explanations if necessary]
+```
 
 # 8 Side Notes
 
 ## 8.1 Commentary on things learned from CommonMark standard
 
 
-From [[#^spawn-side-58a24b]].
+From [[#^spawn-side-58a24b]] in [[#6.1 What does the markdown standard say about internal page links?]]
 
 ### 8.1.1 About Links
 
@@ -478,5 +649,9 @@ They mention a workaround for hugo. This [article](https://www.makeuseof.com/hug
 They use [renovate](https://github.com/apps/renovate). Which seems to be a bot that opens many PRs for tooling updates.
 
 # 9 External Links
+
+| Link                                                                                                                                                                                                                     | In                                                         |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------- |
+| [link](https://github.com/LanHikari22/lan-setup-notes/blob/webview/lan/topics/tooling/obsidian/tasks/2025/004%20Fix%20obsidian%20export%20to%20support%20internal%20links.md#34-file-issue-about-internal-link-behavior) | [#370](https://github.com/zoni/obsidian-export/issues/370) |
 
 # 10 References

@@ -8,8 +8,8 @@ I would like to have full control of one of my phones at least. I have...
 
 | Device                     | Specs                                                                                                                                       | EOL |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | --- |
-| Pixel 3                    | [spec1](https://deviceguides.ee.co.uk/google/pixel-3-android-9-0/specifications/), [spec2](https://www.phonemore.com/specs/google/pixel-3/) | Yes |
 | Galaxy A54 5G, SM-A546E/DS | [spec2](https://www.phonemore.com/specs/samsung/galaxy-a54/sm-a546eds-256gb/)                                                               |     |
+| Pixel 3                    | [spec1](https://deviceguides.ee.co.uk/google/pixel-3-android-9-0/specifications/), [spec2](https://www.phonemore.com/specs/google/pixel-3/) | Yes |
 | Galaxy Tab A6 SM-T280      |                                                                                                                                             | Yes |
 ^phone-spec-table
 
@@ -18,7 +18,7 @@ I would like to have full control of one of my phones at least. I have...
 
 I need to pick an open source OS and install it on one of them.
 
-- [ ] Installed an open source OS on at least one of my phones
+- [x] Installed an open source OS on at least one of my phones
 
 Related,
 [[003 Achieve Obsidian Notes Sync between my mobile phone and PC]].
@@ -167,7 +167,9 @@ I know I have blueline for this...
 
 It's no longer supported, and even if we were to experiment with the device and see what GrapheneOS is like, the OS itself will be out of date. 
 
-Let's try another option.
+Let's try another option. 
+
+[[#3.2 Install LineageOS on my Pixel 3]]
 
 
 ## 3.2 Install LineageOS on my Pixel 3
@@ -290,9 +292,25 @@ Somehow without much besides power and volume up key we are able to get back to 
 
 We're rooted now! As explained in this [post](https://xdaforums.com/t/how-to-grant-termux-superuser-rights.4241671/), just have to do `su` in termux and grant it superuser permission!
 
+2025-08-16 Wk 33 Sat - 18:03
+
+To look into the lineageOS source [Build LineageOS for Google Pixel 3](https://wiki.lineageos.org/devices/blueline/build/)
+
+The code is across 2.9k repositories [in github](https://github.com/orgs/LineageOS/repositories)
+
+They have instructions for cloning also in [contributing-apps](https://wiki.lineageos.org/how-to/contributing-apps/#cloning-the-source-code)
+
+[here](https://wiki.lineageos.org/emulator#initialize-the-lineageos-source-repository) they mention
+
+```sh
+cd ~/android/lineage
+repo init -u https://github.com/LineageOS/android.git -b lineage-22.2 --git-lfs --no-clone-bundle
+```
+
+
 ## 3.3 Getting SSH remote access to my Pixel 3
 
-- [ ] 
+- [x] 
 
 2025-08-16 Wk 33 Sat - 16:18
 
@@ -310,23 +328,10 @@ Those are the openssh instructions.
 
 [termux remote access guide](https://wiki.termux.com/wiki/Remote_Access)
 
-2025-08-16 Wk 33 Sat - 18:03
 
-To look into the lineageOS source [Build LineageOS for Google Pixel 3](https://wiki.lineageos.org/devices/blueline/build/)
+2025-08-17 Wk 33 Sun - 03:17
 
-The code is across 2.9k repositories [in github](https://github.com/orgs/LineageOS/repositories)
-
-They have instructions for cloning also in [contributing-apps](https://wiki.lineageos.org/how-to/contributing-apps/#cloning-the-source-code)
-
-[here](https://wiki.lineageos.org/emulator#initialize-the-lineageos-source-repository) they mention
-
-```sh
-cd ~/android/lineage
-repo init -u https://github.com/LineageOS/android.git -b lineage-22.2 --git-lfs --no-clone-bundle
-```
-
-
-2025-08-17 Wk 33 Sun - 02:48
+With setting `passwd`, and seeing the user with `ls -al`, and realizing this is running on port 8022, we have SSH access!
 
 # 4 Issues
 
