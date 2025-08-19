@@ -1,7 +1,6 @@
 ---
 status: todo
 ---
-2025-08-18 Wk 34 Mon - 07:35
 # 1 Objective
 
 # 2 Journal
@@ -335,7 +334,7 @@ From [[#^spawn-task-b58ab0]] in [[#6.3 Investigate 370 numbered headings issue]]
 
 2025-08-17 Wk 33 Sun
 
-From [stackoverflow](https://stackoverflow.com/questions/51221730/markdown-link-to-header) - 22:52 -> [gitlab markdown docs](https://solscm.tomatosystem.co.kr/help/user/markdown.md#header-ids-and-links),
+From [stackoverflow](https://stackoverflow.com/questions/51221730/markdown-link-to-header) - 22:52 -> [gitlab markdown docs (old)](https://solscm.tomatosystem.co.kr/help/user/markdown.md#header-ids-and-links),
 
 ```
 The IDs are generated from the content of the header according to the following rules:
@@ -357,7 +356,149 @@ We will need to ensure to keep it behind an option.
 
 Here we see they're called [link fragments](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md#md051---link-fragments-should-be-valid). 
 
+2025-08-19 Wk 34 Tue - 08:49
 
+Actually it seems we've been looking at old gitlab docs. They have an issue [#440733](https://gitlab.com/gitlab-org/gitlab/-/issues/440733) marking this design change to be consistent with other markdown parsers.
+
+They want to be consistent with [Github Flavored Markdown (GFM)](https://github.github.com/gfm/) 
+
+From [current gitlab heading ids and links](https://docs.gitlab.com/user/markdown/#heading-ids-and-links), 
+
+In it 
+
+```
+## This heading has 3.5 in it (and parentheses)
+```
+
+yields
+
+```
+this-heading-has-35-in-it-and-parentheses
+```
+
+The rules are:
+
+```
+The IDs are generated from the content of the heading according to the following rules:
+
+1. All text is converted to lowercase.
+2. All non-word text (such as punctuation or HTML) is removed.
+3. All spaces are converted to hyphens.
+4. Two or more hyphens in a row are converted to one.
+5. If a heading with the same ID has already been generated, a unique incrementing number is appended, starting at 1.
+```
+
+2025-08-19 Wk 34 Tue - 09:02
+
+merge request [#92](https://gitlab.com/gitlab-org/ruby/gems/gitlab_kramdown/-/merge_requests/92) also explains the initial proposal on the change they made.
+
+2025-08-19 Wk 34 Tue - 09:24
+
+This [markdown guide](https://www.markdownguide.org/extended-syntax/) explores different markdown parsers and added features
+
+This [wiki](https://deepwiki.com/zerodevx/zero-md/4.4-github-flavored-features#how-heading-ids-work) mentions implementation details of GFM on heading IDs, like in [marked-gfm-heading-id](https://github.com/markedjs/marked-gfm-heading-id).
+
+The actual implementation is in [marked-gfm-heading-id/src/index.js](https://github.com/markedjs/marked-gfm-heading-id/blob/main/src/index.js). They do actually use a slugger, [github-slugger](https://github.com/Flet/github-slugger). 
+
+This slugger is stateful. By keeping track of the heading being slugged, it appends `-N` to the end of a heading already encountered based on an internally tracked counter. Then it would be compatible with how github generates heading IDs for non-unique heading names.
+
+2025-08-19 Wk 34 Tue - 09:47
+
+Part of why I was looking for an implementation is that in the stated rules above
+
+> 2. All non-word text (such as punctuation or HTML) is removed.
+
+Is the least clear what this means. It seems a slugger like [github-slugger](https://github.com/Flet/github-slugger) should largely be able to handle this use case. 
+
+It's unclear where it breaks consistency with [`slugify`](https://docs.rs/slugify/latest/slugify/), but we know one case for this is in `1.2.3` -> `1-2-3` vs `123`. 
+
+Testing with vscode,
+
+```
+[](#a-b-c-d)
+[](#1-2-3-4)
+[](#1234)
+[](#abcd)
+
+# A-B-C-D
+
+# 1-2-3-4
+
+# A.B.C.D
+
+# 1.2.3.4
+```
+
+Consistently, dots are stripped, so they are non-word text. Is there a different slugger for Rust that does this? 
+
+There actually is! [crate.io github-slugger](https://crates.io/crates/github-slugger).
+
+The actual change might just be to swap sluggers in our case.
+
+Spawn [[#3.6 Test rust github-slugger for github heading dot omission compliance]] ^spawn-task-f2f61e
+
+## 3.6 Test rust github-slugger for github heading dot omission compliance
+
+- [ ] 
+
+From [[#^spawn-task-f2f61e]] in [[#3.5 Find the rules that generate the vscode and github heading links]]
+
+2025-08-19 Wk 34 Tue - 09:57
+
+In this, we want to compare sluggifying results from [`slugify`](https://docs.rs/slugify/latest/slugify/) and [crate.io github-slugger](https://crates.io/crates/github-slugger).
+
+2025-08-19 Wk 34 Tue - 10:50
+
+2025-08-19 Wk 34 Tue - 10:59
+
+Running our [rs_repro tests](https://github.com/LanHikari22/rs_repro/blob/main/src/repro_tracked/repro006_sluggify_and_github_slugger.rs),
+
+```sh
+cargo run --features "repro006"
+
+# out
+For input A.B.C.D,
+
+Service ------ | Output
+slugify        | a-b-c-d
+github_slugger | abcd
+
+
+For input 1.2.3.4,
+
+Service ------ | Output
+slugify        | 1-2-3-4
+github_slugger | 1234
+
+
+For input this-or-that,
+
+Service ------ | Output
+slugify        | this-or-that
+github_slugger | this-or-that
+
+
+For input this--or-that,
+
+Service ------ | Output
+slugify        | this-or-that
+github_slugger | this--or-that
+
+
+For input # Some headings,
+
+Service ------ | Output
+slugify        | some-headings
+github_slugger | -some-headings
+```
+
+This can be run with
+
+```sh
+git clone https://github.com/LanHikari22/rs_repro.git && cd rs_repro && cargo run --features "repro006"
+```
+
+### 3.6.1 Pend
 
 # 4 Issues
 
@@ -552,7 +693,7 @@ assert_eq!(slugify("My Test String!!!1!1"), "my-test-string-1-1");
 
 This is not enough. For it to be correctly interpreted as a markdown link it needs to be interpreted as `#my-test-string11`, so we should not be using slugify for this.
 
-[[#3.5 Find the rules that generate the vscode and github heading links]] ^spawn-task-b58ab0
+Spawn [[#3.5 Find the rules that generate the vscode and github heading links]] ^spawn-task-b58ab0
 
 
 ### 6.3.1 Pend
@@ -610,6 +751,19 @@ In [rust documentation](https://doc.rust-lang.org/rustdoc/how-to-write-documenta
 [even more advanced explanations if necessary]
 ```
 
+## 7.2 Contributing to markdown-it-plugins
+
+2025-08-19 Wk 34 Tue - 10:11
+
+In [README.md](https://github.com/markdown-it-rust/markdown-it-plugins.rs/blob/main/README.md), 
+
+[gfm-autolinks](https://github.com/markdown-it-rust/markdown-it-plugins.rs/blob/main/crates/gfm_autolinks/README.md) link is broken. It should be [this](https://github.com/markdown-it-rust/markdown-it-plugins.rs/blob/main/crates/gfm-autolinks/README.md). Issued [#24](https://github.com/markdown-it-rust/markdown-it-plugins.rs/issues/24).
+
+
+The project has no license. Issued [#25](https://github.com/markdown-it-rust/markdown-it-plugins.rs/issues/25).
+
+
+
 # 8 Side Notes
 
 ## 8.1 Commentary on things learned from CommonMark standard
@@ -647,6 +801,18 @@ They mention a workaround for hugo. This [article](https://www.makeuseof.com/hug
 2025-08-13 Wk 33 Wed - 15:15
 
 They use [renovate](https://github.com/apps/renovate). Which seems to be a bot that opens many PRs for tooling updates.
+
+## 8.3 Interesting programmatic spec generation in gitlab source
+
+2025-08-19 Wk 34 Tue - 09:10
+
+[header_anchors_spec.rb](https://gitlab.com/gitlab-org/ruby/gems/gitlab-glfm-markdown/-/blob/3c81857167ce163ea860d5b2703f3d149b12fd22/spec/header_anchors_spec.rb)
+
+This seems like it generates specification documents? Or is it running tests? There's a lot of expects in there.
+
+2025-08-19 Wk 34 Tue - 09:34
+
+Similar thing is happening in [marked-gfm-heading-id spec](https://github.com/markedjs/marked-gfm-heading-id/blob/main/spec/index.test.js).
 
 # 9 External Links
 
