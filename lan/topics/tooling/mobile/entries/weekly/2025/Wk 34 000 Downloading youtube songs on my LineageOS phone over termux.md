@@ -1,5 +1,5 @@
 ---
-status: done
+status: pend
 ---
 2025-08-18 Wk 34 Mon - 21:25
 
@@ -61,18 +61,26 @@ mobile_user="$1"
 mobile_ip="$2"
 song_url="$3"
 
-filename_downloaded="$(yt-dlp ${song_url} 2>&1 | grep "Merger" | cut -d'"' -f2)" || exit 1
-basename="$(basename -s .webm "$filename_downloaded")" || exit 1
+filename_downloaded="$(yt-dlp ${song_url} 2>&1 | grep "Merger" | cut -d'"' -f2)" || exit 2
+basename="$(basename -s .webm "$filename_downloaded")" || exit 3
+basename="$(basename -s .mp4 "$basename")" || exit 3
 
-ffmpeg -i "$filename_downloaded" -q:a 0 -map a "$basename.mp3" || exit 1
+if [ -z "$filename_downloaded" ]; then
+  echo "error: Failed to download song"
+  exit 1
+fi
 
-scp -P 8022 "$basename.mp3" $mobile_user@$mobile_ip:/sdcard/Music || exit 1
+ffmpeg -i "$filename_downloaded" -q:a 0 -map a "$basename.mp3" || exit 4
+
+scp -P 8022 "$basename.mp3" $mobile_user@$mobile_ip:/sdcard/Music || exit 5
 
 rm "$filename_downloaded"
 
 # Uncomment if you don't want to keep the mp3 on your PC
 # rm "$basename.mp3"
 ```
+
+^automation-song-download-1
 
 Save this as `download_yt_song_to_phone.sh` and do `chmod +x download_yt_song_to_phone.sh`. 
 
@@ -113,6 +121,14 @@ scp -P 8022 {song}.mp3 {mobile_user}@{mobile_ip}:/storage/emulated/0/Music
 But we can do so over `/sdcard/Music`.
 
 # 3 Tasks
+
+## 3.1 Embed image and artist information into songs downloaded to phone
+
+- [ ] 
+
+2025-08-21 Wk 34 Thu - 08:23
+
+Right now we can download songs to phone via [[#^automation-song-download-1]], but they do not have images, nor artist information.
 
 # 4 Issues
 
