@@ -1,6 +1,7 @@
 ---
 status: todo
 ---
+
 # 1 Objective
 
 # 2 Journal
@@ -480,7 +481,7 @@ This can be run with
 git clone https://github.com/LanHikari22/rs_repro.git && cd rs_repro && cargo run --features "repro006"
 ```
 
-## 3.7 Open a PR to obsidian-export to close #370
+## 3.7 Open a PR to obsidian-export to close 370
 
 - [ ] 
 
@@ -560,8 +561,418 @@ python3 -m pip install uv
 just add-changelog
 ```
 
+### 3.7.1 Watch0
 
+## 3.8 Test block identifier postprocessor impl
+
+- [ ] 
+
+From [[#^spawn-task-c79997]] in [[#6.4 Investigate fixing 371 block note links]]
+
+2025-08-20 Wk 34 Wed - 16:43
+
+```sh
+cargo install --path .
+```
+
+Similar to [[#^trace-obsidian-export-events]],
+
+```sh
+export base_location="/home/lan/src/cloned/gh/LanHikari22"
+export repo_name="lan-setup-notes"
+
+obsidian-export "$base_location/$repo_name" "$base_location/branches/$repo_name@webview"
+
+# out (relevant)
+[nothing]
+```
+
+No changes were made to this document with respect to block identifiers.
+
+2025-08-20 Wk 34 Wed - 17:16
+
+Let's trace
+
+```rust
+Event::Text(cow_str) => {
+	if !mut_in_code_block {
+		if let Some((preceding_text, block_identifier)) =
+			parse_preceding_text_and_block_identifier(cow_str)
+		{
+			println!("preceding_text: {preceding_text:?}, block_identifier: {block_identifier:?}");
+[...]
+
+// out
+[nothing]
+```
+
+2025-08-20 Wk 34 Wed - 17:23
+
+```rust
+fn parse_preceding_text_and_block_identifier(line: &str) -> Option<(String, String)> {
+    let reversed_line: String = line.chars().rev().collect();
+
+    let rev_caret_position = reversed_line.find('^')?;
+    let caret_position = line.len().checked_sub(1)?.checked_sub(rev_caret_position)?;
+
+    println!("---");
+    println!("line: {line}");
+    println!("caret_position: {caret_position}");
+
+    let (preceding_text, block_identifier) = {
+        if caret_position == 0 {
+            ("", line)
+        } else {
+            line.split_at_checked(caret_position)?
+        }
+    };
+
+    println!("preceding_text: {preceding_text}, block_identifier: {block_identifier}");
+
+    for c in block_identifier.chars() {
+        if !(c.is_alphanumeric() || c == '-') {
+            return None;
+        }
+    }
+
+    println!("OK preceding_text: {preceding_text}, block_identifier: {block_identifier}");
+
+    Some((preceding_text.to_owned(), block_identifier.to_owned()))
+}
+```
+
+This yields many down to the last check, but no OKs.
+
+```
+---
+line: ^spawn-invst-aa01cc
+caret_position: 0
+preceding_text: , block_identifier: ^spawn-invst-aa01cc
+---
+line: ^obsidian-export-pre-commit-checks
+caret_position: 0
+preceding_text: , block_identifier: ^obsidian-export-pre-commit-checks
+---
+line: ^trace-obsidian-export-events
+caret_position: 0
+preceding_text: , block_identifier: ^trace-obsidian-export-events
+---
+```
+
+Some do have preceding text
+
+```
+---
+line: But I do not have this installed. ^doc-issue1
+caret_position: 34
+preceding_text: But I do not have this installed. , block_identifier: ^doc-issue1
+```
+
+I think we're failing because of the caret itself.
+
+It cannot pass this check:
+
+```rust
+for c in block_identifier.chars() {
+	if !(c.is_alphanumeric() || c == '-') {
+		return None;
+	}
+}
+```
+
+2025-08-20 Wk 34 Wed - 17:30
+
+```rust
+fn parse_preceding_text_and_block_identifier(line: &str) -> Option<(String, String)> {
+    let reversed_line: String = line.chars().rev().collect();
+
+    let rev_caret_position = reversed_line.find('^')?;
+    let caret_position = line.len().checked_sub(1)?.checked_sub(rev_caret_position)?;
+
+    let (preceding_text, block_identifier) = {
+        if caret_position == 0 {
+            ("", line)
+        } else {
+            line.split_at_checked(caret_position)?
+        }
+    };
+
+    let block_identifier_no_caret: String = {
+        block_identifier
+            .chars()
+            .skip(1)
+            .collect()
+    };
+
+    println!("---");
+    println!("line: {line}");
+    println!("caret_position: {caret_position}");
+    println!("preceding_text: {preceding_text}, block_identifier: {block_identifier_no_caret}");
+
+    for c in block_identifier_no_caret.chars() {
+        if !(c.is_alphanumeric() || c == '-') {
+            return None;
+        }
+    }
+
+    println!("OK preceding_text: {preceding_text}, block_identifier: {block_identifier_no_caret}");
+
+    Some((preceding_text.to_owned(), block_identifier_no_caret.to_owned()))
+}
+```
+
+```
+line:  is very outdated (2016). Should Visidata recommend this? ^log-issue1
+caret_position: 58
+preceding_text:  is very outdated (2016). Should Visidata recommend this? , block_identifier: log-issue1
+OK preceding_text:  is very outdated (2016). Should Visidata recommend this? , block_identifier: log-issue1
+```
+
+2025-08-20 Wk 34 Wed - 17:35
+
+```diff
+-Spawn [[#3.4 File issue about internal link behavior]] ^spawn-task-0ca517
++Spawn [3.4 File issue about internal link behavior](004%20Fix%20obsidian%20export%20to%20support%20internal%20links.md#34-file-issue-about-internal-link-behavior)<a name="spawn-task-0ca517" />
+```
+
+We do see `a` tags being generated now, but we need to add a space from preceding text first, and also we forgot to include the spawn itself again so it's seen.
+
+- [ ] 2025-08-20 Wk 34 Wed - 17:39
+
+```diff
+-if preceding_text.is_empty() {
++if !preceding_text.is_empty() {
+	mut_new_markdown_events.push(Event::Text(preceding_text.into()));
+}
+```
+
+When I corrected that, the space issue with preceding text disappeared.
+
+```diff
+-Spawn [[#3.4 File issue about internal link behavior]] ^spawn-task-0ca517
++Spawn [3.4 File issue about internal link behavior](004%20Fix%20obsidian%20export%20to%20support%20internal%20links.md#34-file-issue-about-internal-link-behavior) <a name="spawn-task-0ca517" />
+```
+
+2025-08-20 Wk 34 Wed - 17:53
+
+Added the block identifier as well:
+
+```rust
+mut_new_markdown_events.push(Event::Text(format!("^{block_identifier}").into()))
+```
+
+```diff
+-Spawn [[#3.4 File issue about internal link behavior]] ^spawn-task-0ca517
++Spawn [3.4 File issue about internal link behavior](004%20Fix%20obsidian%20export%20to%20support%20internal%20links.md#34-file-issue-about-internal-link-behavior) <a name="spawn-task-0ca517" />^spawn-task-0ca517
+```
+
+This works!
+
+Let's test it with the webview branch for this note repository!
+
+2025-08-20 Wk 34 Wed - 19:19
+
+Most of them work! But I noticed this one doesn't in a tutorial in delta-trace:
+
+```diff
+-Spawn [[#3.2 Setup a fresh installation of Windows on a VM]] ^spawn-task-603822
++Spawn [3.2 Setup a fresh installation of Windows on a VM](001%20Note%20Entry%20Header%20Meanings.md#32-setup-a-fresh-installation-of-windows-on-a-vm) ^spawn-task-603822
+```
+
+```diff
+-from [[#^spawn-task-603822]] in [[#6.1 Investigate the Windows Operating System Internals]]
++from [<a name="spawn-task-603822" />^spawn-task-603822](001%20Note%20Entry%20Header%20Meanings.md#spawn-task-603822) in [6.1 Investigate the Windows Operating System Internals](001%20Note%20Entry%20Header%20Meanings.md#61-investigate-the-windows-operating-system-internals)
+```
+
+Those are both wrong. `a` tags should never be added in the middle of a link! And because that link came first, it likely skipped the actual block identifier, since we check to only add a tag per identifier once.
+
+It also happens in
+
+```
+We add a code for the reference based on the heading code of this record (6.1), and a simple counter. So now we can refer to [duckduckgo](https://duckduckgo.com/) [<a name="6-1-1" />^6-1-1](001%20Note%20Entry%20Header%20Meanings.md#6-1-1)! The first link is the external link, the second is internal to where it is in the references for indexing purposes.
+```
+
+Another a tag somehow inside a link. I thought the number was not properly slugged, but actually in this case it's explicitly written as `6-1-1`. Slugging would make it `611` if it were `6.1.1` for example.
+
+2025-08-20 Wk 34 Wed - 19:32
+
+It should not have touched a link. So is this being processed as a Text? Some assumption we made is broken.
+
+### 3.8.1 Pend
 # 4 Issues
+
+## 4.1 Linter errors on OK build for block identifier postprocessing
+
+- [x] 
+
+From [[#^spawn-issue-c72b4f]] in [[#6.4 Investigate fixing 371 block note links]]
+
+2025-08-20 Wk 34 Wed - 15:09
+
+From [[#^obsidian-export-pre-commit-checks]],
+
+```sh
+cargo +nightly fmt --
+cargo test --all-targets --all-features
+cargo clippy --all-targets --all-features -- -D warnings
+```
+
+When running
+
+```sh
+cargo clippy --all-targets --all-features -- -D warnings
+```
+
+2025-08-20 Wk 34 Wed - 15:12
+
+```sh
+error: arithmetic operation that can potentially result in unexpected side-effects
+  --> src/postprocessors/block_identifier_links.rs:19:35
+   |                                         
+19 |         if reversed_line.len() <= caret_position + 1 {
+   |                                   ^^^^^^^^^^^^^^^^^^
+   |                 
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+   = note: `-D clippy::arithmetic-side-effects` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::arithmetic_side_effects)]`                           
+```
+
+Ooh, because arithmetic operations could implicitly panic, this makes the behavior explicit to avoid implicit crashes!
+
+I have no reason to expect this to fail though.
+
+```rust
+if reversed_line.len()
+	<= caret_position
+		.checked_add(1)?
+```
+
+2025-08-20 Wk 34 Wed - 16:12
+
+Instead of failing here, even though it's unexpected, it's better to just have the function itself enter fail mode. This is not a critical feature and so it should not crash the application.
+
+
+2025-08-20 Wk 34 Wed - 15:18
+
+```sh
+    Checking obsidian-export v25.3.0 (/home/lan/src/cloned/gh/zoni/branches/obsidian-export@fix-371-block-note-links)
+error: `to_string()` called on a `&str`            
+  --> src/postprocessors/block_identifier_links.rs:24:13
+   |                                         
+24 |             "".to_string()                     
+   |             ^^^^^^^^^^^^^^ help: try: `"".to_owned()`
+   |                 
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#str_to_string
+   = note: `-D clippy::str-to-string` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::str_to_string)]`
+```
+
+`String` is an owned variant of `str`, which is more direct than `.to_string()` which would just do this. But we could also here do `String::new()` directly, which is what the linter suggests next.
+
+2025-08-20 Wk 34 Wed - 15:34
+
+```sh
+error: indexing into a string may panic if the index is within a UTF-8 character
+  --> src/postprocessors/block_identifier_links.rs:26:13
+   |                                         
+26 |             reversed_line[caret_position + 1..].chars().rev().collect()
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                 
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#string_slice
+   = note: `-D clippy::string-slice` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::string_slice)]`                                      
+```
+
+Hmm, this should be a valid position, but let's do this another way:
+
+```rust
+let (preceding_text, block_identifier) = {
+	if caret_position == 0 {
+		("", line)
+	} else {
+		line.split_at_checked(caret_position)?
+	}
+};
+```
+
+2025-08-20 Wk 34 Wed - 16:30
+
+```sh
+error: this `match` can be collapsed into the outer `match`
+  --> src/postprocessors/block_identifier_links.rs:71:34
+   |                                                                                           
+71 |               Event::Start(tag) => match tag {
+   |  __________________________________^                                                      
+72 | |                 Tag::CodeBlock(_) => {                                                  
+73 | |                     mut_in_code_block = true;
+...  |               
+76 | |             },
+   | |_____________^
+   |                                                                                                                                                                                          
+help: the outer pattern can be modified to include the inner pattern
+  --> src/postprocessors/block_identifier_links.rs:71:26
+   |                                                                                           
+71 |             Event::Start(tag) => match tag {
+   |                          ^^^ replace this binding
+72 |                 Tag::CodeBlock(_) => {
+   |                 ^^^^^^^^^^^^^^^^^ with this pattern
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#collapsible_match
+   = note: `-D clippy::collapsible-match` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::collapsible_match)]`
+```
+
+```rust
+Event::Start(Tag::CodeBlock(_)) => {
+	mut_in_code_block = true;
+}
+```
+
+2025-08-20 Wk 34 Wed - 16:38
+
+```
+error: comparison to empty slice
+  --> src/postprocessors/block_identifier_links.rs:98:32
+   |
+98 | ...                   if preceding_text != "" {
+   |                          ^^^^^^^^^^^^^^^^^^^^ help: using `!is_empty` is clearer and more explicit: `!preceding_text.is_empty()`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#comparison_to_empty
+   = note: `-D clippy::comparison-to-empty` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::comparison_to_empty)]`
+
+error: could not compile `obsidian-export` (lib) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `obsidian-export` (lib test) due to 1 previous error
+```
+
+(update)
+```rust
+if !preceding_text.is_empty() {
+	mut_new_markdown_events.push(Event::Text(preceding_text.into()));
+}
+```
+
+<details>
+<summary>errata</summary>
+
+2025-08-20 Wk 34 Wed - 17:44
+
+Corrected logic, was a flipped conditional when I changed it.
+
+</details>
+(/update)
+
+
+2025-08-20 Wk 34 Wed - 16:40
+
+```sh
+cargo +nightly fmt --
+cargo test --all-targets --all-features
+cargo clippy --all-targets --all-features -- -D warnings
+
+# out (relevant)
+[all OK]
+```
 
 # 5 HowTos
 
@@ -700,7 +1111,7 @@ So we need to learn about these fragment identifiers. They are not mentioned any
 From [[#^spawn-invst-767a80]] in [[#3.1 Capture details on the broken links problem]]
 
 ### 6.2.1 Low Prio
-## 6.3 Investigate #370 numbered headings issue
+## 6.3 Investigate 370 numbered headings issue
 
 - [ ] 
 
@@ -840,6 +1251,203 @@ This is PR ready.
 
 Spawn [[#3.7 Open a PR to obsidian-export to close 370]] ^spawn-task-612ee7
 
+## 6.4 Investigate fixing 371 block note links
+
+- [ ] 
+
+2025-08-20 Wk 34 Wed - 09:38
+
+I added a [comment](https://github.com/zoni/obsidian-export/issues/371#issuecomment-3204375164) in [obsidian-export #371](https://github.com/zoni/obsidian-export/issues/371) explaining the strategy. 
+
+We just have to add `a` html tags to make the block note anchors work.
+
+```sh
+export branch="fix-371-block-note-links"
+git clone git@github.com:zoni/obsidian-export.git ~/src/cloned/gh/zoni/branches/obsidian-export@$branch
+cd ~/src/cloned/gh/zoni/branches/obsidian-export@$branch
+git checkout -b $branch
+```
+
+2025-08-20 Wk 34 Wed - 09:53
+
+This solution builds up on top of [obsidian-export PR #373](https://github.com/zoni/obsidian-export/pull/373). We need to patch with that content.
+
+```sh
+# in /home/lan/src/cloned/gh/LanHikari22/forked/zoni/obsidian-export
+git format-patch bfc3eca^..
+
+# out
+0001-Use-github-slugger-in-place-of-slug.patch
+0002-Update-CONTRIBUTING.md-with-uv-requirement.patch
+0003-Add-changelog-fragment-for-github-header-link-fix.patch
+```
+
+We only functionally need `0001-Use-github-slugger-in-place-of-slug.patch`. 
+
+```sh
+# in /home/lan/src/cloned/gh/zoni/branches/obsidian-export@fix-371-block-note-links
+git am -3 ~/src/cloned/gh/LanHikari22/forked/zoni/obsidian-export/0001-Use-github-slugger-in-place-of-slug.patch
+
+# out
+Applying: Use github-slugger in place of slug
+```
+
+Clean up the patch files,
+
+```sh
+# in /home/lan/src/cloned/gh/LanHikari22/forked/zoni/obsidian-export
+git reset --hard
+```
+
+2025-08-20 Wk 34 Wed - 10:02
+
+```sh
+pre-commit install
+
+# out
+pre-commit installed at .git/hooks/pre-commit
+```
+
+2025-08-20 Wk 34 Wed - 10:13
+
+This likely should be implemented as a postprocessor where every `^{name}` is replaced with `<a name={slug} />^{name}`
+
+We can use [exporter.add_postprocessor](https://github.com/zoni/obsidian-export/blob/49336d69fc117caf6f623fcab2af01e494949351/src/lib.rs#L344). It takes functions of the type `impl Fn(&mut Context, &mut Vec<Event<'_>>) -> PostprocessorResult`.
+
+2025-08-20 Wk 34 Wed - 10:43
+
+In this [line](https://github.com/pulldown-cmark/pulldown-cmark/blob/f4a326d225e79412b5ecabd1c241c851e8160815/pulldown-cmark/src/lib.rs#L200) in dependency [pulldown-cmark](https://github.com/pulldown-cmark/pulldown-cmark/), it says:
+
+>     /// The `BlockQuoteKind` is only parsed & populated with [`Options::ENABLE_GFM`], `None` otherwise.
+
+That seems to be the only use for it I can find in there.
+
+2025-08-20 Wk 34 Wed - 11:05
+
+So we don't need to use `Context` for this, but we do need to find the appropriate markdown event, and replace it with a different event for our block notes. <a name="test-block-note-for-tracing" />^test-block-note-for-tracing
+
+Spawn [[#6.5 Tracing events passed to postprocessor to impl block note postprocessor]] ^spawn-invst-aa01cc
+
+2025-08-20 Wk 34 Wed - 12:19
+
+![[#6.5.1 Block Identifier Filter Requirements]]
+
+2025-08-20 Wk 34 Wed - 12:20
+
+Moved `postprocessors` into its own module folder. This should be more maintainable than to squeeze every possible postprocessor into the same file. 
+
+2025-08-20 Wk 34 Wed - 15:06
+
+Spawn [[#4.1 Linter errors on OK build for block identifier postprocessing]] ^spawn-issue-c72b4f
+
+2025-08-20 Wk 34 Wed - 16:41
+
+We implemented the logic for this, now for testing.
+
+Spawn [[#3.8 Test block identifier postprocessor impl]] ^spawn-task-c79997
+
+
+### 6.4.1 Pend
+
+## 6.5 Tracing events passed to postprocessor to impl block note postprocessor
+
+- [x] 
+
+From [[#^spawn-invst-aa01cc]] in [[#6.4 Investigate fixing 371 block note links]]
+
+2025-08-20 Wk 34 Wed - 11:05
+
+Let's trace!
+
+```rust
+pub fn include_a_tags_with_block_notes(
+    _context: &mut Context,
+    events: &mut MarkdownEvents<'_>,
+) -> PostprocessorResult {
+    for event in events.iter_mut() {
+        println!("event: {event:?}");
+    }
+    PostprocessorResult::Continue
+}
+```
+
+From [[#^obsidian-export-pre-commit-checks]],
+
+```sh
+# in /home/lan/src/cloned/gh/zoni/branches/obsidian-export@fix-371-block-note-links
+cargo +nightly fmt --
+cargo test --all-targets --all-features
+cargo clippy --all-targets --all-features -- -D warnings
+
+# out (relevant)
+[all OK]
+```
+
+```sh
+# in /home/lan/src/cloned/gh/zoni/branches/obsidian-export@fix-371-block-note-links
+cargo install --path .
+```
+
+```sh
+export base_location="/home/lan/src/cloned/gh/LanHikari22"
+export repo_name="lan-setup-notes"
+
+obsidian-export "$base_location/$repo_name" "$base_location/branches/$repo_name@webview" | grep "test-block-note-for-tracing"
+
+# out (relevant)
+event: Text(Boxed(" for this, but we do need to find the appropriate markdown event, and replace it with a different event for our block notes. ^test-block-note-for-tracing"))
+```
+^trace-obsidian-export-events
+
+So we're looking for a `Text` event, and we need to replace it with another `Text` event. This should be done to the first one encountered, or our above tracing example would break things. But more correctly, nothing inside `backticks` or code blocks should ever be converted in this way, as this would break presentation.
+
+We can avoid code blocks easily:
+
+```
+event: End(CodeBlock)
+event: Start(CodeBlock(Fenced(Boxed("sh"))))
+event: Text(Boxed("export base_location=\"/home/lan/src/cloned/gh/LanHikari22\"\nexport repo_name=\"lan-setup-notes\"\n\nobsidian-export \"$base_location/$repo_name\" \"$base_location/branches/$repo_name@webview\" | grep \"test-block-note-for-tracing\"\n\n# out (relevant)\nevent: Text(Boxed(\" for this, but we do need to find the appropriate markdown event, and replace it with a different event for our block notes. ^test-block-note-for-tracing\"))\n"))
+event: End(CodeBlock)
+```
+
+The `backticks` also aren't text events themselves:
+
+```
+event: Code(Boxed("backticks"))
+```
+
+So, as long as a `CodeBlock` has not been started and it is in a `Text` event.
+
+2025-08-20 Wk 34 Wed - 11:33
+
+For `<a name="test-block-note-for-tracing" />^test-block-note-for-tracing`,
+
+```
+event: InlineHtml(Boxed("<a name=\"test-block-note-for-tracing\" />"))
+event: Text(Boxed("^test-block-note-for-tracing"))
+```
+
+2025-08-20 Wk 34 Wed - 11:56
+
+So we need to possibly consider to not include an `InlineHtml` if one is already included. We also need to consider splitting `Text` events into `Text` -> `InlineHtml` -> `Text`. Obsidian will not allow anything to come after a note block, so we are guaranteed that the last `Text` is just the caret note block declaration.
+
+2025-08-20 Wk 34 Wed - 12:08
+
+Okay the `^stuff` is called a Block Identifier according to [obsidian](https://help.obsidian.md/links#Link+to+a+block+in+a+note).
+
+2025-08-20 Wk 34 Wed - 14:00
+
+Quickly testing other types like html blocks, but so far only code blocks embed text within them that we should avoid. We don't have to bother with paragraph blocks.
+
+### 6.5.1 Block Identifier Filter Requirements
+
+1. `CodeBlock` must not be open.
+2. Only considers `Text` events for presence of a note block.
+3. Only considers the end of a `Text` event having an `^{name}` format. 
+4. Cannot have a space after `^{name}`, it must be the last thing in the line.
+5. Block identifiers processed must be compliant with [description in obsidian docs](https://help.obsidian.md/links#Link+to+a+block+in+a+notehttps://help.obsidian.md/links#Link+to+a+block+in+a+note): "Block identifiers can only consist of Latin letters, numbers, and dashes."
+6. If an identifier block is defined multiple times within the same file, only include an a tag for the first.
+
 # 7 Ideas
 
 ## 7.1 Setting up rustfmt and clippy in CI
@@ -949,6 +1557,12 @@ They mention a workaround for hugo. This [article](https://www.makeuseof.com/hug
 
 They use [renovate](https://github.com/apps/renovate). Which seems to be a bot that opens many PRs for tooling updates.
 
+2025-08-20 Wk 34 Wed - 10:09
+
+![[Pasted image 20250820100939.png]]
+
+I didn't know I could have intellisense-backed references like this in code documentation!
+
 ## 8.3 Interesting programmatic spec generation in gitlab source
 
 2025-08-19 Wk 34 Tue - 09:10
@@ -960,6 +1574,28 @@ This seems like it generates specification documents? Or is it running tests? Th
 2025-08-19 Wk 34 Tue - 09:34
 
 Similar thing is happening in [marked-gfm-heading-id spec](https://github.com/markedjs/marked-gfm-heading-id/blob/main/spec/index.test.js).
+
+## 8.4 Obsidian-export strange behavior
+
+2025-08-20 Wk 34 Wed - 11:41
+
+Tracing using the method in [[#^trace-obsidian-export-events]],
+
+```
+event: Text(Boxed("/// The `BlockQuoteKind` is only parsed & populated with [`Options::ENABLE_GFM`], `None` otherwise.\n"))
+event: End(CodeBlock)
+event: Text(Boxed("602.6"))
+event: End(TableCell)
+event: Start(TableCell)
+event: Text(Boxed("587.2"))
+event: End(BlockQuote(None))
+
+event: Start(TableCell)
+event: Text(Boxed("615.4"))
+event: End(TableCell)
+```
+
+This text doesn't appear anywhere else. Why TableCell? There was no tables around these parts!
 
 # 9 External Links
 
