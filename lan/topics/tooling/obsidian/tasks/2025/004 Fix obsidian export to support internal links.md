@@ -1113,7 +1113,7 @@ From [[#^spawn-invst-767a80]] in [[#3.1 Capture details on the broken links prob
 ### 6.2.1 Low Prio
 ## 6.3 Investigate 370 numbered headings issue
 
-- [ ] 
+- [x] 
 
 From [[#^spawn-invst-cd3d77]] in [[#3.4 File issue about internal link behavior]]
 
