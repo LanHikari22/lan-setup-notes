@@ -1,6 +1,6 @@
 <div align="center">
   lan-setup-notes
-  <p>For setting up and exploring new systems!</p>
+  <p>A knowledge base for tooling and improving systems!</p>
 </div>
 
 <p align="center">
@@ -29,42 +29,44 @@
 
 Welcome!
 
-This is the central notes repository for my setup, configurations, and tool exploration work!
+This is the central notes repository for my tooling development, diagnostics, setup, configurations, and improving open source tools!
 
 Many great projects and ideas do not get off the ground because of friction with system integration, building, 
-or just getting far enough to be able to do something useful. Let's get to that step!
+or just struggling to get far enough to be able to do something useful. 
+
+Let's reduce friction!
 
 For higher browser viewing compatibility, switch to the [webview branch](https://github.com/LanHikari22/lan-setup-notes/tree/webview).
 
 # 2 See also
 
-1. [delta-trace](https://github.com/delta-domain-rnd/delta-trace/tree/webview)
-	- Notes and articles on creating proofs of concepts, researching, and studying.
+1. [delta-trace](https://github.com/deltatraced/delta-trace/tree/webview)
+	- A knowledge base for researching, developing, studying, and experimenting!
 2. [lan-setup-notes](https://github.com/LanHikari22/lan-setup-notes/tree/webview) **You are here!**
-	- For notes on configurations and setting up of projects and systems.
+	- A knowledge base for tooling, diagnosing, investigating, and setting up systems!
 3. [dism-exe-notes](https://github.com/dism-exe/dism-exe-notes/tree/webview/lan)
-	- For notes on the process of reverse engineering games, running code analysis, and creating new tools! This is about reverse engineering the Mega Man Battle Network series.
+	- A knowledge base for reverse engineering and analyzing Mega Man Battle Network games!
 4. [goldensun-notes](https://github.com/FutureFractal/goldensun-notes/tree/webview/lan)
-	- Similar to `dism-exe-notes` but for reverse engineering the `goldensun` games on the `GBA`!
+	- A knowledge base for reverse engineering and analyzing Golden Sun GBA games!
 5. [dbmint-notes](https://github.com/dbmint/dbmint-notes/tree/webview)
-	- Development of dbmint for intuitive and type correct database use in Rust!
+	- A knowledge base for developing intuitive and type correct database tools in Rust!
 
 # 3 Contributing
 
-All contributions are welcome! Please feel free to contact me by opening an issue ticket or emailing lanhikarixx@gmail.com.
+All contributions are welcome! 
 
-You can always chat with me. Please start the email title with `"GITCHAT"` so that I can find you!
+If you have any comments or suggestions you can reach out by opening an issue ticket or emailing lanhikarixx@gmail.com.
 
-As this is about general notes on setup and system issues, please feel free to suggest problems you would like to be solved. This helps me get an idea of where developers face high friction in system builds and setups and I would appreciate it a lot.
+As this is about general notes on setup and system issues, please feel free to suggest problems you would like to be solved. 
 
-If you also have solution for the problem, you can open a PR with your own obsidian note under `contrib/` and I can review them and integrate them in.
+This helps me get an idea of where developers face high friction in system builds and setups and I would appreciate it a lot.
 
-If you have ideas or would like to discuss integrations with other public issue tracking systems and forums, please reach out.
+If you have a solution for a problem outlined here, you can open a PR with your own obsidian note under `contrib/` and I can review them and integrate them in.
 
-If you have any criticisms on any entries here please reach out or open an issue. This could be on matters of performance, ergonomics, security, accuracy, or otherwise. Part of making most notes public is to make the creative process transparent and open to critique from others and the creators themselves. Questions and comments are also welcome!
+If you find any issues on matters of performance, ergonomics, security, accuracy, practice, or related, please reach out!
 
-If you have any business related inquiries, please also reach out to me via email <lanhikarixx@gmail.com> and start the email title with `"GITBUSINESS"` so I can find you.
+One reason for making notes public is to make my creative process transparent and open to critique by others so that I can improve my process!
 
 # 4 License
 
-This theme is licensed under the [MIT license](https://opensource.org/licenses/mit-license.php) © 2025 Mohammed Alzakariya.
+This work is licensed under the [MIT license](https://opensource.org/licenses/mit-license.php) © 2025 Mohammed Alzakariya.
