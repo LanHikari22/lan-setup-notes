@@ -11,7 +11,7 @@ Quick script to either grep or grep through strings
 
 (LLM chatgpt-4o)
 
-```sh
+````sh
 find ~/parti2/Steam/steamapps/common/Expedition\ 33/Sandfall/ -type f | while read -r file; do
   if file "$file" | grep -q text; then
     # Text file, grep directly
@@ -21,16 +21,16 @@ find ~/parti2/Steam/steamapps/common/Expedition\ 33/Sandfall/ -type f | while re
     strings "$file" | grep --label="$file" -H "your_search_term"
   fi
 done
-```
+````
 
 (/LLM chatgpt-4o)
 
 ## 1.1 Quickly turn some csv file to markdown table
 
-
 (LLM chatgpt-4o)
-```sh
-awk -F, 'BEGIN { print "| Status | File |"; print "|--------|------|"; } { printf "| %s | %s |\n", $1, $2 }' /tmp/delete/a.csv
-```
-(/LLM chatgpt-4o)
 
+````sh
+awk -F, 'BEGIN { print "| Status | File |"; print "|--------|------|"; } { printf "| %s | %s |\n", $1, $2 }' /tmp/delete/a.csv
+````
+
+(/LLM chatgpt-4o)

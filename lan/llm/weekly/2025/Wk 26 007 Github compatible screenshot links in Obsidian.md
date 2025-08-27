@@ -1,13 +1,12 @@
+\#lan #llm #obsidian #tooling #templater #todo
 
-#lan #llm #obsidian #tooling #templater #todo 
 # 1 Wk 26 007 Github compatible screenshot links in Obsidian
 
+ > 
+ > \[!NOTE\] 2025 Wk 32 Update
+ > This is no longer needed thanks to the webview export solution which displays all images.
 
-> [!NOTE] 2025 Wk 32 Update
-> This is no longer needed thanks to the webview export solution which displays all images.
-
-See [[003 Making obsidian repositories appear nicer in browser]].
-
+See [003 Making obsidian repositories appear nicer in browser](../../../topics/tooling/obsidian/entries/2025/003%20Making%20obsidian%20repositories%20appear%20nicer%20in%20browser.md).
 
 # 2 Objective
 
@@ -23,10 +22,9 @@ This one too:
 
 But not this one:
 
-![[Pasted image 20250624135814.png]]
+![Pasted image 20250624135814.png](../../../../attachments/Pasted%20image%2020250624135814.png)
 
-
-We built [[Wk 26 000 On why the rust linker is single-threaded#3.1.2 Building pixie_wrangler|PIXIE WRANGLER]] here! It's an open source rust video game about PCB Design!
+We built [PIXIE WRANGLER](../../../topics/tooling/languages/entries/weekly/2025/Wk%2026%20000%20On%20why%20the%20rust%20linker%20is%20single-threaded.md#312-building-pixie_wrangler) here! It's an open source rust video game about PCB Design!
 
 ---
 
@@ -36,18 +34,15 @@ Github-compatible link:
 
 Obsidian-internal link:
 
-![[Screencast From 2025-06-26 19-10-04.gif]]
+![Screencast From 2025-06-26 19-10-04.gif](../../../../attachments/Screencast%20From%202025-06-26%2019-10-04.gif)
 
-
-
-We should even be able to load up gifs. This is from a super cool game [FEZ](<https://store.steampowered.com/app/224760/FEZ/>) that gives a very different game experience with a camera that interacts with the world.
-
+We should even be able to load up gifs. This is from a super cool game [FEZ](https://store.steampowered.com/app/224760/FEZ/) that gives a very different game experience with a camera that interacts with the world.
 
 The pattern is simple for the github link:
 
-```
+````
 https://raw.githubusercontent.com/LanHikari22/lan-setup-notes/refs/heads/main/attachments/Pasted%20image%2020250624135814.png
-```
+````
 
 We should be able to hover over a link in obsidian, and use a templater script to "upgrade it" to its github variant so that everyone sees it. If already upgraded, it remains as is.
 
@@ -58,10 +53,11 @@ Alternatively, we can also see if there are extensions that already do this for 
 TODO
 
 # 4 LLM Instructions
-- This is a diagnostic document and not a conversation. Everything shared is context. Address the questions tagged (Q#) like (Q1) for example. If you see something like (~1), assume it part of the archive and not a latest set of questions.
-	- Since it keeps occurring, I ask Again
-	- !!! NEVER RESPOND TO (~1), (~2), etc.
-	- ONLY respond to the tagged questions. Nothing else.
+
+* This is a diagnostic document and not a conversation. Everything shared is context. Address the questions tagged (Q#) like (Q1) for example. If you see something like (~1), assume it part of the archive and not a latest set of questions.
+  * Since it keeps occurring, I ask Again
+  * !!! NEVER RESPOND TO (~1), (~2), etc.
+  * ONLY respond to the tagged questions. Nothing else.
 
 (LLM chatgpt-4o)
 (Note: Between these tags is responses from ChatGPT-4o.

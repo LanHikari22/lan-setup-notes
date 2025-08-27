@@ -1,10 +1,12 @@
 ---
 status: todo
 ---
+
 2025-08-02 Wk 31 Sat - 00:54
+
 # 1 Objective
 
-My notes themselves are very interconnected even in one note, and between notes, via `^` and headings. 
+My notes themselves are very interconnected even in one note, and between notes, via `^` and headings.
 
 We should be able to visualize this.
 

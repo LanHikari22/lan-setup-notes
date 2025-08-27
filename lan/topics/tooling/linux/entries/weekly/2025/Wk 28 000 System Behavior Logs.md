@@ -1,4 +1,5 @@
 2025-07-13 Wk 28 Sun - 08:042025-07-09 Wk 28 Wed - 16:02#lan #logs #linux
+
 # 1 Context
 
 This is on Ubuntu 25.04. GNOME/Wayland.
