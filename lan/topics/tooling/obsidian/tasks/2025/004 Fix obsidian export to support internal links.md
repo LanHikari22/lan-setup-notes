@@ -1,10 +1,9 @@
 ---
 status: todo
 ---
-2025-08-26 Wk 35 Tue - 12:412025-08-25 Wk 35 Mon - 12:002025-08-23 Wk 34 Sat - 17:34
-# 1 Objective
+2025-09-04 Wk 36 Thu - 10:57# 1 Objective
 
-# 2 Journal
+# 1 Journal
 
 2025-08-13 Wk 33 Wed - 10:01
 
@@ -16,13 +15,13 @@ Spawn [[#3.1 Capture details on the broken links problem]] ^spawn-task-a5bc4a
 
 Spawn [[#3.4 File issue about internal link behavior]] ^spawn-task-0ca517
 
-# 3 Tasks
+# 2 Tasks
 
-## 3.1 Capture details on the broken links problem
+## 2.1 Capture details on the broken links problem
 
 - [ ] 
 
-### 3.1.1 Broken file-internal link
+### 2.1.1 Broken file-internal link
 
 2025-08-13 Wk 33 Wed - 10:01
 
@@ -36,7 +35,7 @@ In the [raw webview export of this note](https://raw.githubusercontent.com/LanHi
 From [^spawn-task-a5bc4a](004%20Fix%20obsidian%20export%20to%20support%20internal%20links.md#spawn-task-a5bc4a).
 ```
 
-### 3.1.2 Broken Embedded text links
+### 2.1.2 Broken Embedded text links
 
 Also, embedded note content does not work like
 
@@ -90,7 +89,7 @@ As is, repositories will not load image,s embedded links nor internal links. So 
 
 It just copied the entire note text.
 
-### 3.1.3 Comparison with how I made valid README internal file links
+### 2.1.3 Comparison with how I made valid README internal file links
 
 2025-08-13 Wk 33 Wed - 10:13
 
@@ -113,7 +112,7 @@ Let's try to replicate what [current obsidian-export](https://github.com/zoni/ob
 
 [[#3.1.4 Case 1 Basic mapping and filtering]]
 
-### 3.1.4 Case 1: Basic mapping and filtering
+### 2.1.4 Case 1: Basic mapping and filtering
 
 
 In the [raw webview export of this note](https://raw.githubusercontent.com/LanHikari22/lan-setup-notes/refs/heads/webview/lan/topics/tooling/obsidian/tasks/2025/004%20Fix%20obsidian%20export%20to%20support%20internal%20links.md) (this always updates), 
@@ -193,7 +192,7 @@ It works!
 
 [beep](#beep)
 - Works in obsidian (so long as heading autonumbering didn't kick in yet!)
-### 3.1.5 Beep
+### 2.1.5 Beep
 
 ---
 
@@ -201,12 +200,12 @@ It works!
 - Doesn't work in obsidian. I change the header below to an H1 for a reproducible example. But still it won't follow.
 - Even if I change it to `316-beep`, which we know seems to be recognizable within github, it will not work in obsidian.
 - Converts to `<a href="#316-beep">316-beep</a>` in github html and does redirect fine.
-### 3.1.6 Beep
+### 2.1.6 Beep
 
 ---
 
 [Test1](#Test-Some-description-and-things)
-### 3.1.7 Test Some description and things
+### 2.1.7 Test Some description and things
 
 2025-08-13 Wk 33 Wed - 11:08
 
@@ -224,7 +223,7 @@ Next we need to figure out what to do about `[[#^caret]]` links.
 
 Spawn [[#3.3 Look into broken caret links]] ^spawn-task-c588e2
 
-## 3.2 Attempting to reproduce header jump behavior in local html
+## 2.2 Attempting to reproduce header jump behavior in local html
 
 - [ ] Skipped, the header seek behavior seems to be part of a github website impl in some way
 
@@ -245,9 +244,9 @@ wget https://github.com/LanHikari22/checkpipe/blob/4373f01a6c17cd524b13723373f6d
 ```
 
 No good, nothing will render without github scripts running.
-### 3.2.1 Skipped
+### 2.2.1 Skipped
 
-## 3.3 Look into broken caret links
+## 2.3 Look into broken caret links
 
 - [ ] 
 
@@ -283,7 +282,7 @@ They specifically flag interoperability issues there...
 
 One suggestion here is to put a header wherever a block is declared `^someblock` that looks like `# Block: someblock` and then  convert all block link references to references to this header. The header itself must have a heading level of the last heading in the document + 1.
 
-## 3.4 File issue about internal link behavior
+## 2.4 File issue about internal link behavior
 
 - [ ] 
 
@@ -325,9 +324,9 @@ Confirmed in gitlab that numbers are appended together also
 
 Spawn [[#6.3 Investigate 370 numbered headings issue]] ^spawn-invst-cd3d77
 
-### 3.4.1 Watch0
+### 2.4.1 Watch0
 
-## 3.5 Find the rules that generate the vscode and github heading links
+## 2.5 Find the rules that generate the vscode and github heading links
 
 - [x] 
 
@@ -438,7 +437,7 @@ The actual change might just be to swap sluggers in our case.
 
 Spawn [[#3.6 Test rust github-slugger for github heading dot omission compliance]] ^spawn-task-f2f61e
 
-## 3.6 Test rust github-slugger for github heading dot omission compliance
+## 2.6 Test rust github-slugger for github heading dot omission compliance
 
 - [x] 
 
@@ -481,7 +480,7 @@ This can be run with
 git clone https://github.com/LanHikari22/rs_repro.git && cd rs_repro && cargo run --features "repro006"
 ```
 
-## 3.7 Open a PR to obsidian-export to close 370
+## 2.7 Open a PR to obsidian-export to close 370
 
 - [ ] 
 
@@ -561,9 +560,9 @@ python3 -m pip install uv
 just add-changelog
 ```
 
-### 3.7.1 Watch0
+### 2.7.1 Watch0
 
-## 3.8 Test block identifier postprocessor impl
+## 2.8 Test block identifier postprocessor impl
 
 - [ ] 
 
@@ -798,10 +797,10 @@ Another a tag somehow inside a link. I thought the number was not properly slugg
 
 It should not have touched a link. So is this being processed as a Text? Some assumption we made is broken.
 
-### 3.8.1 Pend
-# 4 Issues
+### 2.8.1 Pend
+# 3 Issues
 
-## 4.1 Linter errors on OK build for block identifier postprocessing
+## 3.1 Linter errors on OK build for block identifier postprocessing
 
 - [x] 
 
@@ -974,9 +973,9 @@ cargo clippy --all-targets --all-features -- -D warnings
 [all OK]
 ```
 
-# 5 HowTos
+# 4 HowTos
 
-## 5.1 Revert git history back to fresh clone state for main branch
+## 4.1 Revert git history back to fresh clone state for main branch
 
 - [x] 
 
@@ -994,7 +993,7 @@ git reset --hard origin/main
 
 Similar to suggestion from this [stackoverflow answer](https://stackoverflow.com/a/52995940/6944447).
 
-## 5.2 Trace class in heading html definition
+## 4.2 Trace class in heading html definition
 
 - [x] Use case works for the div, but for the h3 it seems to have a missing css selector class
 
@@ -1040,7 +1039,7 @@ We are able to find the CSS selector for the div above it, but not the h3 headin
 
 Nothing changes when we put another invalid class for the h3, so it might just not be configured?
 
-## 5.3 Patch a new repository with a commit in another
+## 4.3 Patch a new repository with a commit in another
 
 - [x] 
 
@@ -1066,9 +1065,9 @@ git am -3 ~/src/cloned/gh/zoni/branches/obsidian-export@fix-370-numbered-heading
 ```
 
 
-# 6 Investigations
+# 5 Investigations
 
-## 6.1 What does the markdown standard say about internal page links?
+## 5.1 What does the markdown standard say about internal page links?
 
 - [x] 
 
@@ -1104,14 +1103,14 @@ The html one will not work in obsidian:
 
 So we need to learn about these fragment identifiers. They are not mentioned anywhere else in this specification.  I'm guessing they are handled directly by `href` there.
 
-## 6.2 Why is github markdown rendering adding full repo information for some internal markdown links but not others?
+## 5.2 Why is github markdown rendering adding full repo information for some internal markdown links but not others?
 
 - [ ] 
 
 From [[#^spawn-invst-767a80]] in [[#3.1 Capture details on the broken links problem]]
 
-### 6.2.1 Low Prio
-## 6.3 Investigate 370 numbered headings issue
+### 5.2.1 Low Prio
+## 5.3 Investigate 370 numbered headings issue
 
 - [x] 
 
@@ -1251,7 +1250,7 @@ This is PR ready.
 
 Spawn [[#3.7 Open a PR to obsidian-export to close 370]] ^spawn-task-612ee7
 
-## 6.4 Investigate fixing 371 block note links
+## 5.4 Investigate fixing 371 block note links
 
 - [ ] 
 
@@ -1347,9 +1346,9 @@ We implemented the logic for this, now for testing.
 Spawn [[#3.8 Test block identifier postprocessor impl]] ^spawn-task-c79997
 
 
-### 6.4.1 Pend
+### 5.4.1 Pend
 
-## 6.5 Tracing events passed to postprocessor to impl block note postprocessor
+## 5.5 Tracing events passed to postprocessor to impl block note postprocessor
 
 - [x] 
 
@@ -1439,7 +1438,7 @@ Okay the `^stuff` is called a Block Identifier according to [obsidian](https://h
 
 Quickly testing other types like html blocks, but so far only code blocks embed text within them that we should avoid. We don't have to bother with paragraph blocks.
 
-### 6.5.1 Block Identifier Filter Requirements
+### 5.5.1 Block Identifier Filter Requirements
 
 1. `CodeBlock` must not be open.
 2. Only considers `Text` events for presence of a note block.
@@ -1448,9 +1447,9 @@ Quickly testing other types like html blocks, but so far only code blocks embed 
 5. Block identifiers processed must be compliant with [description in obsidian docs](https://help.obsidian.md/links#Link+to+a+block+in+a+notehttps://help.obsidian.md/links#Link+to+a+block+in+a+note): "Block identifiers can only consist of Latin letters, numbers, and dashes."
 6. If an identifier block is defined multiple times within the same file, only include an a tag for the first.
 
-# 7 Ideas
+# 6 Ideas
 
-## 7.1 Setting up rustfmt and clippy in CI
+## 6.1 Setting up rustfmt and clippy in CI
 
 From [[#^spawn-idea-b9d8a7]] in [[#6.3 Investigate 370 numbered headings issue]]
 
@@ -1500,7 +1499,7 @@ In [rust documentation](https://doc.rust-lang.org/rustdoc/how-to-write-documenta
 [even more advanced explanations if necessary]
 ```
 
-## 7.2 Contributing to markdown-it-plugins
+## 6.2 Contributing to markdown-it-plugins
 
 2025-08-19 Wk 34 Tue - 10:11
 
@@ -1511,7 +1510,7 @@ In [README.md](https://github.com/markdown-it-rust/markdown-it-plugins.rs/blob/m
 
 The project has no license. Issued [#25](https://github.com/markdown-it-rust/markdown-it-plugins.rs/issues/25).
 
-## 7.3 Including pre-commit hooks in my repositories
+## 6.3 Including pre-commit hooks in my repositories
 
 2025-08-19 Wk 34 Tue - 16:29
 
@@ -1519,14 +1518,14 @@ Consistent styling, additional linting beyond errors, ensuring that all tests pa
 
 [obsidian-export](https://github.com/zoni/obsidian-export) is a very good example of how this was setup for a Rust project. It's in general a good example with documentation as well.
 
-# 8 Side Notes
+# 7 Side Notes
 
-## 8.1 Commentary on things learned from CommonMark standard
+## 7.1 Commentary on things learned from CommonMark standard
 
 
 From [[#^spawn-side-58a24b]] in [[#6.1 What does the markdown standard say about internal page links?]]
 
-### 8.1.1 About Links
+### 7.1.1 About Links
 
 [CommonMark: Links](https://spec.commonmark.org/0.31.2/#links).
 
@@ -1538,7 +1537,7 @@ Similar to [example 527](https://spec.commonmark.org/0.31.2/#example-527),
 
 [goog]: https://www.google.com/
 
-### 8.1.2 About AutoLinks
+### 7.1.2 About AutoLinks
 
 [CommonMark: AutoLinks](https://spec.commonmark.org/0.31.2/#autolinks)
 
@@ -1547,7 +1546,7 @@ Those are interesting, I didn't know you could have `mailto` with this like <mai
 ![[Pasted image 20250813111924.png]]
 And it opens directly in the default mail application.
 
-## 8.2 Interesting things in obsidian-export README and repo
+## 7.2 Interesting things in obsidian-export README and repo
 
 2025-08-13 Wk 33 Wed - 15:05
 
@@ -1563,7 +1562,7 @@ They use [renovate](https://github.com/apps/renovate). Which seems to be a bot t
 
 I didn't know I could have intellisense-backed references like this in code documentation!
 
-## 8.3 Interesting programmatic spec generation in gitlab source
+## 7.3 Interesting programmatic spec generation in gitlab source
 
 2025-08-19 Wk 34 Tue - 09:10
 
@@ -1575,7 +1574,7 @@ This seems like it generates specification documents? Or is it running tests? Th
 
 Similar thing is happening in [marked-gfm-heading-id spec](https://github.com/markedjs/marked-gfm-heading-id/blob/main/spec/index.test.js).
 
-## 8.4 Obsidian-export strange behavior
+## 7.4 Obsidian-export strange behavior
 
 2025-08-20 Wk 34 Wed - 11:41
 
@@ -1597,7 +1596,7 @@ event: End(TableCell)
 
 This text doesn't appear anywhere else. Why TableCell? There was no tables around these parts!
 
-# 9 External Links
+# 8 External Links
 
 | Link                                                                                                                                                                                                                                                 | In                                                                                                                           |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
@@ -1605,4 +1604,4 @@ This text doesn't appear anywhere else. Why TableCell? There was no tables aroun
 | [link](https://github.com/LanHikari22/lan-setup-notes/blob/webview/lan/topics/tooling/obsidian/tasks/2025/004%20Fix%20obsidian%20export%20to%20support%20internal%20links.md#36-test-rust-github-slugger-for-github-heading-dot-omission-compliance) | [rs_repro repro006](https://github.com/LanHikari22/rs_repro/blob/main/src/repro_tracked/repro006_slug_and_github_slugger.rs) |
 | [link](https://github.com/LanHikari22/lan-setup-notes/blob/webview/lan/topics/tooling/obsidian/tasks/2025/004%20Fix%20obsidian%20export%20to%20support%20internal%20links.md#37-open-a-pr-to-obsidian-export-to-close-370)                           | [obsidian-export PR #373](https://github.com/zoni/obsidian-export/pull/373)                                                  |
 
-# 10 References
+# 9 References
