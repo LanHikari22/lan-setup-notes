@@ -1,7 +1,7 @@
 ---
 status: pend
 ---
-#lan #task #todo #youtube #grep #search #tooling 
+#lan #task #todo #youtube #grep #search #tooling #linux #visidata #docker
 
 
 

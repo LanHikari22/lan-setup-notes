@@ -1,5 +1,4 @@
 ---
-resolved: "false"
 status: done
 ---
 #lan #setup #gaming #unresolved

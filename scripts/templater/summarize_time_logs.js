@@ -44,10 +44,12 @@ function formatMarkdownTable(summary, title, includeTotalRow = false) {
 	}
 
 	for (const [note, data] of Object.entries(summary).sort((a, b) => b[1].total - a[1].total)) {
-		report += `| [[${note}]] | ${formatDuration(data.total)} |\n`;
+		// **Bold the top-level note**
+		report += `| [[${note}]] | **${formatDuration(data.total)}** |\n`;
 
 		const headings = Object.entries(data.headings);
 		for (const [heading, dur] of headings.sort((a, b) => b[1] - a[1])) {
+			// Leaf entries remain normal
 			report += `| &nbsp;&nbsp;&nbsp;&nbsp;[[${note}#${heading}\\|${heading}]] | ${formatDuration(dur)} |\n`;
 		}
 	}
@@ -55,6 +57,7 @@ function formatMarkdownTable(summary, title, includeTotalRow = false) {
 	report += `\n`;
 	return report;
 }
+
 
 // === Main Function ===
 async function summarize_time_logs(tp, identity) {
