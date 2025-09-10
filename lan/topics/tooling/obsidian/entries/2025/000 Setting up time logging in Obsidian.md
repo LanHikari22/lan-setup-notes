@@ -92,13 +92,19 @@ It also creates a folder under
 ./scripts/templater/data/$username
 ```
 
-# 4 Ideas
+# 4 Some Issues
+
+2025-09-10 Wk 37 Wed - 05:27 +03:00
+
+Notes from [[004 Parse parent frontmatter property for time log summaries]] to look into the timezones set up for the time logger.
+
+# 5 Some Ideas
 
 2025-06-22 Wk 25 Sun - 20:31
 
-## 4.1 This could turn into a plugin or an enhancement to Super Simple Time Tracker
+This could turn into a plugin or an enhancement to Super Simple Time Tracker
 
-# 5 External
+# 6 External
 
 2025-07-18 Wk 29 Fri - 00:14
 

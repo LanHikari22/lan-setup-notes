@@ -1,6 +1,8 @@
 ---
 status: done
 ---
+
+
 #lan #setup #gaming #unresolved
 
 # 1 Objective

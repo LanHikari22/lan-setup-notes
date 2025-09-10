@@ -7,9 +7,10 @@ function formatDuration(ms) {
 	return `${h}h ${m}m ${s}s`;
 }
 
-// === Parse Entries and Accumulate Durations ===
-function accumulateDurations(entries) {
-	const summary = {};
+// === Parse Entries and Accumulate Durations with Parent Handling ===
+async function accumulateDurations(entries, vault, metadataCache) {
+	const summary = {};       // superitems
+	const childMap = {};      // parent -> Set(children)
 
 	for (const e of entries) {
 		if (!e.startTime || !e.endTime) continue;
@@ -19,49 +20,106 @@ function accumulateDurations(entries) {
 		const raw = e.name.match(/\[\[(.+?)\]\]/);
 		if (!raw) continue;
 
-		const [note, heading = null] = raw[1].split("#");
-		if (!summary[note]) summary[note] = { total: 0, headings: {} };
+		const [noteLink, heading = null] = raw[1].split("#");
+		let superitem = noteLink;
 
-		summary[note].total += duration;
+		const file = vault.getMarkdownFiles().find(f => f.basename === noteLink);
+		if (file) {
+			const cache = metadataCache.getFileCache(file);
+			const frontmatter = cache?.frontmatter || {};
+			if (frontmatter.parent) {
+				const parentMatch = frontmatter.parent.match(/\[\[(.+?)\]\]/);
+				if (parentMatch) {
+					superitem = parentMatch[1];
+					if (!childMap[superitem]) childMap[superitem] = new Set();
+					childMap[superitem].add(noteLink);
+					console.log(`Parent check: Note [[${noteLink}]] has parent [[${superitem}]]`);
+				} else {
+					console.log(`Parent check: Note [[${noteLink}]] has invalid parent format`);
+				}
+			} else {
+				console.log(`Parent check: Note [[${noteLink}]] has no parent`);
+			}
+		} else {
+			console.log(`Parent check: Could not find file for [[${noteLink}]]`);
+		}
+
+		if (!summary[superitem]) summary[superitem] = { total: 0, headings: {} };
+		if (!summary[noteLink]) summary[noteLink] = { total: 0, headings: {} };
+
+		// Add duration to noteLink first
+		summary[noteLink].total += duration;
 
 		if (heading) {
-			if (!summary[note].headings[heading]) summary[note].headings[heading] = 0;
-			summary[note].headings[heading] += duration;
+			if (!summary[noteLink].headings[heading]) summary[noteLink].headings[heading] = 0;
+			summary[noteLink].headings[heading] += duration;
+		}
+
+		// Aggregate to superitem total
+		if (superitem !== noteLink) {
+			summary[superitem].total += duration;
 		}
 	}
-	return summary;
+
+	return { summary, childMap };
 }
 
 // === Markdown Table Formatter ===
-function formatMarkdownTable(summary, title, includeTotalRow = false) {
+function formatMarkdownTable(summaryData, title, includeTotalRow = false) {
+	const { summary, childMap } = summaryData;
 	let report = `# Time Summary – ${title}\n\n`;
 	report += `| Note/Heading | Time Spent |\n`;
 	report += `|--------------|------------|\n`;
 
+	// Top-level superitems = notes that are not children
+	const topLevelNotes = Object.keys(summary).filter(note => !Object.values(childMap).some(set => set.has(note)));
+	// Sort top-level by total descending
+	topLevelNotes.sort((a, b) => summary[b].total - summary[a].total);
+
 	if (includeTotalRow) {
-		const total = Object.values(summary).reduce((acc, cur) => acc + cur.total, 0);
+		const total = topLevelNotes.reduce((acc, note) => acc + (summary[note]?.total || 0), 0);
 		report += `| **Total** | **${formatDuration(total)}** |\n`;
 	}
 
-	for (const [note, data] of Object.entries(summary).sort((a, b) => b[1].total - a[1].total)) {
-		// **Bold the top-level note**
-		report += `| [[${note}]] | **${formatDuration(data.total)}** |\n`;
+	const processed = new Set();
 
-		const headings = Object.entries(data.headings);
-		for (const [heading, dur] of headings.sort((a, b) => b[1] - a[1])) {
-			// Leaf entries remain normal
-			report += `| &nbsp;&nbsp;&nbsp;&nbsp;[[${note}#${heading}\\|${heading}]] | ${formatDuration(dur)} |\n`;
+	const renderNote = (note, indent = "", bold = true) => {
+		if (processed.has(note)) return;
+		processed.add(note);
+
+		const data = summary[note];
+		if (!data) return;
+
+		report += `| ${indent}[[${note}]] | ${bold ? `**${formatDuration(data.total)}**` : formatDuration(data.total)} |\n`;
+
+		// Parent's own headings as subitems, sorted descending
+		const sortedHeadings = Object.entries(data.headings).sort((a, b) => b[1] - a[1]);
+		for (const [heading, dur] of sortedHeadings) {
+			report += `| ${indent}&nbsp;&nbsp;&nbsp;&nbsp;[[${note}#${heading}\\|${heading}]] | ${formatDuration(dur)} |\n`;
 		}
+
+		// Render children, sorted descending by total
+		if (childMap[note]) {
+			const sortedChildren = Array.from(childMap[note]).sort((a, b) => (summary[b]?.total || 0) - (summary[a]?.total || 0));
+			for (const child of sortedChildren) {
+				renderNote(child, indent + "&nbsp;&nbsp;&nbsp;&nbsp;", false);
+			}
+		}
+	};
+
+	for (const note of topLevelNotes) {
+		renderNote(note);
 	}
 
 	report += `\n`;
 	return report;
 }
 
-
 // === Main Function ===
 async function summarize_time_logs(tp, identity) {
-	const fs = tp.app.vault.adapter;
+	const vault = tp.app.vault;
+	const metadataCache = tp.app.metadataCache;
+	const fs = vault.adapter;
 	const dir = `scripts/templater/data/${identity}`;
 	const weeklyDir = `${dir}/weekly`;
 	const dailyDir = `${dir}/daily`;
@@ -85,13 +143,11 @@ async function summarize_time_logs(tp, identity) {
 		const entries = JSON.parse(timeBlock[1]).entries;
 		allEntries.push(...entries);
 
-		// === Weekly Summary ===
-		const weeklySummary = accumulateDurations(entries);
-		const weeklyReport = formatMarkdownTable(weeklySummary, `Week ${week}`, true);
+		const weeklySummaryData = await accumulateDurations(entries, vault, metadataCache);
+		const weeklyReport = formatMarkdownTable(weeklySummaryData, `Week ${week}`, true);
 		const weeklyFile = `${weeklyDir}/Summary-${year}-${month}-Wk${week}.md`;
 		await fs.write(weeklyFile, weeklyReport);
 
-		// === Daily Summaries ===
 		const dailyBuckets = {};
 		for (const e of entries) {
 			if (!e.startTime || !e.endTime) continue;
@@ -101,16 +157,15 @@ async function summarize_time_logs(tp, identity) {
 		}
 
 		for (const [date, dayEntries] of Object.entries(dailyBuckets)) {
-			const dailySummary = accumulateDurations(dayEntries);
-			const dailyReport = formatMarkdownTable(dailySummary, date, true);
+			const dailySummaryData = await accumulateDurations(dayEntries, vault, metadataCache);
+			const dailyReport = formatMarkdownTable(dailySummaryData, date, true);
 			const dailyFile = `${dailyDir}/Summary-${date}.md`;
 			await fs.write(dailyFile, dailyReport);
 		}
 	}
 
-	// === All-Time Summary ===
-	const allSummary = accumulateDurations(allEntries);
-	const allTimeReport = formatMarkdownTable(allSummary, "All Time", false);
+	const allSummaryData = await accumulateDurations(allEntries, vault, metadataCache);
+	const allTimeReport = formatMarkdownTable(allSummaryData, "All Time", false);
 	const allTimePath = `${dir}/Summary-All-Time.md`;
 	await fs.write(allTimePath, allTimeReport);
 

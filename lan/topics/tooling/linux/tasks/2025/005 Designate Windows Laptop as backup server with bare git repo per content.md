@@ -2,8 +2,7 @@
 sourced_by: "[[Wk 29 000 Setting up bare git remote repo]]"
 status: done
 ---
-#obsidian
-
+#obsidian #backup #server #git
 
 # 1 Objective
 
