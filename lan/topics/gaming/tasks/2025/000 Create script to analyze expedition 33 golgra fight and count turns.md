@@ -1,7 +1,6 @@
 ---
 status: pend
 ---
-
 # 1 Objective
 
 Given a screencast video, just count the number of turns passed.

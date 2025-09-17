@@ -1,6 +1,7 @@
 ---
 parent: "[[000 Note Repo Migration Sept 8]]"
 spawned_by: "[[000 How should we parse markdown files in Rust?]]"
+context_type: investigation
 status: done
 ---
 

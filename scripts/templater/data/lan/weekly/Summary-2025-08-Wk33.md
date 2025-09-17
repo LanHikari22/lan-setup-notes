@@ -1,4 +1,4 @@
-# 1 Time Summary – Week 33
+# Time Summary – Week 33
 
 | Note/Heading | Time Spent |
 |--------------|------------|

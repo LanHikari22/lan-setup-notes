@@ -1,12 +1,13 @@
 ---
 parent: "[[000 Note Repo Migration Sept 8]]"
-spawned_by: "[[001 Parse through all notes and classify as big small or hybrid note]]"
+spawned_by: "[[001 Parse through all notes and classify as core - peripheral - partial]]"
+context_type: howto
 status: done
 resolved: partial
 ---
 Parent: [[000 Note Repo Migration Sept 8]]
 
-Spawned in [[001 Parse through all notes and classify as big small or hybrid note#^spawn-howto-9a69d0]]
+Spawned in [[001 Parse through all notes and classify as core - peripheral - partial#^spawn-howto-9a69d0]]
 
 # 1 Objective
 

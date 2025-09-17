@@ -42,7 +42,7 @@ Remove the spaces in the backticks, these were added for formatting here only.
 
 Code for `start_log.js` will be provided.
 
-## 4.1 (~1) Create `open_timeline_log.js`
+## 4.1 (~1) Create open_timeline_log.js
 
 Using LLM (chatgpt-4o),
 

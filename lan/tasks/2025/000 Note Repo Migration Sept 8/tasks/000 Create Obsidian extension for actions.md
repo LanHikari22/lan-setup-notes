@@ -1,5 +1,7 @@
 ---
 parent: "[[000 Note Repo Migration Sept 8]]"
+context_type: task
+status: done
 ---
 
 #proj 

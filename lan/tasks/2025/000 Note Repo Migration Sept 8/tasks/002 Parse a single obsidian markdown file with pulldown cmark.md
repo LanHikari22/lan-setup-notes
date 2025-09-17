@@ -1,6 +1,7 @@
 ---
 parent: "[[000 Note Repo Migration Sept 8]]"
 spawned_by: "[[001 How does obsidian-export parse markdown in postprocessors?]]"
+context_type: task
 status: done
 ---
 
@@ -14,7 +15,7 @@ Spawned in [[001 How does obsidian-export parse markdown in postprocessors?#^spa
 
 You can find the library [here](https://github.com/pulldown-cmark/pulldown-cmark/).
 
-Let's build on the project we created in [[001 Parse through all notes and classify as big small or hybrid note]]
+Let's build on the project we created in [[001 Parse through all notes and classify as core - peripheral - partial]]
 
 ```sh
 # in /home/lan/src/cloned/gh/LanHikari22/lan-exp-scripts/scripts/2025/weekly/Wk37-000-obsidian-vault-migration-rs/migration_rs
@@ -38,7 +39,7 @@ cargo run --bin ex000_parse_single_pulldown_cmark ~/src/cloned/gh/LanHikari22/la
 
 and get all the pulldown events printed for that speciifc markdown file.
 
-We will see headings like this, which are of interest for [[001 Parse through all notes and classify as big small or hybrid note|our classification task]]:
+We will see headings like this, which are of interest for [[001 Parse through all notes and classify as core - peripheral - partial|our classification task]]:
 
 ```
 Event Start(Heading { level: H1, id: None, classes: [], attrs: [] })

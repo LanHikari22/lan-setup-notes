@@ -22,6 +22,24 @@ This introduces breaking changes for [[000 Setting up time logging in Obsidian]]
 
 # 3 Journal
 
+2025-09-17 Wk 38 Wed - 03:44 +03:00
+
+We should have the building blocks necessary for starting the migration.
+
+Spawn [[009 Impl and carry out cluster note migration]] ^spawn-task-3773c5
+
+2025-09-17 Wk 38 Wed - 03:50 +03:00
+
+Spawn [[000 Precommit errors prior to expt004 commit]] ^spawn-issue-7a20bd
+
+2025-09-17 Wk 38 Wed - 12:38 +03:00
+
+Commited to [gh deltachives/2025-Wk37-000-obsidian-migration](https://github.com/deltachives/2025-Wk37-000-obsidian-migration),
+
+```
+7f023e8 (HEAD -> main, origin/main) expt004 information extracted like links and spawns
+```
+
 # 4 External Links
 
 # 5 References
@@ -38,6 +56,8 @@ This introduces breaking changes for [[000 Setting up time logging in Obsidian]]
 [[001 Specifying arguments and returns in rust function docs]]
 
 [[002 Copying folder structure but modifying some files in Rust]]
+
+[[003 Rename github origin master branch to main]]
 ## 6.3 Ideas
 ## 6.4 Inferences
 ## 6.5 Investigations
@@ -49,9 +69,9 @@ This introduces breaking changes for [[000 Setting up time logging in Obsidian]]
 ## 6.6 Issues
 ## 6.7 Tasks
 
-**Todo** [[000 Create Obsidian extension for actions]]
+[[000 Create Obsidian extension for actions]]
 
-**Todo** [[001 Parse through all notes and classify as big small or hybrid note]]
+**todo** [[001 Parse through all notes and classify as core - peripheral - partial]]
 
 [[002 Parse a single obsidian markdown file with pulldown cmark]]
 
@@ -59,4 +79,6 @@ This introduces breaking changes for [[000 Setting up time logging in Obsidian]]
 
 [[004 Parse parent frontmatter property for time log summaries]]
 
-**Todo** [[005 Create Spawn Note Command]]
+**todo** [[005 Create Spawn Note Command]]
+
+**todo** [[006 Regenerate cluster core note index heading]]

@@ -1,6 +1,7 @@
 ---
 parent: "[[000 Note Repo Migration Sept 8]]"
 spawned_by: "[[003 Make everything under lan_rs_common featured for very minimal includes]]"
+context_type: howto
 status: todo
 ---
 Parent: [[000 Note Repo Migration Sept 8]]

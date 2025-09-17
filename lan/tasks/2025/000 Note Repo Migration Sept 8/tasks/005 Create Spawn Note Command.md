@@ -1,14 +1,15 @@
 ---
 parent: "[[000 Note Repo Migration Sept 8]]"
 spawned_by: "[[000 Create Obsidian extension for actions]]"
+context_type: task
+status: todo
 ---
-
+2025-09-11 Wk 37 Thu - 02:49 +03:00
 #obsidian
-
 
 Parent: [[000 Note Repo Migration Sept 8]]
 
-Spawned in [[000 Create Obsidian extension for actions#^spawn-task-ebfb30]]
+Spawned in [[000 Create Obsidian extension for actions#^spawn-task-ebfb30|spawn-task-ebfb30]]
 
 # 1 Journal
 
@@ -242,4 +243,73 @@ We can see it's just a matter of replacing range at just the cursor position. Fo
 
 2025-09-11 Wk 37 Thu - 00:11 +03:00
 
+(update)
 I use `throw new Error("unimplemented");` for functions I've not written yet.
+
+2025-09-11 Wk 37 Thu - 16:30 +03:00
+
+To make it easier to use, added it as a vscode snippet in `/home/lan/.config/Code/User/snippets/typescript.json`
+
+```json
+"Unimplemented": {
+	"prefix": "unimplemented",
+	"body": [
+		"throw new Error(\"unimplemented\");",
+	],
+	"description": "Unimplemented"
+}
+```
+
+(/update)
+
+2025-09-11 Wk 37 Thu - 01:33 +03:00
+
+The implementation now should handle spawning a new small note and building a dual brindge, as well as all the frontmatter details. What remains after testing this is updating the index. 
+
+2025-09-11 Wk 37 Thu - 01:40 +03:00
+
+Now testing.
+
+```
+ Error: Could not find file for link [[000 Note Repo Migration Sept 8]]
+ Error: Could not retrieve frontmatter note property parent for 005 Create Spawn Note Command.md
+ Error: Could not get big note index file for 005 Create Spawn Note Command.md
+```
+
+It preserved the `[[ ]]`. Need to remove those.
+
+2025-09-11 Wk 37 Thu - 01:51 +03:00
+
+It fails to generate triplet IDs unless the context type folder exists. Need to create it if it doesn't.
+
+2025-09-11 Wk 37 Thu - 01:58 +03:00
+
+Just have to add `.md` to the generated file. It created it, but without extension. Other minor issue is that it said `spawn-inferences`, when it should be a small code `infer` for the block identifier.
+
+2025-09-11 Wk 37 Thu - 02:07 +03:00
+
+It works! All that remains is updating the index. We add a `status: todo` frontmatter property by default to spawned items unless they are an entry, an idea, or an inference. `status: {status}` this `{status}` needs to be captured in the index as `**{status}** {note}`. 
+
+2025-09-11 Wk 37 Thu - 02:15 +03:00
+
+Awesome! We can spawn much more freely now! Let's tackle the last item!
+
+Spawn [[006 Regenerate cluster core note index heading]] ^spawn-task-d5eb50
+
+2025-09-11 Wk 37 Thu - 02:36 +03:00
+
+We're also able to spawn from the index file! One more thing, the shown categories should be singular. Not Entries, but Entry, for example. We're spawning just one note.
+
+2025-09-11 Wk 37 Thu - 02:43 +03:00
+
+Names changed! And made the string conversion general since there's many of them.
+
+Spawn [[003 Rename github origin master branch to main]] ^spawn-howto-ea5401
+
+2025-09-11 Wk 37 Thu - 17:38 +03:00
+
+Input handling accepts `]]` and then results in issues.
+
+Spawn [[007 Add some note name sanitization for spawn note]] ^spawn-task-b8adc5
+
+

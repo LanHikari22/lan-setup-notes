@@ -204,9 +204,12 @@ export YDOTOOL_SOCKET="$HOME/.ydotool_socket"
 
 (/LLM chatgpt-4o)
 
-## 6.4 Issues with [ydotool cv test script](<https://github.com/LanHikari22/lan-exp-scripts/blob/main/scripts/2025/Wk27-000-expedition-33-ui-auto/test.py>)
+## 6.4 Issues with ydotool cv test script
+
 
 2025-07-05 Wk 27 Sat - 02:30
+
+[ydotool cv test script](<https://github.com/LanHikari22/lan-exp-scripts/blob/main/scripts/2025/Wk27-000-expedition-33-ui-auto/test.py>)
 
 While testing for this, will need to remember to
 
@@ -904,11 +907,11 @@ YDOTOOL_SOCKET="/home/lan/.ydotool_socket" /home/lan/src/cloned/gh/ReimuNotMoe/y
 
 # 7 Investigations
 
-## 7.1 On [GTK](<https://www.gtk.org/>)
+## 7.1 On GTK
 
 2025-07-05 Wk 27 Sat - 14:10
 
-[Architecture](<https://www.gtk.org/docs/architecture/>).
+[GTK](<https://www.gtk.org/>). [Architecture](<https://www.gtk.org/docs/architecture/>).
 
 ![[Pasted image 20250705141154.png]]
 
