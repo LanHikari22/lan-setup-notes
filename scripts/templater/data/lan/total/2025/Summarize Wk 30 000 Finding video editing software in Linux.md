@@ -1,0 +1,8 @@
+# Time Summary – Wk 30 000 Finding video editing software in Linux
+
+| Note/Heading | Time Spent |
+|--------------|------------|
+| **Total** | **0h 41m 39s** |
+| [[Wk 30 000 Finding video editing software in Linux]] | **0h 41m 39s** |
+| &nbsp;&nbsp;&nbsp;&nbsp;[[Wk 30 000 Finding video editing software in Linux#3.1 Reporting video seek issue\|3.1 Reporting video seek issue]] | 0h 41m 39s |
+

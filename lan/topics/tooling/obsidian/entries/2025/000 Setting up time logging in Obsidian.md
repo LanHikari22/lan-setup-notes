@@ -92,6 +92,10 @@ It also creates a folder under
 ./scripts/templater/data/$username
 ```
 
+2025-09-17 Wk 38 Wed - 13:53 +03:00
+
+Updated summaries so that there's no "all" summary, but many total summary files by root item. This way we can refer to total time taken on a specific note or note cluster.
+
 # 4 Some Issues
 
 2025-09-10 Wk 37 Wed - 05:27 +03:00
