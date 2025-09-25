@@ -1,4 +1,4 @@
-# Time Summary – Wk 26 000 On why the rust linker is single-threaded
+# 1 Time Summary – Wk 26 000 On why the rust linker is single-threaded
 
 | Note/Heading | Time Spent |
 |--------------|------------|

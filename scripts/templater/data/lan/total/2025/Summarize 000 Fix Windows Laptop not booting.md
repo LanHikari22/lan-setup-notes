@@ -1,4 +1,4 @@
-# Time Summary – 000 Fix Windows Laptop not booting
+# 1 Time Summary – 000 Fix Windows Laptop not booting
 
 | Note/Heading | Time Spent |
 |--------------|------------|

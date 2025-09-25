@@ -1,4 +1,4 @@
-# Time Summary – 001 Fix yanking in nvim and tmux not going to clipboard in Ubuntu 25.04
+# 1 Time Summary – 001 Fix yanking in nvim and tmux not going to clipboard in Ubuntu 25.04
 
 | Note/Heading | Time Spent |
 |--------------|------------|

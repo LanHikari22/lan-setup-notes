@@ -1,4 +1,4 @@
-# Time Summary – Wk 26 000 Add script for opening obsidian note quickly
+# 1 Time Summary – Wk 26 000 Add script for opening obsidian note quickly
 
 | Note/Heading | Time Spent |
 |--------------|------------|

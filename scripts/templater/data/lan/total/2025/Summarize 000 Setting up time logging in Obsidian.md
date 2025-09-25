@@ -1,4 +1,4 @@
-# Time Summary – 000 Setting up time logging in Obsidian
+# 1 Time Summary – 000 Setting up time logging in Obsidian
 
 | Note/Heading | Time Spent |
 |--------------|------------|

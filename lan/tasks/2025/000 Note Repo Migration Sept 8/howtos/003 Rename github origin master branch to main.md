@@ -7,7 +7,9 @@ status: done
 
 Parent: [[000 Note Repo Migration Sept 8]]
 
-Spawned in [[005 Create Spawn Note Command#^spawn-howto-ea5401|^spawn-howto-ea5401]]
+Spawned by: [[005 Create Spawn Note Command]]
+
+Spawned in: [[005 Create Spawn Note Command#^spawn-howto-ea5401|^spawn-howto-ea5401]]
 
 # 1 Journal
 

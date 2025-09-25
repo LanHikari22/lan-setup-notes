@@ -1,4 +1,4 @@
-# Time Summary – 000 Making Greasemonkey scripts
+# 1 Time Summary – 000 Making Greasemonkey scripts
 
 | Note/Heading | Time Spent |
 |--------------|------------|

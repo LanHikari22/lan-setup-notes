@@ -58,7 +58,7 @@ async function accumulateDurations(entries, vault, metadataCache) {
 // === Markdown Table Formatter for full summary ===
 function formatMarkdownTable(summaryData, title, includeTotalRow = false) {
 	const { summary, childMap } = summaryData;
-	let report = `# Time Summary – ${title}\n\n`;
+	let report = `# 1 Time Summary – ${title}\n\n`;
 	report += `| Note/Heading | Time Spent |\n`;
 	report += `|--------------|------------|\n`;
 
@@ -102,7 +102,7 @@ function formatMarkdownTable(summaryData, title, includeTotalRow = false) {
 
 // === Markdown Formatter for a single branch ===
 function formatBranchMarkdown(summary, childMap, root, includeTotalRow = false) {
-	let report = `# Time Summary – ${root}\n\n`;
+	let report = `# 1 Time Summary – ${root}\n\n`;
 	report += `| Note/Heading | Time Spent |\n`;
 	report += `|--------------|------------|\n`;
 

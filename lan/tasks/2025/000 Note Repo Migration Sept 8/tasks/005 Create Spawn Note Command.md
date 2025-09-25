@@ -4,12 +4,13 @@ spawned_by: "[[000 Create Obsidian extension for actions]]"
 context_type: task
 status: todo
 ---
-2025-09-11 Wk 37 Thu - 02:49 +03:00
 #obsidian
 
 Parent: [[000 Note Repo Migration Sept 8]]
 
-Spawned in [[000 Create Obsidian extension for actions#^spawn-task-ebfb30|spawn-task-ebfb30]]
+Spawned by: [[000 Create Obsidian extension for actions]]
+
+Spawned in [[000 Create Obsidian extension for actions#^spawn-task-ebfb30|^spawn-task-ebfb30]]
 
 # 1 Journal
 

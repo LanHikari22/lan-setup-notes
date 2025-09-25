@@ -7,7 +7,9 @@ status: done
 
 Parent: [[000 Note Repo Migration Sept 8]]
 
-Spawned in [[001 How does obsidian-export parse markdown in postprocessors?#^spawn-task-0d2c20]]
+Spawned by: [[001 How does obsidian-export parse markdown in postprocessors?]]
+
+Spawned in: [[001 How does obsidian-export parse markdown in postprocessors?#^spawn-task-0d2c20|^spawn-task-0d2c20]]
 
 # 1 Journal
 

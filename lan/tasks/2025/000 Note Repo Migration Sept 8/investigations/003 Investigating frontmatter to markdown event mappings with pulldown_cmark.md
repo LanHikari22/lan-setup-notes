@@ -2,7 +2,7 @@
 parent: "[[000 Note Repo Migration Sept 8]]"
 spawned_by: "[[001 Parse through all notes and classify as core - peripheral - partial]]"
 context_type: investigation
-status: todo
+status: done
 ---
 
 Parent: [[000 Note Repo Migration Sept 8]]

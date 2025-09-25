@@ -28,6 +28,40 @@ Checked [gh LanHikari22/bn_repo_editor](https://github.com/LanHikari22/bn_repo_e
 cargo add clap --features "cargo"
 ```
 
+Spawn [[004 Writing events back to file with pulldown cmark]] ^spawn-howto-6ee267
 
+2025-09-23 Wk 39 Tue - 04:16 +03:00
 
+So we're able to convert from events back to markdown files, but this will likely introduce some minor noise, like line trims or spacing. Let's add a subcommand to just read events and write them back for all markdown files in the vault.
 
+2025-09-23 Wk 39 Tue - 04:55 +03:00
+
+Had to redo some minor work for some reason, but everything is commited now.
+
+```sh
+# in /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration
+cargo run --bin app -- writeback ~/src/cloned/gh/deltatraced/delta-trace
+
+# out (error, relevant)
+thread 'main' panicked at /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration/src/drivers.rs:67:10:
+Failed to get working items
+```
+
+2025-09-23 Wk 39 Tue - 05:34 +03:00
+
+Changed some `Option<T>` opaque errors into detailed errors per function.
+
+```sh
+# in /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration
+cargo run --bin app -- writeback ~/src/cloned/gh/deltatraced/delta-trace
+
+# out (error, relevant)
+thread 'main' panicked at /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration/src/drivers.rs:67:10:
+Failed to get working items: FailedToGetCategoryFoldersAndPeripherals(NotAClusterCategoryFolderPath("/home/lan/src/cloned/gh/deltatraced/delta-trace/lan/templates/000 big note/side-notes"))
+```
+
+Oh I see! I still had that old template folder there when we started designing cluster notes. Let's delete it.
+
+2025-09-23 Wk 39 Tue - 05:41 +03:00
+
+Spawn [[010 Apply markdown writeback on delta-trace vault]] ^spawn-task-e5af29

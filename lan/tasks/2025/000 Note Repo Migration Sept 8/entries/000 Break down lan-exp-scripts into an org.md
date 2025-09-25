@@ -6,7 +6,9 @@ context_type: entry
 
 Parent: [[000 Note Repo Migration Sept 8]]
 
-Spawned in [[001 Parse through all notes and classify as core - peripheral - partial#^spawn-entry-e65ac0]]
+Spawned by: [[001 Parse through all notes and classify as core - peripheral - partial]]
+
+Spawned in: [[001 Parse through all notes and classify as core - peripheral - partial#^spawn-entry-e65ac0|^spawn-entry-e65ac0]]
 
 # 1 Journal
 

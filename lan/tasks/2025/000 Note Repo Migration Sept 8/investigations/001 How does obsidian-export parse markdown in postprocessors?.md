@@ -7,7 +7,9 @@ status: done
 
 Parent: [[000 Note Repo Migration Sept 8]]
 
-Spawned in [[000 How should we parse markdown files in Rust?#^spawn-invst-4917e8]]
+Spawned by: [[000 How should we parse markdown files in Rust?]]
+
+Spawned in: [[000 How should we parse markdown files in Rust?#^spawn-invst-4917e8|^spawn-invst-4917e8]]
 
 # 1 Journal
 

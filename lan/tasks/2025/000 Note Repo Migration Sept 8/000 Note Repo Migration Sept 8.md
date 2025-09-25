@@ -40,6 +40,18 @@ Commited to [gh deltachives/2025-Wk37-000-obsidian-migration](https://github.com
 7f023e8 (HEAD -> main, origin/main) expt004 information extracted like links and spawns
 ```
 
+2025-09-22 Wk 39 Mon - 23:19 +03:00
+
+Spawn [[001 Resources encountered during note repo migration sept 8]] ^spawn-entry-60fe40
+
+2025-09-23 Wk 39 Tue - 00:00 +03:00
+
+Spawn [[001 Some ideas encountered during note repo migration sept 8]] ^spawn-idea-57ecd9
+
+2025-09-23 Wk 39 Tue - 09:55 +03:00
+
+Turns out if we have a `main.rs`, it's included in the `cargo run --bin` options as the name of the crate. In our case, `migration_rs`. But we created an `app` under bin. Let's remove `main.rs` since we can use `--bin app`. 
+
 # 4 External Links
 
 # 5 References

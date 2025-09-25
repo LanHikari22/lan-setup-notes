@@ -6,7 +6,9 @@ status: done
 ---
 Parent: [[000 Note Repo Migration Sept 8]]
 
-Spawned in [[001 Parse through all notes and classify as core - peripheral - partial#^spawn-howto-6ff1c8]]
+Spawned by: [[001 Parse through all notes and classify as core - peripheral - partial]]
+
+Spawned in: [[001 Parse through all notes and classify as core - peripheral - partial#^spawn-howto-6ff1c8|^spawn-howto-6ff1c8]]
 
 # 1 Journal
 

@@ -1,4 +1,4 @@
-# Time Summary – 005 Designate Windows Laptop as backup server with bare git repo per content
+# 1 Time Summary – 005 Designate Windows Laptop as backup server with bare git repo per content
 
 | Note/Heading | Time Spent |
 |--------------|------------|
