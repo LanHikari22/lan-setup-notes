@@ -1,14 +1,14 @@
 ---
-parent: "[[000 Note Repo Migration Sept 8]]"
-spawned_by: "[[001 pulldown cmark to cmark escapes first obsidian tag on writeback]]"
+parent: '[[000 Note Repo Migration Sept 8]]'
+spawned_by: '[[001 pulldown cmark to cmark escapes first obsidian tag on writeback]]'
 context_type: idea
 ---
 
-Parent: [[000 Note Repo Migration Sept 8]]
+Parent: [000 Note Repo Migration Sept 8](../000%20Note%20Repo%20Migration%20Sept%208.md)
 
-Spawned by: [[001 pulldown cmark to cmark escapes first obsidian tag on writeback]] 
+Spawned by: [001 pulldown cmark to cmark escapes first obsidian tag on writeback](../issues/001%20pulldown%20cmark%20to%20cmark%20escapes%20first%20obsidian%20tag%20on%20writeback.md)
 
-Spawned in: [[001 pulldown cmark to cmark escapes first obsidian tag on writeback#^spawn-idea-51f0eb|^spawn-idea-51f0eb]]
+Spawned in: [<a name="spawn-idea-51f0eb" />^spawn-idea-51f0eb](../issues/001%20pulldown%20cmark%20to%20cmark%20escapes%20first%20obsidian%20tag%20on%20writeback.md#spawn-idea-51f0eb)
 
 # 1 Journal
 

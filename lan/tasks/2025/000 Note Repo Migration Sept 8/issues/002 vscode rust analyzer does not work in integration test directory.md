@@ -1,22 +1,21 @@
 ---
-parent: "[[000 Note Repo Migration Sept 8]]"
-spawned_by: "[[001 pulldown cmark to cmark escapes first obsidian tag on writeback]]"
+parent: '[[000 Note Repo Migration Sept 8]]'
+spawned_by: '[[001 pulldown cmark to cmark escapes first obsidian tag on writeback]]'
 context_type: issue
 status: done
 ---
 
-Parent: [[000 Note Repo Migration Sept 8]]
+Parent: [000 Note Repo Migration Sept 8](../000%20Note%20Repo%20Migration%20Sept%208.md)
 
-Spawned by: [[001 pulldown cmark to cmark escapes first obsidian tag on writeback]] 
+Spawned by: [001 pulldown cmark to cmark escapes first obsidian tag on writeback](001%20pulldown%20cmark%20to%20cmark%20escapes%20first%20obsidian%20tag%20on%20writeback.md)
 
-Spawned in: [[001 pulldown cmark to cmark escapes first obsidian tag on writeback#^spawn-issue-07b5a7|^spawn-issue-07b5a7]]
+Spawned in: [<a name="spawn-issue-07b5a7" />^spawn-issue-07b5a7](001%20pulldown%20cmark%20to%20cmark%20escapes%20first%20obsidian%20tag%20on%20writeback.md#spawn-issue-07b5a7)
 
 # 1 Journal
 
-
 2025-09-24 Wk 39 Wed - 03:26 +03:00
 
-It just says the file isn't included anywhere, so it won't analyze it. 
+It just says the file isn't included anywhere, so it won't analyze it.
 
 [gh rust-lang/rust-analyzer #2034](https://github.com/rust-lang/rust-analyzer/issues/2034)
 

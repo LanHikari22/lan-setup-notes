@@ -1,16 +1,16 @@
 ---
-parent: "[[000 Fix Windows Laptop not booting]]"
-spawns: "[[001 Windows 11 USB Drive burnt with dd not recognized by Lenovo Laptop]]"
+parent: '[[000 Fix Windows Laptop not booting]]'
+spawns: '[[001 Windows 11 USB Drive burnt with dd not recognized by Lenovo Laptop]]'
 status: done
 ---
 
-Parent: [[000 Fix Windows Laptop not booting]]
+Parent: [000 Fix Windows Laptop not booting](../000%20Fix%20Windows%20Laptop%20not%20booting.md)
 
-Spawned from [[000 Fix Windows Laptop not booting#^spawn-issue-4d3bdf]]
+Spawned from [000 Fix Windows Laptop not booting > <a name="spawn-issue-4d3bdf" />^spawn-issue-4d3bdf](../000%20Fix%20Windows%20Laptop%20not%20booting.md#spawn-issue-4d3bdf)
 
 # 1 Issue
 
-I do not see the logo, which usually says Lenovo. 
+I do not see the logo, which usually says Lenovo.
 
 I have tried on boot F12, ESC, F11, F10 but I get nowhere.
 
@@ -26,9 +26,10 @@ In [Lenovo5-15IMH05H User Guide](https://download.lenovo.com/consumer/mobiles_pu
 
 They mention
 
-> When the Lenovo logo appears on the screen, press F2 repeatedly.
+ > 
+ > When the Lenovo logo appears on the screen, press F2 repeatedly.
 
-I suspect the laptop keyboard itself to be broken, but this does not work on it or on an external keyboard. 
+I suspect the laptop keyboard itself to be broken, but this does not work on it or on an external keyboard.
 
 I think it is usually the case that the logo has to appear before such keys are registered. But the logo does not even appear.
 
@@ -42,4 +43,4 @@ So I guess eventually this does work, not sure why it takes a while.
 
 But the issue is our USB drive is not recognized with the Windows 11 OS we burnt into it now...
 
-Spawn [[001 Windows 11 USB Drive burnt with dd not recognized by Lenovo Laptop]] ^spawn-issue-0b45b0
+Spawn [001 Windows 11 USB Drive burnt with dd not recognized by Lenovo Laptop](001%20Windows%2011%20USB%20Drive%20burnt%20with%20dd%20not%20recognized%20by%20Lenovo%20Laptop.md) <a name="spawn-issue-0b45b0" />^spawn-issue-0b45b0

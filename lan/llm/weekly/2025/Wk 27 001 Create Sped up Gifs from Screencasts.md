@@ -1,14 +1,13 @@
-
 # 1 Objective
 
-This relates to [[Wk 26 005 Linux screen recording to gif]]. There, we learned to turn a screen cast into a gif. Now I have an 18-minute screencast I want to become a 2 minute gif.
-
+This relates to [Wk 26 005 Linux screen recording to gif](Wk%2026%20005%20Linux%20screen%20recording%20to%20gif.md). There, we learned to turn a screen cast into a gif. Now I have an 18-minute screencast I want to become a 2 minute gif.
 
 # 2 LLM Instructions
-- This is a diagnostic document and not a conversation. Everything shared is context. Address the questions tagged (Q#) like (Q1) for example. If you see something like (~1), assume it part of the archive and not a latest set of questions.
-	- Since it keeps occurring, I ask Again
-	- !!! NEVER RESPOND TO (~1), (~2), etc.
-	- ONLY respond to the tagged questions. Nothing else.
+
+* This is a diagnostic document and not a conversation. Everything shared is context. Address the questions tagged (Q#) like (Q1) for example. If you see something like (~1), assume it part of the archive and not a latest set of questions.
+  * Since it keeps occurring, I ask Again
+  * !!! NEVER RESPOND TO (~1), (~2), etc.
+  * ONLY respond to the tagged questions. Nothing else.
 
 (LLM chatgpt-4o)
 (Note: Between these tags is responses from ChatGPT-4o.
@@ -21,9 +20,9 @@ This relates to [[Wk 26 005 Linux screen recording to gif]]. There, we learned t
 
 2025-07-02 Wk 27 Wed - 17:39
 
-[[Wk 26 005 Linux screen recording to gif#^src-solution|Before]], we used
+[Before](Wk%2026%20005%20Linux%20screen%20recording%20to%20gif.md#src-solution), we used
 
-```sh
+````sh
 #!/bin/bash
 
 # Usage: ./webm2gif.sh <webm_path> <start_time> <stop_time>
@@ -59,14 +58,13 @@ ffmpeg -i "$in" -ss "$start" -t "$duration" \
   -vf "fps=10,scale=800:-1:flags=lanczos" -c:v gif "$gifout"
 
 echo "Saved ➜ $gifout"
-```
+````
 
-
-Now we want to use `ffmpeg` to instead compress the video to a specified length instead of stripping ends. 
+Now we want to use `ffmpeg` to instead compress the video to a specified length instead of stripping ends.
 
 (LLM chatgpt-4o)
 
-```sh
+````sh
 input_webm="/home/lan/Videos/Screencasts/Screencast From 2025-07-02 16-49-00.webm"
 output_gif="$(echo $(echo $input_webm | rev | cut -f 2- -d '.' | rev).gif)"
 
@@ -74,7 +72,7 @@ output_gif="$(echo $(echo $input_webm | rev | cut -f 2- -d '.' | rev).gif)"
 ffmpeg -i "$input_webm" \
   -vf "setpts=PTS/9,fps=10,scale=800:-1:flags=lanczos" \
   -an output.gif
-```
+````
 
 (/LLM chatgpt-4o)
 
@@ -86,12 +84,10 @@ ffmpeg -i "$input_webm" \
 
 2025-07-02 Wk 27 Wed - 17:56
 
-[Answer](<https://stackoverflow.com/a/32584935/6944447>) by [Manish Singh](https://stackoverflow.com/users/518493/manish-singh) on stripping extensions,
+[Answer](https://stackoverflow.com/a/32584935/6944447) by [Manish Singh](https://stackoverflow.com/users/518493/manish-singh) on stripping extensions,
 
-```sh
+````sh
 echo $filename | rev | cut -f 2- -d '.' | rev
-```
-
-
+````
 
 # 5 References

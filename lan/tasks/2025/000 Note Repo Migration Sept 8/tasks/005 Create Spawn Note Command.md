@@ -1,16 +1,17 @@
 ---
-parent: "[[000 Note Repo Migration Sept 8]]"
-spawned_by: "[[000 Create Obsidian extension for actions]]"
+parent: '[[000 Note Repo Migration Sept 8]]'
+spawned_by: '[[000 Create Obsidian extension for actions]]'
 context_type: task
 status: todo
 ---
-#obsidian
 
-Parent: [[000 Note Repo Migration Sept 8]]
+\#obsidian
 
-Spawned by: [[000 Create Obsidian extension for actions]]
+Parent: [000 Note Repo Migration Sept 8](../000%20Note%20Repo%20Migration%20Sept%208.md)
 
-Spawned in [[000 Create Obsidian extension for actions#^spawn-task-ebfb30|^spawn-task-ebfb30]]
+Spawned by: [000 Create Obsidian extension for actions](000%20Create%20Obsidian%20extension%20for%20actions.md)
+
+Spawned in [<a name="spawn-task-ebfb30" />^spawn-task-ebfb30](000%20Create%20Obsidian%20extension%20for%20actions.md#spawn-task-ebfb30)
 
 # 1 Journal
 
@@ -24,23 +25,24 @@ Seems I have to do `^P Reload app without saving` to get changes to register.
 
 We added a currently empty command
 
-```ts
+````ts
 this.addCommand({
 	id: "spawn-note",
 	name: "Spawn Note",
 	editorCallback: spawn_note_command.run,
 });
-```
+````
 
 2025-09-10 Wk 37 Wed - 18:15 +03:00
 
 The base information of interest to us is
-- The current note, and its content
-- The current cursor position in that note
-- The folder the note belongs to, and possibly the folder that belongs to
-- Ability to edit the content of notes in those folders
-- Ability to add a category folder if it doesn't exist
-- Ability to add a new note to a folder relative to our current folder
+
+* The current note, and its content
+* The current cursor position in that note
+* The folder the note belongs to, and possibly the folder that belongs to
+* Ability to edit the content of notes in those folders
+* Ability to add a category folder if it doesn't exist
+* Ability to add a new note to a folder relative to our current folder
 
 API information can be found at [gh obsidianmd/obsidian-api](https://github.com/obsidianmd/obsidian-api) and on the [obsidian developer docs](https://docs.obsidian.md/Home)
 
@@ -52,7 +54,7 @@ getCursor gives us an [EditorPosition](https://docs.obsidian.md/Reference/TypeSc
 
 We'll log with `console.log`, just do `Ctrl+Shift+I` and undock
 
-![[Pasted image 20250910184323.png]]
+![Pasted image 20250910184323.png](../../../../../attachments/Pasted%20image%2020250910184323.png)
 
 2025-09-10 Wk 37 Wed - 19:38 +03:00
 
@@ -66,7 +68,7 @@ There's [tp.app.vault.adapter](https://docs.obsidian.md/Reference/TypeScript+API
 
 Here are some traces
 
-```ts
+````ts
 import { Editor, MarkdownView } from 'obsidian';
 
 export async function run(editor: Editor, view: MarkdownView) {
@@ -104,9 +106,9 @@ export async function run(editor: Editor, view: MarkdownView) {
 
     console.log(`(/Spawn)\n\n`)
 }
-```
+````
 
-```
+````
 (Spawn)
 file path: lan/tasks/2025/000 Note Repo Migration Sept 8/tasks/005 Create Spawn Note Command.md
 file name: 005 Create Spawn Note Command.md
@@ -120,15 +122,15 @@ cursor: [object Object]
 current_line: getCursor gives us an [EditorPosition](https://docs.obsidian.md/Reference/TypeScript+API/EditorPosition) whose line propery can be given to getLine to give us the current line the cursor is at.
 doc: [object Object]
 (/Spawn)
-```
+````
 
-A lot of those say [object Object] so we should view them as JSON dictionaries.
+A lot of those say \[object Object\] so we should view them as JSON dictionaries.
 
 2025-09-10 Wk 37 Wed - 20:29 +03:00
 
 Using `JSON.stringify` on these objects causes an error `Converting circular structure to JSON`:
 
-```ts
+````ts
 const opt_file = view.file;
 
 if (opt_file) {
@@ -136,60 +138,60 @@ if (opt_file) {
 }
 	
 console.log(`doc: ${JSON.stringify(editor.getDoc())}`);
-```
+````
 
 The cache gives us some information about the frontmatter properties as well as tags and other things like getting heading positions.
 
-```ts
+````ts
 const opt_file = view.file;
 
 if (opt_file) {
 	console.log(`cache: ${JSON.stringify(view.app.metadataCache.getFileCache(opt_file))}`);
 }
-```
+````
 
 Some selective output:
 
-```
+````
 tags":[{"position":{"start":{"line":5,"col":0,"offset":149},"end":{"line":5,"col":9,"offset":158}},"tag":"#obsidian"}]
 
 "frontmatterLinks":[{"key":"parent","link":"000 Note Repo Migration Sept 8","original":"[[000 Note Repo Migration Sept 8]]","displayText":"000 Note Repo Migration Sept 8"},{"key":"spawned_by","link":"000 Create Obsidian extension for actions","original":"[[000 Create Obsidian extension for actions]]","displayText":"000 Create Obsidian extension for actions"}]
-```
+````
 
 2025-09-10 Wk 37 Wed - 20:44 +03:00
 
 For the cursor,
 
-```ts
+````ts
 console.log(`cursor: ${JSON.stringify(cursor)}`);
-```
+````
 
-```
+````
 cursor: {"line":47,"ch":192}
 
-```
+````
 
 192 points to the index of the last character in the line. That line happens to be 193 characters long, and I took this trace with my cursor at the very end of the line.
 
 We can get modification timestamps:
 
-```ts
+````ts
 const opt_file = view.file;
 
 if (opt_file) {
 	console.log(`file stat: ${JSON.stringify(opt_file.stat)}`);
 }
-```
+````
 
-```
+````
 file stat: {"ctime":1757514159040,"mtime":1757526398374,"size":5764}
-```
+````
 
 2025-09-10 Wk 37 Wed - 20:51 +03:00
 
 via LLM suggestion we can use this to view the circular objects:
 
-```ts
+````ts
 const opt_file = view.file;
 
 if (opt_file) {
@@ -197,7 +199,7 @@ if (opt_file) {
 }
 
 console.dir(editor.getDoc(), { depth: null});
-```
+````
 
 Those are big objects.
 
@@ -213,14 +215,13 @@ There's [SuggestModal](https://docs.obsidian.md/Reference/TypeScript+API/Suggest
 
 User input is setup!
 
-![[Pasted image 20250910224147.png]]
+![Pasted image 20250910224147.png](../../../../../attachments/Pasted%20image%2020250910224147.png)
 
-![[Pasted image 20250910224218.png]]
+![Pasted image 20250910224218.png](../../../../../attachments/Pasted%20image%2020250910224218.png)
 
-![[Pasted image 20250910224246.png]]
+![Pasted image 20250910224246.png](../../../../../attachments/Pasted%20image%2020250910224246.png)
 
-
-![[Pasted image 20250910224348.png]]
+![Pasted image 20250910224348.png](../../../../../attachments/Pasted%20image%2020250910224348.png)
 
 And finally the logic sets off once we have all user input!
 
@@ -234,7 +235,7 @@ There is [Notice](https://docs.obsidian.md/Reference/TypeScript+API/Notice) for 
 
 For a capability test, we need to be able to add content at the next line from the cursor on user invocation.
 
-From [obsidian docs Insert text at cursor position](https://docs.obsidian.md/Plugins/Editor/Editor#Insert+text+at+cursor+position), 
+From [obsidian docs Insert text at cursor position](https://docs.obsidian.md/Plugins/Editor/Editor#Insert+text+at+cursor+position),
 
 We can see it's just a matter of replacing range at just the cursor position. For it to be a new line, maybe we can just add a new line character at the cursor position.
 
@@ -251,7 +252,7 @@ I use `throw new Error("unimplemented");` for functions I've not written yet.
 
 To make it easier to use, added it as a vscode snippet in `/home/lan/.config/Code/User/snippets/typescript.json`
 
-```json
+````json
 "Unimplemented": {
 	"prefix": "unimplemented",
 	"body": [
@@ -259,23 +260,23 @@ To make it easier to use, added it as a vscode snippet in `/home/lan/.config/Cod
 	],
 	"description": "Unimplemented"
 }
-```
+````
 
 (/update)
 
 2025-09-11 Wk 37 Thu - 01:33 +03:00
 
-The implementation now should handle spawning a new small note and building a dual brindge, as well as all the frontmatter details. What remains after testing this is updating the index. 
+The implementation now should handle spawning a new small note and building a dual brindge, as well as all the frontmatter details. What remains after testing this is updating the index.
 
 2025-09-11 Wk 37 Thu - 01:40 +03:00
 
 Now testing.
 
-```
+````
  Error: Could not find file for link [[000 Note Repo Migration Sept 8]]
  Error: Could not retrieve frontmatter note property parent for 005 Create Spawn Note Command.md
  Error: Could not get big note index file for 005 Create Spawn Note Command.md
-```
+````
 
 It preserved the `[[ ]]`. Need to remove those.
 
@@ -289,13 +290,13 @@ Just have to add `.md` to the generated file. It created it, but without extensi
 
 2025-09-11 Wk 37 Thu - 02:07 +03:00
 
-It works! All that remains is updating the index. We add a `status: todo` frontmatter property by default to spawned items unless they are an entry, an idea, or an inference. `status: {status}` this `{status}` needs to be captured in the index as `**{status}** {note}`. 
+It works! All that remains is updating the index. We add a `status: todo` frontmatter property by default to spawned items unless they are an entry, an idea, or an inference. `status: {status}` this `{status}` needs to be captured in the index as `**{status}** {note}`.
 
 2025-09-11 Wk 37 Thu - 02:15 +03:00
 
 Awesome! We can spawn much more freely now! Let's tackle the last item!
 
-Spawn [[006 Regenerate cluster core note index heading]] ^spawn-task-d5eb50
+Spawn [006 Regenerate cluster core note index heading](006%20Regenerate%20cluster%20core%20note%20index%20heading.md) <a name="spawn-task-d5eb50" />^spawn-task-d5eb50
 
 2025-09-11 Wk 37 Thu - 02:36 +03:00
 
@@ -305,12 +306,10 @@ We're also able to spawn from the index file! One more thing, the shown categori
 
 Names changed! And made the string conversion general since there's many of them.
 
-Spawn [[003 Rename github origin master branch to main]] ^spawn-howto-ea5401
+Spawn [003 Rename github origin master branch to main](../howtos/003%20Rename%20github%20origin%20master%20branch%20to%20main.md) <a name="spawn-howto-ea5401" />^spawn-howto-ea5401
 
 2025-09-11 Wk 37 Thu - 17:38 +03:00
 
 Input handling accepts `]]` and then results in issues.
 
-Spawn [[007 Add some note name sanitization for spawn note]] ^spawn-task-b8adc5
-
-
+Spawn [007 Add some note name sanitization for spawn note](007%20Add%20some%20note%20name%20sanitization%20for%20spawn%20note.md) <a name="spawn-task-b8adc5" />^spawn-task-b8adc5

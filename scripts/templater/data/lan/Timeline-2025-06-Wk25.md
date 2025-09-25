@@ -1,6 +1,6 @@
 2025-08-06 Wk 32 Wed - 02:46# 1 Time Logs
 
-```simple-time-tracker
+````simple-time-tracker
 {
   "entries": [
     {
@@ -10,4 +10,4 @@
     }
   ]
 }
-```
+````
