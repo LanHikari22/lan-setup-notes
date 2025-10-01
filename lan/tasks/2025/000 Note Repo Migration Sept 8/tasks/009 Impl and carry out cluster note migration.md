@@ -65,3 +65,7 @@ Oh I see! I still had that old template folder there when we started designing c
 2025-09-23 Wk 39 Tue - 05:41 +03:00
 
 Spawn [[010 Apply markdown writeback on delta-trace vault]] ^spawn-task-e5af29
+
+2025-09-30 Wk 40 Tue - 08:40 +03:00
+
+Spawn [[013 Change all delta-trace old format notes into note clusters without applying link fixing]] ^spawn-task-479e16
