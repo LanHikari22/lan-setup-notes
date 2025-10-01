@@ -2,7 +2,7 @@
 parent: "[[000 Note Repo Migration Sept 8]]"
 spawned_by: "[[010 Apply markdown writeback on delta-trace vault]]"
 context_type: issue
-status: todo
+status: done
 ---
 
 Parent: [[000 Note Repo Migration Sept 8]]
@@ -611,3 +611,8 @@ frontmatter broke again. We need to create tests for small writeback cases we en
 Spawn [[002 vscode rust analyzer does not work in integration test directory]] ^spawn-issue-07b5a7
 
 Spawn [[011 Create integration tests for obsidian patch fixes for sept 8 migration]] ^spawn-task-b4d4c2
+
+2025-09-30 Wk 40 Tue - 08:09 +03:00
+
+writeback now does not change delta-trace vault
+

@@ -2,7 +2,7 @@
 parent: "[[000 Note Repo Migration Sept 8]]"
 spawned_by: "[[009 Impl and carry out cluster note migration]]"
 context_type: task
-status: todo
+status: done
 ---
 
 Parent: [[000 Note Repo Migration Sept 8]]
@@ -27,7 +27,5 @@ git status | wc -l
 ```
 
 Lots of things changed.
-
-First issue encountered:
 
 Spawn [[001 pulldown cmark to cmark escapes first obsidian tag on writeback]] ^spawn-issue-9b47f5
