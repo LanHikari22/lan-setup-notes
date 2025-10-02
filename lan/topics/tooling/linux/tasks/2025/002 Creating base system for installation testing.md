@@ -1,73 +1,75 @@
 ---
 status: done
 ---
-#lan #docker #linux #ubuntu #st/done #external 
+
+\#lan #docker #linux #ubuntu #st/done #external
 
 # 1 Objective
 
-To test installations on various systems, starting with mine (Ubuntu 25.04). 
+To test installations on various systems, starting with mine (Ubuntu 25.04).
 
 # 2 Journal
 
-## 2.1 On Starting docker setup 
+## 2.1 On Starting docker setup
 
-We can use [gh docker awesome-compose ex](https://github.com/docker/awesome-compose/tree/master/wireguard) [[#^1]] as a starting point.
+We can use [gh docker awesome-compose ex](https://github.com/docker/awesome-compose/tree/master/wireguard) [<a name="1" />^1](002%20Creating%20base%20system%20for%20installation%20testing.md#1) as a starting point.
 
 They use `compose.yml` and have an `.env` file...
 
-Since we want these boxes to be immediately usable, we wouldn't want the user to modify configuration unless they want to. This needs to be something they can run both in Windows and Linux. 
+Since we want these boxes to be immediately usable, we wouldn't want the user to modify configuration unless they want to. This needs to be something they can run both in Windows and Linux.
 
 2025-07-19 Wk 29 Sat - 01:11
 
 I've handled the mounting issue in [dbmint](https://github.com/LanHikari22/dbmint) by basically just mounting to the current location `.`. The user can determine where to run it then on their own.
 
-```sh
+````sh
 docker run --rm -it -v .:/mnt/ --user $(id -u):$(id -g) lan22h/dbmint:latest gen schema.dbml -o mydb.db
-```
+````
 
 This fetches the image itself however, and not from repository by box id like we're planning here.
 
 For rs_repo,
 
-```rust
+````rust
 git clone https://github.com/LanHikari22/rs_repro.git && cd rs_repro && cargo run --features "repro003"
-```
+````
 
-Here the repository cloning and building and running is all done. 
+Here the repository cloning and building and running is all done.
 
 The issue is that it does setup + running, and so doing it multiple times in a row is not gonna work well.
 
-Do we want to create an image `lan22h/boxXXX` for each box, then? I mean this is feasible and it will at least give us immediate running rather than clone and build and run which is not repeatable... In case of [rs_repro](git clone https://github.com/LanHikari22/rs_repro.git && cd rs_repro && cargo run --features "repro003") this is alright because it's a repository for reproducing rust code, so the user is technical. But for boxes, the user might not want to touch the command at all.
+Do we want to create an image `lan22h/boxXXX` for each box, then? I mean this is feasible and it will at least give us immediate running rather than clone and build and run which is not repeatable... In case of \[rs_repro\](git clone https://github.com/LanHikari22/rs_repro.git && cd rs_repro && cargo run --features "repro003") this is alright because it's a repository for reproducing rust code, so the user is technical. But for boxes, the user might not want to touch the command at all.
 
 2025-07-19 Wk 29 Sat - 01:25
 
 For box000, we will go the [dbmint](https://github.com/LanHikari22/dbmint) route. We will build an image, and people can then use that image once it's deployed for one-liners.
 
 # 3 Tasks
+
 ## 3.1 Deploying new Docker image
 
-- [x] 
+* [x] 
 
 2025-07-19 Wk 29 Sat - 03:05
 
-```sh
+````sh
 docker login -u {user}
 docker push {user}/{app_name}:{tag}
-```
+````
 
 ## 3.2 Start a docker container over a shell
 
-- [x] 
+* [x] 
 
 2025-07-19 Wk 29 Sat - 01:59
 
-We have an `is_persistent` file that can be set to `Yes` or `No`. If we set it to `Yes`, it will just boot a container. 
+We have an `is_persistent` file that can be set to `Yes` or `No`. If we set it to `Yes`, it will just boot a container.
 
 Then, like with this [answer](https://stackoverflow.com/a/30173220/6944447) we can use
 
-```
+````
 docker exec -it {container_id} sh
-```
+````
 
 But the application in this instance just prints `Hello world!` and exits, so the container dies.
 
@@ -81,7 +83,7 @@ Made `docker_sh.sh` and `docker_stop.sh` for a cleaner solution on starting a sh
 
 Since we will often use these scripts via curl, we do not want to get the app_name from an adjacent file. The app_name should simply be the current folder name.
 
-- [ ] edit_app_name.sh changes all `$app_name` variables in the current folder scripts.
+* [ ] edit_app_name.sh changes all `$app_name` variables in the current folder scripts.
 
 ### 3.3.2 Journal
 
@@ -91,79 +93,79 @@ Since we will often use these scripts via curl, we do not want to get the app_na
 
 ## 4.1 Docker refusing to run on non-root
 
-- [x] 
+* [x] 
 
 2025-07-19 Wk 29 Sat - 01:38
 
-```sh
+````sh
 ./docker_run.sh                                            
 
 # out
 docker: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Head "http://%2Fvar%2Frun%2Fdocker.sock/_ping": dial unix /var/run/docker.sock: connect: permission denied
 
 Run 'docker run --help' for more information
-```
+````
 
 ### 4.1.1 Solution
 
-```sh
+````sh
 sudo groupadd docker
 sudo usermod -aG docker $USER
 sudo systemctl restart docker
 sudo chmod 666 /var/run/docker.sock
-```
+````
 
-Then test with 
+Then test with
 
-```sh
+````sh
 docker run hello-world
-```
+````
 
 ### 4.1.2 Journal
 
 From this [answer](https://stackoverflow.com/a/48957722/6944447),
 
-```sh
+````sh
 sudo groupadd docker
 sudo usermod -aG docker $USER
 sudo systemctl restart docker
-```
+````
 
 Test using
 
-```sh
+````sh
 docker run hello-world
-```
+````
 
 Seems I have to do `newgrp docker` everytime for the hello-world to run?
 
 The other [answer](https://stackoverflow.com/a/51362528/6944447) helped with this:
 
-```sh
+````sh
 sudo chmod 666 /var/run/docker.sock
-```
+````
 
 ## 4.2 Input device is not TTY when launching docker shell from web
 
-- [x] 
+* [x] 
 
 2025-07-19 Wk 29 Sat - 03:42
 
 This works:
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/delta-domain-rnd/delta-box
 TAG="ubuntu_25.04" MOUNT="." box/box000_blank_system/docker_sh.sh
-```
+````
 
 But not this:
 
-```sh
+````sh
 curl -sSf https://raw.githubusercontent.com/delta-domain-rnd/delta-box/refs/heads/main/box/box000_blank_system/docker_sh.sh | TAG="ubuntu_25.04" MOUNT="." sh
 
 # out
 the input device is not a TTY
-```
+````
 
 2025-07-19 Wk 29 Sat - 03:48
 
@@ -173,39 +175,38 @@ No effect even when removing it...
 
 Note that if we just move that to a file and run the file after `chmod +x` it will work!
 
-As per this [issue](<https://github.com/NixOS/nix/issues/11714>),
+As per this [issue](https://github.com/NixOS/nix/issues/11714),
 
 We are able to get TTY with
 
-```sh
+````sh
 TAG="ubuntu_25.04" MOUNT="." sh <(curl -L https://raw.githubusercontent.com/delta-domain-rnd/delta-box/refs/heads/main/box/box000_blank_system/docker_sh.sh)
-```
-
+````
 
 ## 4.3 Unable to use apt install within box
 
-- [x] 
+* [x] 
 
-```sh
+````sh
 apt install python3
 
 # out
 Error: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)
 Error: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
-```
+````
 
 Diagnostics similar to those running in this [post](https://forums.docker.com/t/not-able-to-install-anything-with-apt-get-on-a-docker-container/1595),
 
-```
+````
 $ uname -r
 6.14.0-23-generic
 $ uname -a
 Linux c06c8bc1c33e 6.14.0-23-generic #23-Ubuntu SMP PREEMPT_DYNAMIC Fri Jun 13 23:02:20 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux
-```
+````
 
 2025-07-19 Wk 29 Sat - 05:38
 
-LLM Assist is [[Wk 29 000 - Use apt install within Ubuntu container|here]].
+LLM Assist is [here](../../../../../llm/weekly/2025/Wk%2029%20000%20-%20Use%20apt%20install%20within%20Ubuntu%20container.md).
 
 2025-07-19 Wk 29 Sat - 06:54
 
@@ -223,101 +224,99 @@ In this [forum question](https://stackoverflow.com/questions/29480099/whats-the-
 
 ## 6.1 Grepping Docker Containers
 
-- [x] 
+* [x] 
 
 2025-07-19 Wk 29 Sat - 02:15
 
 For grepping for currently  running containers, we can like this [answer](https://stackoverflow.com/a/69461585/6944447) do
 
-```sh
+````sh
 docker ps -a --no-trunc --filter name=^/foo$
-```
+````
 
 ## 6.2 Getting Nth line in shell
 
-- [x] 
+* [x] 
 
 2025-07-19 Wk 29 Sat - 02:16
 
 From this [answer](https://stackoverflow.com/a/1429628/6944447),
 
-```bash
+````bash
 ls -l | sed -n 2p
-```
+````
 
 where 2 is the 2nd line.
 
 ## 6.3 Image arguments to DockerFile
 
-- [x] 
+* [x] 
 
 2025-07-19 Wk 29 Sat - 02:47
 
-[Reference](<https://docs.docker.com/reference/dockerfile/#arg>).
+[Reference](https://docs.docker.com/reference/dockerfile/#arg).
 
-
-```
+````
  - InvalidDefaultArgInFrom: Default value for ARG $image results in empty or invalid base image name (line 4)
 
-```
+````
 
 Giving it a default value seemed to fix this:
 
-```
+````
 ARG image=ubuntu:25.04
-```
+````
 
 ## 6.4 Looping over lines in shell
 
-- [x] 
+* [x] 
 
 2025-07-19 Wk 29 Sat - 04:36
 
 Similar to [answer](https://unix.stackexchange.com/a/670764),
 
-```sh
+````sh
 echo 'A B C' | tr ' ' '\n' | while read line; do echo line: $line; done
 
 # out
 line: A
 line: B
 line: C
-```
+````
 
 ## 6.5 Space separated to line separated in shell
 
-- [x] 
+* [x] 
 
 2025-07-19 Wk 29 Sat - 04:44
 
 From [answer](https://stackoverflow.com/a/24704539/6944447),
 
-```sh
+````sh
 echo 'foo bar boo you too' | tr ' ' '\n'
-```
+````
 
 ## 6.6 Simulating exit signals in Linux shell
 
-- [x] 
-
+* [x] 
 
 2025-07-19 Wk 29 Sat - 06:27
 
-```sh
+````sh
 $ ( exit 0 ) && echo 'haha'
 haha
 $ ( exit 34 ) && echo 'haha'
 $ echo $?
 34
-```
+````
 
 For values >256, it just mods 256.
 
-```sh
+````sh
 $ ( exit 258 ) && echo 'haha'
 $ echo $?
 2
-```
+````
 
 # 7 References
 

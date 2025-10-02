@@ -1,6 +1,5 @@
 # 1 Time Logs
 
-
-```simple-time-tracker
+````simple-time-tracker
 {"entries":[{"name":"[[001 Parse through all notes and classify as core - peripheral - partial]]","startTime":"2025-09-15T15:12:00.733Z","endTime":"2025-09-15T17:35:13.551Z"},{"name":"[[008 Search for and fix old format Spawn strings for easier migration]]","startTime":"2025-09-15T17:35:14.000Z","endTime":"2025-09-15T19:25:00.000Z"},{"name":"[[006 Debugging through expt004 not terminating]]","startTime":"2025-09-16T12:15:00.000Z","endTime":"2025-09-16T12:45:00.000Z"},{"name":"[[006 Debugging through expt004 not terminating]]","startTime":"2025-09-16T17:39:09.874Z","endTime":"2025-09-16T19:49:30.438Z"},{"name":"[[007 Debugging no old format records found in expt004]]","startTime":"2025-09-16T19:49:31.586Z","endTime":"2025-09-16T20:01:27.857Z"},{"name":"[[007 Debugging no old format records found in expt004]]","startTime":"2025-09-16T20:48:41.420Z","endTime":"2025-09-17T00:04:25.700Z"},{"name":"[[007 Debugging no old format records found in expt004]]","startTime":"2025-09-17T00:10:27.875Z","endTime":"2025-09-17T00:18:45.544Z"},{"name":"[[000 Precommit errors prior to expt004 commit]]","startTime":"2025-09-17T00:52:20.000Z","endTime":"2025-09-17T01:45:00.000Z"}]}
-```
+````

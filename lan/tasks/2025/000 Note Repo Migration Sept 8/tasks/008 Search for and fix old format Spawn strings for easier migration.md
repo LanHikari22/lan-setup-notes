@@ -1,16 +1,16 @@
 ---
-parent: "[[000 Note Repo Migration Sept 8]]"
-spawned_by: "[[001 Parse through all notes and classify as core - peripheral - partial]]"
+parent: '[[000 Note Repo Migration Sept 8]]'
+spawned_by: '[[001 Parse through all notes and classify as core - peripheral - partial]]'
 context_type: task
 status: done
 resolved: partial
 ---
 
-Parent: [[000 Note Repo Migration Sept 8]]
+Parent: [000 Note Repo Migration Sept 8](../000%20Note%20Repo%20Migration%20Sept%208.md)
 
-Spawned by: [[001 Parse through all notes and classify as core - peripheral - partial]] 
+Spawned by: [001 Parse through all notes and classify as core - peripheral - partial](001%20Parse%20through%20all%20notes%20and%20classify%20as%20core%20-%20peripheral%20-%20partial.md)
 
-Spawned in: [[001 Parse through all notes and classify as core - peripheral - partial#^spawn-task-22c0e7|^spawn-task-22c0e7]]
+Spawned in: [<a name="spawn-task-22c0e7" />^spawn-task-22c0e7](001%20Parse%20through%20all%20notes%20and%20classify%20as%20core%20-%20peripheral%20-%20partial.md#spawn-task-22c0e7)
 
 # 1 Journal
 
@@ -22,7 +22,7 @@ Let's start with `001 Turn EWRAM and ROM Structs into C Structs and embed into t
 
 Some thing we wrote and moved here from a comment:
 
-```
+````
     // Our latest Spawned format is
     // (0) "From {block_identifier} in {spawner_note}"
     // where {block_identifier} breaks into "spawn-{category}-{randhexstr6}"
@@ -42,5 +42,4 @@ Some thing we wrote and moved here from a comment:
     // But before that we would add titles, or even just put it in the same line as other text.
 
     // It might be best to assume latest format and fix the rest manually.
-```
-
+````

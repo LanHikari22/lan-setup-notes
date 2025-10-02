@@ -1,11 +1,10 @@
 # 1 Time Summary – Week 31
 
-| Note/Heading | Time Spent |
-|--------------|------------|
-| **Total** | **7h 45m 39s** |
-| [[005 Designate Windows Laptop as backup server with bare git repo per content]] | **5h 49m 0s** |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[005 Designate Windows Laptop as backup server with bare git repo per content#3.1 Clone project in phone and try to open it with mobile obsidian\|3.1 Clone project in phone and try to open it with mobile obsidian]] | 1h 12m 29s |
-| [[Wk 27 000 Setting up Osu]] | **1h 56m 39s** |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[Wk 27 000 Setting up Osu#4.1 Downloaded songs cannot be played\|4.1 Downloaded songs cannot be played]] | 1h 15m 17s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[Wk 27 000 Setting up Osu#3.1 Try to play songs using tablet\|3.1 Try to play songs using tablet]] | 0h 41m 22s |
-
+|Note/Heading|Time Spent|
+|------------|----------|
+|**Total**|**7h 45m 39s**|
+|[005 Designate Windows Laptop as backup server with bare git repo per content](../../../../../../lan/topics/tooling/linux/tasks/2025/005%20Designate%20Windows%20Laptop%20as%20backup%20server%20with%20bare%20git%20repo%20per%20content.md)|**5h 49m 0s**|
+|    [3.1 Clone project in phone and try to open it with mobile obsidian](../../../../../../lan/topics/tooling/linux/tasks/2025/005%20Designate%20Windows%20Laptop%20as%20backup%20server%20with%20bare%20git%20repo%20per%20content.md#31-clone-project-in-phone-and-try-to-open-it-with-mobile-obsidian)|1h 12m 29s|
+|[Wk 27 000 Setting up Osu](../../../../../../lan/topics/gaming/entries/weekly/2025/Wk%2027%20000%20Setting%20up%20Osu.md)|**1h 56m 39s**|
+|    [4.1 Downloaded songs cannot be played](../../../../../../lan/topics/gaming/entries/weekly/2025/Wk%2027%20000%20Setting%20up%20Osu.md#41-downloaded-songs-cannot-be-played)|1h 15m 17s|
+|    [3.1 Try to play songs using tablet](../../../../../../lan/topics/gaming/entries/weekly/2025/Wk%2027%20000%20Setting%20up%20Osu.md#31-try-to-play-songs-using-tablet)|0h 41m 22s|

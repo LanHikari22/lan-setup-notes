@@ -1,21 +1,21 @@
 ---
-parent: "[[000 Note Repo Migration Sept 8]]"
-spawned_by: "[[001 Parse through all notes and classify as core - peripheral - partial]]"
+parent: '[[000 Note Repo Migration Sept 8]]'
+spawned_by: '[[001 Parse through all notes and classify as core - peripheral - partial]]'
 context_type: investigation
 status: done
 ---
 
-Parent: [[000 Note Repo Migration Sept 8]]
+Parent: [000 Note Repo Migration Sept 8](../000%20Note%20Repo%20Migration%20Sept%208.md)
 
-Spawned by: [[001 Parse through all notes and classify as core - peripheral - partial]] 
+Spawned by: [001 Parse through all notes and classify as core - peripheral - partial](../tasks/001%20Parse%20through%20all%20notes%20and%20classify%20as%20core%20-%20peripheral%20-%20partial.md)
 
-Spawned in: [[001 Parse through all notes and classify as core - peripheral - partial#^spawn-invst-59092e|^spawn-invst-59092e]]
+Spawned in: [<a name="spawn-invst-59092e" />^spawn-invst-59092e](../tasks/001%20Parse%20through%20all%20notes%20and%20classify%20as%20core%20-%20peripheral%20-%20partial.md#spawn-invst-59092e)
 
 # 1 Journal
 
 2025-09-16 Wk 38 Tue - 15:10 +03:00
 
-```rust
+````rust
 pub fn process_markdown_files_in_vault(vault_folder: &ObsidianVaultPath, process_markdown_file: impl Fn(&PathBuf) -> Option<()>) {
     let working_items =
         cluster_note::get_working_item_paths_in_vault(vault_folder).expect("Failed to get working items");
@@ -45,14 +45,14 @@ pub fn process_markdown_files_in_vault(vault_folder: &ObsidianVaultPath, process
     }
     log::trace!("2");
 }
-```
+````
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration
 cargo run --bin expt004_old_format_record_list ~/src/cloned/gh/LanHikari22/lan-setup-notes
 
 # out (relevant)
-```
+````
 
 It gets stuck at `1` in cluster folder with core note `/home/lan/src/cloned/gh/LanHikari22/lan-setup-notes/lan/tasks/2025/000 Note Repo Migration Sept 8`.
 
@@ -60,7 +60,7 @@ Which is this!
 
 2025-09-16 Wk 38 Tue - 15:23 +03:00
 
-```rust
+````rust
             cluster_note::WorkingPath::ClusterFolder {
                 cluster_root_folder: _cluster_root_folder,
                 core_note_file: _core_note_file,
@@ -80,13 +80,13 @@ Which is this!
                 log::trace!("/3");
             },
         }
-```
+````
 
-We just hit `3`. 
+We just hit `3`.
 
-In `expt004`, 
+In `expt004`,
 
-```rust
+````rust
 fn main() {
     let vault_folder = drivers::init_logging_and_get_obsidian_vault();
     let opt_note_path = drivers::get_opt_arg_note_path();
@@ -150,21 +150,21 @@ fn main() {
     }
     log::trace!("/E");
 }
-```
+````
 
-We hit `3AAA`. 
+We hit `3AAA`.
 
 So we're frozen at
 
-```rust
+````rust
 let old_format_records = cluster_note::get_note_old_format_entries(&events)?;
-```
+````
 
 2025-09-16 Wk 38 Tue - 15:36 +03:00
 
 It was because we used not to advance the cursor when no sub H2 events are found like in this fix:
 
-```rust
+````rust
 if mut_inner_cur - mut_cur > 0 {
 	mut_grouped_events
 		.push(Grouped::SubH2(&events[mut_cur..mut_inner_cur]));
@@ -172,13 +172,13 @@ if mut_inner_cur - mut_cur > 0 {
 } else {
 	mut_cur += 1;
 }
-```
+````
 
 So there might be cases where we don't register any SubH2s?
 
 2025-09-16 Wk 38 Tue - 20:43 +03:00
 
-```rust
+````rust
 if mut_inner_cur - mut_cur > 0 {
 	mut_grouped_events
 		.push(Grouped::SubH2(&events[mut_cur..mut_inner_cur]));
@@ -187,20 +187,20 @@ if mut_inner_cur - mut_cur > 0 {
 	log::trace!("{:?}", events[mut_cur]);
 	mut_cur += 0;
 }
-```
+````
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration
 cargo run --bin expt004_old_format_record_list ~/src/cloned/gh/LanHikari22/lan-setup-notes
 
 # out
 [2025-09-16 20:42:56 TRACE src/cluster_note.rs:573] Start(Heading { level: H2, id: None, classes: [], attrs: [] })
 [infinite ...]
-```
+````
 
 So we encounter an `H2`, at the current cursor, so why are we not handling that instead of sub `H2` items?
 
-```rust
+````rust
 while mut_cur < events.len() {
 	log::trace!("0A mut_cur {mut_cur} -> {:?}", events[mut_cur]);
 	log::trace!("0B {:?}", comm::process_heading_event_of_level(&HeadingLevel::H1, &events[mut_cur..]));
@@ -216,15 +216,15 @@ if mut_inner_cur - mut_cur > 0 {
 	log::trace!("2 {:?}", events[mut_cur]);
 	mut_cur += 0;
 }
-```
+````
 
-```
+````
 [2025-09-16 20:58:05 TRACE src/cluster_note.rs:523] 0A mut_cur 1 -> Start(Heading { level: H2, id: None, classes: [], attrs: [] })
 [2025-09-16 20:58:05 TRACE src/cluster_note.rs:524] 0B None
 [2025-09-16 20:58:05 TRACE src/cluster_note.rs:525] 0C None
 [2025-09-16 20:58:05 TRACE src/cluster_note.rs:577] 1 Start(Heading { level: H2, id: None, classes: [], attrs: [] })
 [infinite ...]
-```
+````
 
 Even though it's an `H2`, `process_heading_event_of_level(H2)` won't recognize it!
 
@@ -234,14 +234,14 @@ Let's make the errors for this more explicit rather than just None.
 
 2025-09-16 Wk 38 Tue - 21:17 +03:00
 
-```
+````
 [2025-09-16 21:26:24 TRACE src/cluster_note.rs:523] 0A mut_cur 1 -> Start(Heading { level: H2, id: None, classes: [], attrs: [] })
 [2025-09-16 21:26:24 TRACE src/cluster_note.rs:524] 0B Err(WrongLevel(H1, H2))
 [2025-09-16 21:26:24 TRACE src/cluster_note.rs:525] 0C Err(InvalidScheme(2, "SoftBreak"))
 [2025-09-16 21:26:24 TRACE src/cluster_note.rs:577] 1 Start(Heading { level: H2, id: None, classes: [], attrs: [] })
 
 [infinite ...]
-```
+````
 
 Invalid scheme... Is our assumption of `H<N> Text /H<N>` invalid?
 
@@ -253,31 +253,31 @@ We're creating `expt005` to reproduce some events from input markdown with [gh p
 
 It seems this is happening in `"/home/lan/src/cloned/gh/LanHikari22/lan-setup-notes/lan/tasks/2025/000 Note Repo Migration Sept 8/000 Note Repo Migration Sept 8.md"`
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration
 cargo run --bin expt000_parse_single_pulldown_cmark ~/src/cloned/gh/LanHikari22/lan-setup-notes/lan/tasks/2025/000\ Note\ Repo\ Migration\ Sept\ 8/000\ Note\ Repo\ Migration\ Sept\ 8.md | less
-```
+````
 
 It's in the very beginning.
 
-```
+````
 Event Rule
 Event Start(Heading { level: H2, id: None, classes: [], attrs: [] })
 Event Text(Boxed("deprecates: \"[[001 Looking into heading level graph views]]\""))
 Event SoftBreak
 Event Text(Boxed("breaks: \"[[000 Setting up time logging in Obsidian]]\""))
 Event End(Heading(H2))
-```
+````
 
 That's the frontmatter. It's acting as if it's an H2.
 
 It's reproduced with `expt005`.
 
-```sh
+````sh
 cargo run --bin expt005_repro_heading_markdown_events
-```
+````
 
-```rust
+````rust
 /*
 	Event Rule
 	Event Start(Heading { level: H2, id: None, classes: [], attrs: [] })
@@ -297,7 +297,7 @@ print_events(
 	.replace("        ","")
 	,
 );
-```
+````
 
 2025-09-16 Wk 38 Tue - 22:08 +03:00
 
@@ -311,7 +311,7 @@ Since a frontmatter will only appear in the beginning of the file, we can just i
 
 2025-09-16 Wk 38 Tue - 22:20 +03:00
 
-```rust
+````rust
 if mut_inner_cur - mut_cur > 0 {
 	mut_grouped_events
 		.push(Grouped::SubH2(&events[mut_cur..mut_inner_cur]));
@@ -321,9 +321,9 @@ if mut_inner_cur - mut_cur > 0 {
 	log::warn!("Could not get any content within H2: {:?}", &events[mut_cur..mut_cur+min(5, events.len())]);
 	mut_cur += 1;
 }
-```
+````
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration
 cargo run --bin expt004_old_format_record_list ~/src/cloned/gh/LanHikari22/lan-setup-notes
 
@@ -331,7 +331,7 @@ cargo run --bin expt004_old_format_record_list ~/src/cloned/gh/LanHikari22/lan-s
 [2025-09-16 22:26:08 WARN src/cluster_note.rs:575] Could not get any content within H2: [Start(Heading { level: H2, id: None, classes: [], attrs: [] }), Text(Borrowed("6.4 Issues with ")), Start(Link { link_type: Inline, dest_url: Borrowed("https://github.com/LanHikari22/lan-exp-scripts/blob/main/scripts/2025/Wk27-000-expedition-33-ui-auto/test.py"), title: Borrowed(""), id: Borrowed("") }), Text(Borrowed("ydotool cv test script")), End(Link)]
 [2025-09-16 22:26:08 WARN src/cluster_note.rs:575] Could not get any content within H2: [Start(Heading { level: H2, id: None, classes: [], attrs: [] }), Text(Borrowed("7.1 On ")), Start(Link { link_type: Inline, dest_url: Borrowed("https://www.gtk.org/"), title: Borrowed(""), id: Borrowed("") }), Text(Borrowed("GTK")), End(Link)]
 [2025-09-16 22:26:08 WARN src/cluster_note.rs:575] Could not get any content within H2: [Start(Heading { level: H2, id: None, classes: [], attrs: [] }), Text(Borrowed("4.1 (~1) Create ")), Code(Borrowed("open_timeline_log.js")), End(Heading(H2)), Start(Paragraph)]
-```
+````
 
 It happens three times.
 
@@ -339,9 +339,9 @@ Headings with links in them! And Code!
 
 2025-09-16 Wk 38 Tue - 22:31 +03:00
 
-In `expt005`, 
+In `expt005`,
 
-```rust
+````rust
     /*
         Event Start(Heading { level: H2, id: None, classes: [], attrs: [] })
         Event Text(Borrowed("This heading has "))
@@ -367,7 +367,7 @@ In `expt005`,
         .replace("        ","")
         ,
     );
-```
+````
 
 This really breaks our assumption here.
 
@@ -379,11 +379,10 @@ But those will not work for our migration. Let's remove these use cases!
 
 Okay, so we resolved the termination issue, and removed the weird headings that won't migrate well. There is still the fact that we're not finding any old format headings:
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration
 cargo run --bin expt004_old_format_record_list ~/src/cloned/gh/LanHikari22/lan-setup-notes
 
 # out (relevent)
 [nothing]
-```
-
+````

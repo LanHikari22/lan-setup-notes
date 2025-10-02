@@ -1,20 +1,20 @@
 ---
-parent: "[[000 Note Repo Migration Sept 8]]"
-spawned_by: "[[001 Parse through all notes and classify as core - peripheral - partial]]"
+parent: '[[000 Note Repo Migration Sept 8]]'
+spawned_by: '[[001 Parse through all notes and classify as core - peripheral - partial]]'
 context_type: entry
 ---
 
-Parent: [[000 Note Repo Migration Sept 8]]
+Parent: [000 Note Repo Migration Sept 8](../000%20Note%20Repo%20Migration%20Sept%208.md)
 
-Spawned by: [[001 Parse through all notes and classify as core - peripheral - partial]]
+Spawned by: [001 Parse through all notes and classify as core - peripheral - partial](../tasks/001%20Parse%20through%20all%20notes%20and%20classify%20as%20core%20-%20peripheral%20-%20partial.md)
 
-Spawned in: [[001 Parse through all notes and classify as core - peripheral - partial#^spawn-entry-e65ac0|^spawn-entry-e65ac0]]
+Spawned in: [<a name="spawn-entry-e65ac0" />^spawn-entry-e65ac0](../tasks/001%20Parse%20through%20all%20notes%20and%20classify%20as%20core%20-%20peripheral%20-%20partial.md#spawn-entry-e65ac0)
 
 # 1 Journal
 
 2025-09-09 Wk 37 Tue - 16:25 +03:00
 
-Our work right now is all about respecting file atomicity of context. By this, I mean that each file has exactly one context, and it links or indexes other contexts otherwise. 
+Our work right now is all about respecting file atomicity of context. By this, I mean that each file has exactly one context, and it links or indexes other contexts otherwise.
 
 We created [lan-exp-scripts](https://github.com/LanHikari22/lan-exp-scripts) with the hope to provide public storage for all scripts and files associated with our notes, but it violates the atomicity principle. This repository is an "everything repository", which makes it not very usable, blends all git histories of everything we ever do together, and hinders usability.
 
