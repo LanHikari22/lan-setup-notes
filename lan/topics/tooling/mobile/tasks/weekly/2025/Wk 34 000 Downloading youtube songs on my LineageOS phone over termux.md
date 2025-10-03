@@ -1,8 +1,6 @@
 ---
 status: pend
 ---
-2025-08-18 Wk 34 Mon - 21:25
-
 # 1 Objective
 
 I want to be able to get a Youtube song downloaded on my PC, and then copied to my phone via remote SSH access and finally accessible as a song in the `Music` app in LineageOS.

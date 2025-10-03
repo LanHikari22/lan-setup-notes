@@ -1,5 +1,5 @@
 ---
-status: todo
+status: done
 ---
 
 # 1 Objective
