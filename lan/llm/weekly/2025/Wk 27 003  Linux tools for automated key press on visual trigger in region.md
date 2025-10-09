@@ -1,20 +1,20 @@
-
 # 1 Linux tools for automated key press on visual trigger in region
 
-Related to [[Wk 27 001 On visual input, press some keys]]
+Related to [Wk 27 001 On visual input, press some keys](../../../topics/gaming/entries/weekly/2025/Wk%2027%20001%20On%20visual%20input,%20press%20some%20keys.md)
 
 # 2 Objective
 
-- [x] To have a script that performs yodotool actions on visual cues silently
-- [ ] To provide visual feedback for the user, such as a red boundary box on detection region or blue shade
+* [x] To have a script that performs yodotool actions on visual cues silently
+* [ ] To provide visual feedback for the user, such as a red boundary box on detection region or blue shade
+
 # 3 Solution
 
-
 # 4 LLM Instructions
-- This is a diagnostic document and not a conversation. Everything shared is context. Address the questions tagged (Q#) like (Q1) for example. If you see something like (~1), assume it part of the archive and not a latest set of questions.
-	- Since it keeps occurring, I ask Again
-	- !!! NEVER RESPOND TO (~1), (~2), etc.
-	- ONLY respond to the tagged questions. Nothing else.
+
+* This is a diagnostic document and not a conversation. Everything shared is context. Address the questions tagged (Q#) like (Q1) for example. If you see something like (~1), assume it part of the archive and not a latest set of questions.
+  * Since it keeps occurring, I ask Again
+  * !!! NEVER RESPOND TO (~1), (~2), etc.
+  * ONLY respond to the tagged questions. Nothing else.
 
 (LLM chatgpt-4o)
 (Note: Between these tags is responses from ChatGPT-4o.
@@ -28,18 +28,18 @@ Related to [[Wk 27 001 On visual input, press some keys]]
 (LLM chatgpt-4o)
 
 For X11:
-[xdotool](<https://github.com/jordansissel/xdotool>) (input) + [SikuliX](<https://github.com/RaiMan/SikuliX1>) (vision)
+[xdotool](https://github.com/jordansissel/xdotool) (input) + [SikuliX](https://github.com/RaiMan/SikuliX1) (vision)
 
 For Wayland:
-[ydotool](<https://github.com/ReimuNotMoe/ydotool>) – a Wayland-safe replacement for xdotool
+[ydotool](https://github.com/ReimuNotMoe/ydotool) – a Wayland-safe replacement for xdotool
 
 (/LLM chatgpt-4o)
 
 For the script below you need:
 
- [[#^build1|build ydotool]].
+[build ydotool](Wk%2027%20003%20%20Linux%20tools%20for%20automated%20key%20press%20on%20visual%20trigger%20in%20region.md#build1).
 
-See test script [here](<https://github.com/LanHikari22/lan-exp-scripts/blob/main/scripts/2025/Wk27-000-expedition-33-ui-auto/test.py>).
+See test script [here](https://github.com/LanHikari22/lan-exp-scripts/blob/main/scripts/2025/Wk27-000-expedition-33-ui-auto/test.py).
 
 this scripts demonstrates proof of concept for basic reaction on visual cue.
 
@@ -47,7 +47,7 @@ this scripts demonstrates proof of concept for basic reaction on visual cue.
 
 2025-07-05 Wk 27 Sat - 18:23
 
-We will create a script that skips the losing Golgra dialog and gets us back to the fight. You can find it [here](<https://github.com/LanHikari22/lan-exp-scripts/blob/main/scripts/2025/Wk27-000-expedition-33-ui-auto/golgra-skip-dialog.py>)
+We will create a script that skips the losing Golgra dialog and gets us back to the fight. You can find it [here](https://github.com/LanHikari22/lan-exp-scripts/blob/main/scripts/2025/Wk27-000-expedition-33-ui-auto/golgra-skip-dialog.py)
 
 2025-07-05 Wk 27 Sat - 15:02
 
@@ -55,7 +55,7 @@ Now that we have a working example of visual cue response, we can tailor it for 
 
 This will be our visual cue:
 
-![[Pasted image 20250705152643.png]]
+![Pasted image 20250705152643.png](../../../../attachments/Pasted%20image%2020250705152643.png)
 
 Saved to `golgra-as-expected-dialog.png` in `/home/lan/src/exp/scripts/2025-07-expedition-33-ui-auto`.
 
@@ -63,7 +63,7 @@ Saved to `golgra-as-expected-dialog.png` in `/home/lan/src/exp/scripts/2025-07-e
 
 Had to add a 2 second delay for `cv2.imread` but otherwise we are able to detect the image.
 
-```sh
+````sh
 cat /usr/include/linux/input-event-codes.h | grep "\bKEY_F\b"
 cat /usr/include/linux/input-event-codes.h | grep "KEY_W\b"
 cat /usr/include/linux/input-event-codes.h | grep "KEY_E\b"
@@ -72,72 +72,69 @@ cat /usr/include/linux/input-event-codes.h | grep "KEY_E\b"
 #define KEY_F                   33
 #define KEY_W                   17
 #define KEY_E                   18
-```
-
-
-
+````
 
 # 6 Issues
+
 ## 6.1 ydotoold unavailable
 
 ### 6.1.1 Issue
 
-```sh
+````sh
 ydotool mousemove -x -100 -y 100
 
 # output
 ydotool: notice: ydotoold backend unavailable (may have latency+delay issues)
-```
-
+````
 
 ### 6.1.2 Journal
 
 2025-07-05 Wk 27 Sat - 00:11
 
-```sh
+````sh
 sudo apt-get install ydotoold
-```
+````
 
 2025-07-05 Wk 27 Sat - 00:16
 
-This [ydotoold issue](<https://github.com/ReimuNotMoe/ydotool/issues/179>) and [stackexchange post](<https://unix.stackexchange.com/questions/745734/ydotool-first-backend-unavailable-then-crash-on-connection>) both point towards installation via apt being insufficient and it should be built from source instead. Let's uninstall.
+This [ydotoold issue](https://github.com/ReimuNotMoe/ydotool/issues/179) and [stackexchange post](https://unix.stackexchange.com/questions/745734/ydotool-first-backend-unavailable-then-crash-on-connection) both point towards installation via apt being insufficient and it should be built from source instead. Let's uninstall.
 
-```sh
+````sh
 sudo apt-get remove ydotool ydotoold
-```
+````
 
-Following [build instructions](<https://github.com/ReimuNotMoe/ydotool?tab=readme-ov-file#build>), ^build1
+Following [build instructions](https://github.com/ReimuNotMoe/ydotool?tab=readme-ov-file#build), <a name="build1" />^build1
 
-```sh
+````sh
 mkdir -p ~/src/cloned/gh/ReimuNotMoe
 cd ~/src/cloned/gh/ReimuNotMoe
 git clone git@github.com:ReimuNotMoe/ydotool.git
 cd ydotool
-```
+````
 
-```sh
+````sh
 sudo apt-get install cmake
 sudo apt install scdoc
-```
+````
 
-```sh
+````sh
 mkdir build
 cd build
 cmake ..
 make -j `nproc`
-```
+````
 
 Then in two terminals,
 
-```sh
+````sh
 cd ~/src/cloned/gh/ReimuNotMoe/ydotool/build
 sudo ./ydotoold
-```
+````
 
-```sh
+````sh
 cd ~/src/cloned/gh/ReimuNotMoe/ydotool/build
 sudo ./ydotool mousemove -a -x 0 -y 0
-```
+````
 
 2025-07-05 Wk 27 Sat - 00:40
 
@@ -145,15 +142,14 @@ Weird. Not sure if it's interaction with input leap or just because of this tool
 
 But otherwise it seems to work. Note that I had to `sudo` `ydotool` otherwise, I would get
 
-```
+````
 failed to connect socket `/run/user/1000/.ydotool_socket': Connection refused
 Please check if ydotoold is running.
-```
-
+````
 
 ## 6.2 Issue: Cannot import cv2
 
-```sh
+````sh
 ~/src/exp/scripts/2025-07-expedition-33-ui-auto/test.sh
 
 # output
@@ -161,61 +157,58 @@ Traceback (most recent call last):
   File "/home/lan/src/exp/scripts/2025-07-expedition-33-ui-auto/test.sh", line 2, in <module>
     import os, time, subprocess, tempfile, cv2, numpy as np
 ModuleNotFoundError: No module named 'cv2'
-```
+````
 
-[This answer](<https://stackoverflow.com/questions/66387881/import-cv2-could-not-be-resolved>) suggests ^install-cv2
+[This answer](https://stackoverflow.com/questions/66387881/import-cv2-could-not-be-resolved) suggests <a name="install-cv2" />^install-cv2
 
-```sh
+````sh
 python3 -m pip install opencv-python opencv-python-headless
-```
+````
 
 ## 6.3 ydotool requires sudo
-
 
 (LLM chatgpt-4o)
 
 Put user in `input` group
 
-```sh
+````sh
 sudo usermod -aG input "$USER"
-```
+````
 
 Login and logout to apply group membership then check:
 
-```sh
+````sh
 id -nG | grep -q '\binput\b' && echo "✓ you are in the input group"
-```
+````
 
 Then run ydtoold:
 
-```sh
+````sh
 cd ~/src/cloned/gh/ReimuNotMoe/ydotool/build
 ./ydotoold --socket-path="$HOME/.ydotool_socket"
 export YDOTOOL_SOCKET="$HOME/.ydotool_socket"
-```
+````
 
 Now we can use ydtool in user space:
 
-```sh
+````sh
 export YDOTOOL_SOCKET="$HOME/.ydotool_socket"
 ./ydotool mousemove -a -x 0 -y 0
-```
-
+````
 
 (/LLM chatgpt-4o)
 
 ## 6.4 Issues with ydotool cv test script
 
-
 2025-07-05 Wk 27 Sat - 02:30
 
-[ydotool cv test script](<https://github.com/LanHikari22/lan-exp-scripts/blob/main/scripts/2025/Wk27-000-expedition-33-ui-auto/test.py>)
+[ydotool cv test script](https://github.com/LanHikari22/lan-exp-scripts/blob/main/scripts/2025/Wk27-000-expedition-33-ui-auto/test.py)
 
 While testing for this, will need to remember to
 
-```sh
+````sh
 rm ~/Pictures/Screenshot-*
-```
+````
 
 Since it's creating many screenshots there.
 
@@ -223,7 +216,7 @@ Since it's creating many screenshots there.
 
 Original,
 
-```python
+````python
 #!/usr/bin/env python3
 import os, time, subprocess, tempfile, cv2, numpy as np
 
@@ -254,9 +247,9 @@ while True:
         subprocess.run(['ydotool', 'click', '1'])
         time.sleep(0.4)                # small debounce
     time.sleep(0.1)
-```
+````
 
-```sh
+````sh
 ~/src/exp/scripts/2025-07-expedition-33-ui-auto/test.sh    
 
 # output
@@ -266,19 +259,19 @@ Traceback (most recent call last):
     th, tw = tmpl.shape[::-1]
              ^^^^^^^^^^
 AttributeError: 'NoneType' object has no attribute 'shape'
-```
+````
 
 Did not create a retry_button.png.
 
-```sh
+````sh
 cd ~/src/exp/scripts/2025-07-expedition-33-ui-auto/
 ls
 
 # output
 retry_button.png  test.sh
-```
+````
 
-```sh
+````sh
 ./test.sh
 
 # output
@@ -307,16 +300,15 @@ Traceback (most recent call last):
                              output=stdout, stderr=stderr)
 subprocess.CalledProcessError: Command '['dbus-send', '--session', '--print-reply', '--dest=org.freedesktop.portal.Desktop', '/org/freedesktop/portal/desktop', 'org.freedesktop.portal.Screenshot.Screenshot', 'boolean:false', 'a{sv}:']' returned non-zero exit status 1.
 
-```
-
+````
 
 Keep reference for diff,
 
-```sh
+````sh
 cp test.sh test.0.sh
-```
+````
 
-```diff
+````diff
 diff -u test.0.sh test.sh
 --- test.0.sh   2025-07-05 01:17:32.383334957 +0300
 +++ test.sh     2025-07-05 01:19:00.070733077 +0300
@@ -355,19 +347,19 @@ diff -u test.0.sh test.sh
 +    if not pics:
 +        raise RuntimeError("No screenshot found in ~/Pictures")
 +    return cv2.imread(pics[-1])
-```
+````
 
 2025-07-05 Wk 27 Sat - 01:20
 
-```sh
+````sh
 ./test.sh
 Error: GDBus.Error:org.freedesktop.DBus.Error.NoReply: Message recipient disconnected from message bus without replying
 Error: GDBus.Error:org.freedesktop.DBus.Error.NoReply: Message recipient disconnected from message bus without replying
-```
+````
 
 For diff on last,
 
-```diff
+````diff
 diff -u test.-1.sh test.sh
 --- test.0.sh   2025-07-05 01:17:32.383334957 +0300
 +++ test.sh     2025-07-05 01:28:25.875493788 +0300
@@ -407,21 +399,21 @@ diff -u test.-1.sh test.sh
 +        raise RuntimeError("No screenshot found in ~/Pictures")
 +    return cv2.imread(str(pics[-1]))
 
-```
+````
 
-```sh
+````sh
 ./test.sh
-```
+````
 
 We are able to take screenshots now, although it's sort of annoying with the flash. Just gotta correct ydtool use.
 
 Keep the final script as diff checkpoint:
 
-```sh
+````sh
 cp test.sh test.-1.sh
-```
+````
 
-```diff
+````diff
 diff -u test.-1.sh test.sh                                                                                                                             
 --- test.-1.sh  2025-07-05 01:30:55.342379675 +0300
 +++ test.sh     2025-07-05 01:36:37.534492904 +0300
@@ -466,14 +458,15 @@ diff -u test.-1.sh test.sh
 +            ydotool('click', '1')
 +            time.sleep(0.4)                # small debounce
 +        time.sleep(0.1)
-```
+````
 
 2025-07-05 Wk 27 Sat - 02:10
 
 So we got ydotool to run without sudo. New script:
 
 (LLM chatgpt-4o)
-```python
+
+````python
 #!/usr/bin/env python3
 import os
 import time
@@ -540,7 +533,8 @@ def main():
 
 if __name__ == "__main__":
     main()
-```
+````
+
 (/LLM chatgpt-4o)
 
 2025-07-05 Wk 27 Sat - 02:21
@@ -549,15 +543,15 @@ Issue with coordinates... Taking a full screenshot and pasting in Pinta I get a 
 
 If I try to go there with
 
-```python
+````python
 ydotool("mousemove", "-a", "-x", "11", "-y", "523")
-```
+````
 
 It takes me lower left corner instead of center left.
 
-```python
+````python
 ydotool("mousemove", "-a", "-x", "0", "-y", "0")
-```
+````
 
 takes us to the upper left corner. `(0,0)`, which agrees with the screenshot coordinates. So this could be a scaling issue. The lowest coordinate in Pinta down is y=1079, yet ydotool seems to reach the bottom already at y=600.
 
@@ -565,74 +559,72 @@ x=1919 is furthest to the right in screenshot coordinates, yet we reach there at
 
 So to get to the lower right corner:
 
-```sh
+````sh
 YDOTOOL_SOCKET="/home/lan/.ydotool_socket" /home/lan/src/cloned/gh/ReimuNotMoe/ydotool/build/ydotool mousemove -a -x 960 -y 540
-```
+````
 
 Dividing by 2 got us close... but not quite! It's just under!
 
-
 So changing coordinates to just the next button gets us to the correct button...
 
-```
+````
 → Button detected at (25, 508)
 → Button (Transformed) detected at (12, 254)
-```
+````
 
 Pinta agrees with `(25, 508)` but for the next button! There's some y-shift, why?
 
-```
+````
 th, tw = tmpl.shape[::-1]
 y, x = int(loc[0][0] + th/2), int(loc[1][0] + tw/2)
-```
+````
 
 These offsets.
 
-```python
+````python
 print(f"Centering shifts: {th} {tw}")
 
 # output
 Centering shifts: 110 33
-```
+````
 
 This matches the dimensions of the second png we're testing (just the button above the original): 110 × 33 pixels.
 
 So we're just aiming to be center of it.
 
-It's a mixup... th is actually for width, not height. It's 110 pixels *wide* and yet that's reported for `th`. 
-
+It's a mixup... th is actually for width, not height. It's 110 pixels *wide* and yet that's reported for `th`.
 
 Then we're able to get it to click with
 
-```python
+````python
 ydotool("click", "0xC0")
-```
+````
 
 2025-07-05 Wk 27 Sat - 02:57
 
-```sh
+````sh
 cp test.sh test.-1.sh 
-```
+````
 
 2025-07-05 Wk 27 Sat - 13:24
 
-```sh
+````sh
 gdbus call --session --dest "org.freedesktop.portal.Desktop" --object-path "/org/freedesktop/portal/desktop" --method "org.freedesktop.portal.Screenshot.Screenshot" ""  "{'interactive': <false>, 'flash': <false>, 'cursor': <false>}"
-```
+````
 
-This accepts invalid arguments. The options can be found [here](<https://flatpak.github.io/xdg-desktop-portal/docs/doc-org.freedesktop.portal.Screenshot.html>).
+This accepts invalid arguments. The options can be found [here](https://flatpak.github.io/xdg-desktop-portal/docs/doc-org.freedesktop.portal.Screenshot.html).
 
 This flash can be disabled via toggling
 
-```sh
+````sh
 gsettings set org.gnome.desktop.interface enable-animations false
-```
+````
 
 2025-07-05 Wk 27 Sat - 13:52
 
 The final script looks like
 
-```python
+````python
 #!/usr/bin/env python3
 import os
 import time
@@ -777,7 +769,7 @@ def main():
 if __name__ == "__main__":
     # ydotool("mousemove", "-a", "-x", "0", "-y", "600")
     main()
-```
+````
 
 It is able to take screenshots periodically, no flash, it deletes it as it creates it, and when it detects the image, it goes to the button and clicks it.
 
@@ -789,121 +781,122 @@ It would be cool to draw a box around the detected area.
 
 (LLM chatgpt-4o)
 
-```sh
+````sh
 python3 -m pip install pygobject python-gtk-layer-shell
-```
+````
 
 (/LLM chatgpt-4o)
 
-```
+````
 ../cairo/meson.build:31:12: ERROR: Dependency "cairo" not found, tried pkgconfig and cmake
-```
-
+````
 
 (LLM chatgpt-4o)
-```sh
+
+````sh
 sudo apt update
 sudo apt install -y \
   build-essential meson pkg-config python3-dev \
   libcairo2-dev libgirepository1.0-dev \
   libgtk-3-dev gir1.2-gtk-3.0 \
   libgtk-layer-shell-dev
-```
+````
+
 (/LLM chatgpt-4o)
 
-```
+````
 ../meson.build:31:9: ERROR: Dependency 'girepository-2.0' is required but not found.
-```
-
+````
 
 (LLM chatgpt-4o)
 
-```sh
+````sh
 sudo apt install libgirepository1.0-dev
-```
+````
 
 (/LLM chatgpt-4o)
 
 Should be
 
-```sh
+````sh
 sudo apt install libgirepository-2.0-dev
-```
+````
 
-```sh
+````sh
 python3 -m pip install pygobject python-gtk-layer-shell
-```
+````
 
-```
+````
 ERROR: Could not find a version that satisfies the requirement python-gtk-layer-shell (from versions: none)
 ERROR: No matching distribution found for python-gtk-layer-shell
-```
+````
 
 2025-07-05 Wk 27 Sat - 14:25
 
-We want to install [gtk-layer-shell](<https://github.com/wmww/gtk-layer-shell>) for python.
+We want to install [gtk-layer-shell](https://github.com/wmww/gtk-layer-shell) for python.
 
 They say this only works on Wayland. And only on Wayland compositors that support the Layer Shell protocol. And Gnome-on-Wayland does not.
 
 2025-07-05 Wk 27 Sat - 14:32
 
-```sh
+````sh
 sudo apt install libcairo2-dev
 python3 -m pip install python-xlib
 python3 -m pip install pycairo
 
-```
+````
 
 2025-07-05 Wk 27 Sat - 14:53
 
 Some references:
-- https://tronche.com/gui/x/xlib/
-- https://github.com/python-xlib/python-xlib
-- https://github.com/python-xlib/python-xlib/tree/master/examples
+
+* https://tronche.com/gui/x/xlib/
+* https://github.com/python-xlib/python-xlib
+* https://github.com/python-xlib/python-xlib/tree/master/examples
 
 Let's try to run an example.
 
-```sh
+````sh
 curl https://raw.githubusercontent.com/python-xlib/python-xlib/refs/heads/master/examples/draw-proto.py > draw-proto.py
 chmod +x draw-proto.py
-```
+````
 
 Have to change it to say `#!/usr/bin/python3` and install
 
-```sh
+````sh
 python3 -m pip install Xlib
-```
+````
 
 ## 6.5 yodotool putting many ffffff
 
-```sh
+````sh
 YDOTOOL_SOCKET="/home/lan/.ydotool_socket" /home/lan/src/cloned/gh/ReimuNotMoe/ydotool/build/ydotool "key" "33"
-```
+````
 
-```
+````
 f% 
 ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-```
+````
 
 It will also not work the second time around unless your restart
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/ReimuNotMoe/ydotool/build
 ./ydotoold --socket-path="$HOME/.ydotool_socket"
-```
+````
 
 ydotoold also gives
 
-```
+````
 WARNING: running xinput against an Xwayland server. See the xinput man page for details.
 unable to find device pointer:ydotoold virtual device
-```
+````
 
 Seems we can tell it to do keydown with :1 and keyup with :0
 
-```sh
+````sh
 YDOTOOL_SOCKET="/home/lan/.ydotool_socket" /home/lan/src/cloned/gh/ReimuNotMoe/ydotool/build/ydotool key 33:1 33:0
-```
+````
 
 # 7 Investigations
 
@@ -911,9 +904,8 @@ YDOTOOL_SOCKET="/home/lan/.ydotool_socket" /home/lan/src/cloned/gh/ReimuNotMoe/y
 
 2025-07-05 Wk 27 Sat - 14:10
 
-[GTK](<https://www.gtk.org/>). [Architecture](<https://www.gtk.org/docs/architecture/>).
+[GTK](https://www.gtk.org/). [Architecture](https://www.gtk.org/docs/architecture/).
 
-![[Pasted image 20250705141154.png]]
+![Pasted image 20250705141154.png](../../../../attachments/Pasted%20image%2020250705141154.png)
 
 # 8 References
-

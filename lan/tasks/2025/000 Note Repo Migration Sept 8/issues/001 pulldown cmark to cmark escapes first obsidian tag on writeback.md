@@ -1,35 +1,35 @@
 ---
-parent: "[[000 Note Repo Migration Sept 8]]"
-spawned_by: "[[010 Apply markdown writeback on delta-trace vault]]"
+parent: '[[000 Note Repo Migration Sept 8]]'
+spawned_by: '[[010 Apply markdown writeback on delta-trace vault]]'
 context_type: issue
 status: done
 ---
 
-Parent: [[000 Note Repo Migration Sept 8]]
+Parent: [000 Note Repo Migration Sept 8](../000%20Note%20Repo%20Migration%20Sept%208.md)
 
-Spawned by: [[010 Apply markdown writeback on delta-trace vault]] 
+Spawned by: [010 Apply markdown writeback on delta-trace vault](../tasks/010%20Apply%20markdown%20writeback%20on%20delta-trace%20vault.md)
 
-Spawned in: [[010 Apply markdown writeback on delta-trace vault#^spawn-issue-9b47f5|^spawn-issue-9b47f5]]
+Spawned in: [<a name="spawn-issue-9b47f5" />^spawn-issue-9b47f5](../tasks/010%20Apply%20markdown%20writeback%20on%20delta-trace%20vault.md#spawn-issue-9b47f5)
 
 # 1 Journal
 
 2025-09-23 Wk 39 Tue - 05:41 +03:00
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration
 cargo run --bin app -- writeback ~/src/cloned/gh/deltatraced/delta-trace
-```
+````
 
-```diff
+````diff
 diff --git a/lan/docs/2025/000 Navigating Note Repositories.md b/lan/docs/2025/000 Navigating Note Repositories.md
 
 -#lan #docs #external
 +\#lan #docs #external
-```
+````
 
-Testing with `expt000` and `expt006` similar to [[009 Investigate pulldown_cmark_to_cmark incorrectly converting item lists and bullet style]],
+Testing with `expt000` and `expt006` similar to [009 Investigate pulldown_cmark_to_cmark incorrectly converting item lists and bullet style](../investigations/009%20Investigate%20pulldown_cmark_to_cmark%20incorrectly%20converting%20item%20lists%20and%20bullet%20style.md),
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration
 cargo run --bin expt006_markdown_to_markdown <(cat << 'EOF'
 #lan #docs #external
@@ -38,17 +38,17 @@ EOF
 
 # out
 \#lan #docs #external
-```
+````
 
 Why is it escaping the first `#`?
 
 This has consequences in obsidian.
 
-![[Pasted image 20250923054830.png]]
+![Pasted image 20250923054830.png](../../../../../attachments/Pasted%20image%2020250923054830.png)
 
 2025-09-23 Wk 39 Tue - 05:50 +03:00
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration
 cargo run --bin expt000_parse_single_pulldown_cmark <(cat << 'EOF'
 #lan #docs #external
@@ -59,7 +59,7 @@ EOF
 Event Start(Paragraph)
 Event Text(Borrowed("#lan #docs #external"))
 Event End(Paragraph)
-```
+````
 
 2025-09-23 Wk 39 Tue - 06:06 +03:00
 
@@ -69,13 +69,13 @@ Not finding anything relevant for this in [`pulldown_cmark_to_cmark -> Options`]
 
 This issue reproduces through the obsidian-export output too
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltatraced/delta-trace
 cat ~/src/cloned/gh/deltatraced/branches/delta-trace@webview/lan/docs/2025/000\ Navigating\ Note\ Repositories.md | less
 
 # out (relevant)
 \#lan #docs #external
-```
+````
 
 `\#` is turned into `#` so I never noticed this in the webview on github. Though if you view the raw file, you would see it.
 
@@ -83,7 +83,7 @@ cat ~/src/cloned/gh/deltatraced/branches/delta-trace@webview/lan/docs/2025/000\ 
 
 This is not the only thing being escaped.
 
-```diff
+````diff
 diff --git a/lan/docs/2025/000 Navigating Note Repositories.md b/lan/docs/2025/000 Navigating Note Repositories.md
 
 -```sh
@@ -106,8 +106,7 @@ diff --git a/lan/entries/monthly/2025/Mn 09 003 Ideas.md b/lan/entries/monthly/2
 -[[Mn 09 September]]
 +\[[Mn 09 September]]
 
-```
-
+````
 
 Even exaclidraw files are being touched, which might not be good. Besides the number of ticks for code block, it is touching them for spacing.
 
@@ -115,7 +114,7 @@ Even exaclidraw files are being touched, which might not be good. Besides the nu
 
 These are good changes:
 
-```diff
+````diff
 diff --git a/lan/portfolio/Project - bn6f.md b/lan/portfolio/Project - bn6f.md
 
 -- [Related IDA Analysis](<https://github.com/LanHikari22/GBA-IDA-Pseudo-Terminal>) 
@@ -143,14 +142,13 @@ diff --git a/lan/docs/2025/001 Note heading categories and method.md b/lan/docs/
 +3. Tasks have a clear signal to completion,
 
 
-```
-
+````
 
 2025-09-23 Wk 39 Tue - 06:27 +03:00
 
 So the undesirable critical changes we're seeing are simple in form, although a direct replace may break the notes in this document when we apply the writeback here. But the escaped `#`, `|`, and `[` should be unescaped. And four ticks should become 3. We can apply this right after pulldown cmark to cmark finishes its rendering and see what we get.
 
-```rust
+````rust
 // common cmark breaks some things for obsidian markdown notes. It escapes #, |, and [ and changes
 // 3 codeblock ticks to 4.
 mut_out = mut_out
@@ -158,18 +156,18 @@ mut_out = mut_out
 	.replace("\\|", "|")
 	.replace("\\[", "[")
 	.replace("````", "```");
-```
+````
 
 2025-09-23 Wk 39 Tue - 06:32 +03:00
 
-```diff
+````diff
 diff --git a/lan/docs/2025/001 Note heading categories and method.md b/lan/docs/2025/001 Note heading categories and method.md
 
  ## 5.1 Open the Windows Registery to fix Paint.exe!
  
 -- [x] 
 +- [x]
-```
+````
 
 That space added was very intentional. Obsidian won't recognize it as a task otherwise. That said, that's a convention of the old format, and we don't use it anymore, so we can accept this.
 
@@ -177,7 +175,7 @@ It's still modifying excalidraw files. Let's skip any file with that in its name
 
 2025-09-23 Wk 39 Tue - 06:36 +03:00
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration
 cargo run --bin app -- writeback ~/src/cloned/gh/deltatraced/delta-trace
 
@@ -186,13 +184,13 @@ git status | wc -l
 
 # out
 235
-```
+````
 
 Still many files, but less than before.
 
 2025-09-23 Wk 39 Tue - 06:41 +03:00
 
-```diff
+````diff
 
 diff --git a/lan/docs/2025/000 Navigating Note Repositories.md b/lan/docs/2025/000 Navigating Note Repositories.md
 
@@ -201,7 +199,7 @@ diff --git a/lan/docs/2025/000 Navigating Note Repositories.md b/lan/docs/2025/0
 -```
 +```
 \ No newline at end of file
-```
+````
 
 I guess it removes the new lines at the end of the file.
 
@@ -213,7 +211,7 @@ Obsidian won't allow us to input `.excalidraw` but we can in the system rename i
 
 2025-09-23 Wk 39 Tue - 06:50 +03:00
 
-```diff
+````diff
 diff --git a/lan/entries/2025/000 Finding resource material for software engineering.md b/lan/entries/2025/000 Finding resource material for software engineering.md
 
  ---
@@ -222,15 +220,15 @@ diff --git a/lan/entries/2025/000 Finding resource material for software enginee
 +
 +## status: todo
 +
-```
+````
 
-Right... It's not able to handle frontmatter either. We knew about this issue from [[003 Investigating frontmatter to markdown event mappings with pulldown_cmark]]
+Right... It's not able to handle frontmatter either. We knew about this issue from [003 Investigating frontmatter to markdown event mappings with pulldown_cmark](../investigations/003%20Investigating%20frontmatter%20to%20markdown%20event%20mappings%20with%20pulldown_cmark.md)
 
 2025-09-23 Wk 39 Tue - 06:56 +03:00
 
 It's messing up with Kanban files too, which again are managed and shouldn't be touched.
 
-```diff
+````diff
 diff --git a/lan/projects/2025/001 teensy2-tiny-piano/tasks/Kanban.md b/lan/projects/2025/001 teensy2-tiny-piano/tasks/Kanban.md
 
 -
@@ -244,45 +242,44 @@ diff --git a/lan/projects/2025/001 teensy2-tiny-piano/tasks/Kanban.md b/lan/proj
  
 -
 -
-```
+````
 
-
-```diff
+````diff
 diff --git a/lan/projects/2025/002 obsidian-sourced-website/entries/2025/002 Learning about Astro and website deployment.md b/lan/projects/2025/002 obsidian-sourced-website/entries/2025/002 
 
 
 -> Bulma is a **CSS** framework. As such, the sole output is a single CSS file: [bulma.css](https://github.com/jgthms/bulma/blob/main/css/bulma.css)
 + > 
 + > Bulma is a **CSS** framework. As such, the sole output is a single CSS file: [bulma.css](https://github.com/jgthms/bulma/blob/main/css/bulma.css)
-```
+````
 
 It wants an empty quote line first?
 
 2025-09-23 Wk 39 Tue - 07:17 +03:00
 
-```diff
+````diff
 diff --git a/lan/overview/monthly/2025/Mn 09 September.md b/lan/overview/monthly/2025/Mn 09 September.md
 
 -| [[Mn 09 000 Learning\|Learning]]         | 2           | Capturing highlights of practices and lessons learned this month!                                                                 
 +| [[Mn 09 000 Learning|Learning]]         | 2           | Capturing highlights of practices and lessons learned this month!                                                                                                                    |
-```
+````
 
-Well... Sometimes obsidian itself *does use* an escaped bar. We probably should replace what is changed by the script, and nothing else. 
+Well... Sometimes obsidian itself *does use* an escaped bar. We probably should replace what is changed by the script, and nothing else.
 
 2025-09-23 Wk 39 Tue - 08:05 +03:00
 
-```diff
+````diff
 diff --git a/lan/overview/monthly/2025/Mn 09 September.md b/lan/overview/monthly/2025/Mn 09 September.md
 
 -| [[Mn 09 000 Learning\|Learning]]         | 2           | Capturing highlights of practices and lessons learned this month!                                                                                                                    |
 +| [[Mn 09 000 Learning     | Learning]]     | 2       | Capturing highlights of practices and lessons learned this month!                                                                                                                    |
-```
+````
 
 It's padding the links themselves for tables...
 
 2025-09-23 Wk 39 Tue - 08:22 +03:00
 
-```diff
+````diff
 diff --git a/lan/protos/2025/001 Rust Diesel Event Sourcing/goals/2025/000 Minimal Credit Store Demo.md b/lan/protos/2025/001 Rust Diesel Event Sourcing/goals/2025/000 Minimal Credit Store Demo.md
 
  **User-facing**
@@ -300,11 +297,11 @@ diff --git a/lan/protos/2025/001 Rust Diesel Event Sourcing/goals/2025/000 Minim
  - [ ] User can export a summary report for a given report level which only aggregates report levels higher than it
  
  - [ ] Besides credits, user is also able to manage arcade coins in a similar fashion to credits with their own reports
-```
+````
 
 Why the new lines? This changes presentation.
 
-```diff
+````diff
 diff --git a/lan/protos/2025/001 Rust Diesel Event Sourcing/goals/2025/000 Minimal Credit Store Demo.md b/lan/protos/2025/001 Rust Diesel Event Sourcing/goals/2025/000 Minimal Credit Store Demo.md
 
  **Developer-facing**
@@ -314,20 +311,20 @@ diff --git a/lan/protos/2025/001 Rust Diesel Event Sourcing/goals/2025/000 Minim
 +- \[ ] Developer can add new managed tables in a similar fashion to credit or coin with minimal setup
 \ No newline at end of file
 
-```
+````
 
-And why does it escape this only when it's a new line? 
+And why does it escape this only when it's a new line?
 
 2025-09-23 Wk 39 Tue - 09:25 +03:00
 
-Let's use [docs.rs text-diff](https://docs.rs/text-diff/latest/text_diff/index.html) to modify or reject changes via a changeset rather than direct line comparisons. 
+Let's use [docs.rs text-diff](https://docs.rs/text-diff/latest/text_diff/index.html) to modify or reject changes via a changeset rather than direct line comparisons.
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration
 cargo add text-diff
-```
+````
 
-Spawn [[002 Can impl a cmark to obsidian markdown crate]] ^spawn-idea-51f0eb
+Spawn [002 Can impl a cmark to obsidian markdown crate](../ideas/002%20Can%20impl%20a%20cmark%20to%20obsidian%20markdown%20crate.md) <a name="spawn-idea-51f0eb" />^spawn-idea-51f0eb
 
 2025-09-23 Wk 39 Tue - 09:39 +03:00
 
@@ -335,9 +332,9 @@ Let's create `expt007` to view the outputs of text diff
 
 2025-09-23 Wk 39 Tue - 09:48 +03:00
 
-Let's keep a `~/tmp/del/orig.md`  and `~/tmp/del/edit.md`. 
+Let's keep a `~/tmp/del/orig.md`  and `~/tmp/del/edit.md`.
 
-```sh
+````sh
 rm -rf ~/tmp/del/*
 
 # in /home/lan/src/cloned/gh/deltatraced/delta-trace
@@ -349,52 +346,52 @@ cargo run --bin app -- writeback /home/lan/src/cloned/gh/deltatraced/delta-trace
 
 # in /home/lan/src/cloned/gh/deltatraced/delta-trace
 cp lan/overview/monthly/2025/Mn\ 09\ September.md ~/tmp/del/edit.md
-```
+````
 
 2025-09-23 Wk 39 Tue - 09:53 +03:00
 
 We can now compare the diff we get with `diff`, and our text-diff crate.
 
-```sh
+````sh
 diff -u ~/tmp/del/orig.md ~/tmp/del/edit.md | less
-```
+````
 
 2025-09-23 Wk 39 Tue - 18:11 +03:00
 
 We could also do
 
-```sh
+````sh
 git diff --no-index ~/tmp/del/orig.md ~/tmp/del/edit.md --diff-algorithm myers
-```
+````
 
 using `git diff` outside a git repo as learned through this [post](https://nickjanetakis.com/blog/git-diff-can-be-used-outside-of-a-git-repo-and-it-has-useful-features)
 
 We can also see character diff highlighting:
 
-```sh
+````sh
 git diff --no-index ~/tmp/del/orig.md ~/tmp/del/edit.md --diff-algorithm myers --color-words=.
-```
+````
 
 2025-09-23 Wk 39 Tue - 19:14 +03:00
 
 Created `expt008` to compare writeback + patching solution without having to run against the entire vault
 
-```sh
+````sh
 diff -u ~/tmp/del/orig.md <(cargo run --bin expt008_fix_obsidian_markdown ~/tmp/del/orig.md)
 cargo run --bin expt007_text_diff ~/tmp/del/orig.md <(cargo run --bin expt008_fix_obsidian_markdown ~/tmp/del/orig.md) | less
-```
+````
 
 2025-09-23 Wk 39 Tue - 19:23 +03:00
 
 I'm not seeing indication of aligning mid-link like before
 
-![[Pasted image 20250923192358.png]]
+![Pasted image 20250923192358.png](../../../../../attachments/Pasted%20image%2020250923192358.png)
 
 2025-09-23 Wk 39 Tue - 20:40 +03:00
 
-![[Pasted image 20250923204008.png]]
+![Pasted image 20250923204008.png](../../../../../attachments/Pasted%20image%2020250923204008.png)
 
-We may be able to reject frontmatter modification, since it just removes a `---` and adds a `##`. 
+We may be able to reject frontmatter modification, since it just removes a `---` and adds a `##`.
 
 2025-09-23 Wk 39 Tue - 20:42 +03:00
 
@@ -406,11 +403,11 @@ Need to not include more managed files. `Summarize`, `Summary`, and `Timeline`.
 
 2025-09-23 Wk 39 Tue - 20:54 +03:00
 
-![[Pasted image 20250923205446.png]]
+![Pasted image 20250923205446.png](../../../../../attachments/Pasted%20image%2020250923205446.png)
 
-```
+````
 diff --git a/lan/entries/monthly/2025/Mn 09 001 Resources.md b/lan/entries/monthly/2025/Mn 09 001 Resources.md
-```
+````
 
 Math changes...
 
@@ -431,94 +428,93 @@ Let's keep removals `_` and remove additions `*`
 
 2025-09-23 Wk 39 Tue - 20:59 +03:00
 
-![[Pasted image 20250923205929.png]]
+![Pasted image 20250923205929.png](../../../../../attachments/Pasted%20image%2020250923205929.png)
 
-```
+````
 diff --git a/lan/entries/2025/001 Sept 8 Obsidian note process change.md b/lan/entries/2025/001 Sept 8 Obsidian note process change.md
-```
+````
 
-Why are they still able to add the `\` in 
+Why are they still able to add the `\` in
 
-```
+````
          - \[ ] Allows the user to specify the category by selection (tasks/issues/ ...)
-```
+````
 
 2025-09-23 Wk 39 Tue - 21:24 +03:00
 
 Even after trimming it still happens.
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltatraced/delta-trace
 git reset --hard
 cp lan/entries/2025/001\ Sept\ 8\ Obsidian\ note\ process\ change.md ~/tmp/del/orig.md
-```
+````
 
 2025-09-23 Wk 39 Tue - 21:35 +03:00
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration
 cargo run --bin expt007_text_diff ~/tmp/del/orig.md <(cargo run --bin expt008_fix_obsidian_markdown ~/tmp/del/orig.md) | less
-```
+````
 
-![[Pasted image 20250923213514.png]]
+![Pasted image 20250923213514.png](../../../../../attachments/Pasted%20image%2020250923213514.png)
 
-It's `- \`. 
+It's `- \`.
 
 2025-09-23 Wk 39 Tue - 21:51 +03:00
 
-![[Pasted image 20250923215115.png]]
+![Pasted image 20250923215115.png](../../../../../attachments/Pasted%20image%2020250923215115.png)
 
-```
+````
 diff --git a/lan/protos/2025/000 SpaceChem Controller/llm/01 Initial Exploration.md b/lan/protos/2025/000 SpaceChem Controller/llm/01 Initial Exploration.md
-```
+````
 
 The tabbing doesn't seem to change the presentation here. I don't mind `*` $\to$ `-`.
 
 2025-09-23 Wk 39 Tue - 22:16 +03:00
 
-![[Pasted image 20250923221659.png]]
+![Pasted image 20250923221659.png](../../../../../attachments/Pasted%20image%2020250923221659.png)
 
-```
+````
 diff --git a/lan/topics/read/papers/ai/entries/2025/000 Attention is all you need.md b/lan/topics/read/papers/ai/entries/2025/000 Attention is all you need.md
-```
+````
 
-- [ ] Unresolved escaping in links in quotes
+* [ ] Unresolved escaping in links in quotes
 
 2025-09-23 Wk 39 Tue - 22:46 +03:00
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltatraced/delta-trace
 git reset --hard
 cp "lan/topics/read/papers/ai/entries/2025/000 Attention is all you need.md" ~/tmp/del/orig.md
-```
+````
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration
 cargo run --bin expt007_text_diff ~/tmp/del/orig.md <(cargo run --bin expt008_fix_obsidian_markdown ~/tmp/del/orig.md) | less
-```
+````
 
-![[Pasted image 20250923225430.png]]
+![Pasted image 20250923225430.png](../../../../../attachments/Pasted%20image%2020250923225430.png)
 
 I fixed these manually, there really should have been a quoted line there.
 
-
 2025-09-23 Wk 39 Tue - 22:21 +03:00
 
-![[Pasted image 20250923222109.png]]
+![Pasted image 20250923222109.png](../../../../../attachments/Pasted%20image%2020250923222109.png)
 
-```
+````
 diff --git a/lan/topics/read/papers/ai/entries/2025/000 Attention is all you need.md b/lan/topics/read/papers/ai/entries/2025/000 Attention is all you need.md
-```
+````
 
-- [ ] Removed slash from multiline math
+* [ ] Removed slash from multiline math
 
 2025-09-23 Wk 39 Tue - 22:27 +03:00
 
-- [ ] Lots of slashes being removed in 
+* [ ] Lots of slashes being removed in
 
-```
+````
 diff --git a/lan/topics/study/books/math/2025/001 Probability - Theory and Examples/entries/2025/000 Starting out Probability Theory and Examples.md b/lan/topics/study/books/math/2025/001 Pr
-```
+````
 
 2025-09-23 Wk 39 Tue - 22:29 +03:00
 
@@ -526,7 +522,7 @@ Need to also ignore anything in templater like commands
 
 2025-09-24 Wk 39 Wed - 01:57 +03:00
 
-```rust
+````rust
 // in adhoc_fix_rendered_markdown_output_for_obsidian
 
 if s.trim() != "\\"
@@ -545,20 +541,20 @@ if s.trim() != "\\"
 } else {
 	log::trace!("+2 \"{s}\"");
 }
-```
+````
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration
 cargo run --bin expt008_fix_obsidian_markdown ~/tmp/del/orig.md
 
 # out (relevant)
 [2025-09-23T22:55:16Z TRACE migration_rs::common] +2 "\"
 [2025-09-23T22:55:16Z TRACE migration_rs::common] +2 "\"
-```
+````
 
 That shows it's skipping it
 
-![[Pasted image 20250924021016.png]]
+![Pasted image 20250924021016.png](../../../../../attachments/Pasted%20image%2020250924021016.png)
 
 The issue is that the old content chunks are big according to this text diff.
 
@@ -566,9 +562,9 @@ The issue is that the old content chunks are big according to this text diff.
 
 In [`pulldown_cmark_to_cmark -> Options`](https://github.com/Byron/pulldown-cmark-to-cmark/blob/bf34a3cac68e6f82a24ee3d44224a9e2ef2bcd0d/src/lib.rs#L180),
 
-```
+````
 code_block_token_count: 4,
-```
+````
 
 This should make it so that don't have to worry about the codeblock ticks, just change it to 3.
 
@@ -578,7 +574,7 @@ Let's try another diffing crate. The issue before is due to the diffs being crea
 
 Let's try [docs.rs similar](https://docs.rs/similar/latest/similar/). It explicitly mentions supporting myers'.
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration
 cargo add similar
 
@@ -594,7 +590,7 @@ Adding similar v2.7.0 to dependencies
 	 - unicode-segmentation
 	 - wasm32_web_time
 	 - web-time
-```
+````
 
 2025-09-24 Wk 39 Wed - 03:00 +03:00
 
@@ -608,11 +604,10 @@ To use `expt007` with the previous text-diff dependency, use the version from `c
 
 frontmatter broke again. We need to create tests for small writeback cases we encounter.
 
-Spawn [[002 vscode rust analyzer does not work in integration test directory]] ^spawn-issue-07b5a7
+Spawn [002 vscode rust analyzer does not work in integration test directory](002%20vscode%20rust%20analyzer%20does%20not%20work%20in%20integration%20test%20directory.md) <a name="spawn-issue-07b5a7" />^spawn-issue-07b5a7
 
-Spawn [[011 Create integration tests for obsidian patch fixes for sept 8 migration]] ^spawn-task-b4d4c2
+Spawn [011 Create integration tests for obsidian patch fixes for sept 8 migration](../tasks/011%20Create%20integration%20tests%20for%20obsidian%20patch%20fixes%20for%20sept%208%20migration.md) <a name="spawn-task-b4d4c2" />^spawn-task-b4d4c2
 
 2025-09-30 Wk 40 Tue - 08:09 +03:00
 
 writeback now does not change delta-trace vault
-

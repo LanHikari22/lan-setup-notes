@@ -1,5 +1,4 @@
-
-#idea
+\#idea
 
 # 1 Idea
 
@@ -7,9 +6,9 @@
 
 In Vscode, if you're inside some big function or class, it will still show it for you.
 
-![[Pasted image 20250815144115.png]]
+![Pasted image 20250815144115.png](../../../../../../attachments/Pasted%20image%2020250815144115.png)
 
-Notice the path name includes the class and the function  you're in, so you don't have to scroll through the outline or file. 
+Notice the path name includes the class and the function  you're in, so you don't have to scroll through the outline or file.
 
 Make it happen in Obsidian!
 

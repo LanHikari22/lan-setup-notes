@@ -1,18 +1,18 @@
 ---
-parent: "[[000 Note Repo Migration Sept 8]]"
-spawned_by: "[[000 Note Repo Migration Sept 8]]"
+parent: '[[000 Note Repo Migration Sept 8]]'
+spawned_by: '[[000 Note Repo Migration Sept 8]]'
 context_type: entry
 ---
 
-Parent: [[000 Note Repo Migration Sept 8]]
+Parent: [000 Note Repo Migration Sept 8](../000%20Note%20Repo%20Migration%20Sept%208.md)
 
-Spawned by: [[000 Note Repo Migration Sept 8]] 
+Spawned by: [000 Note Repo Migration Sept 8](../000%20Note%20Repo%20Migration%20Sept%208.md)
 
-Spawned in: [[000 Note Repo Migration Sept 8#^spawn-entry-60fe40|^spawn-entry-60fe40]]
+Spawned in: [<a name="spawn-entry-60fe40" />^spawn-entry-60fe40](../000%20Note%20Repo%20Migration%20Sept%208.md#spawn-entry-60fe40)
 
 # 1 Journal
 
-During investigating [[008 How does obsidian-export export pulldown-cmark back to markdown?]],
+During investigating [008 How does obsidian-export export pulldown-cmark back to markdown?](../investigations/008%20How%20does%20obsidian-export%20export%20pulldown-cmark%20back%20to%20markdown%3F.md),
 
 (1)
 

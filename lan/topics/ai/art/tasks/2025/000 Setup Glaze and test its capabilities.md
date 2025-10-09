@@ -1,9 +1,11 @@
 ---
 status: backlog
 ---
-#lan #task #todo #ai #privacy #art
+
+\#lan #task #todo #ai #privacy #art
 
 2025-06-26 Wk 26 Thu - 07:25
+
 # 1 Objective
 
 # 2 Journal

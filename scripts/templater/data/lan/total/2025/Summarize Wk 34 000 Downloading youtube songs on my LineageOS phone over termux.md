@@ -1,7 +1,6 @@
 # 1 Time Summary – Wk 34 000 Downloading youtube songs on my LineageOS phone over termux
 
-| Note/Heading | Time Spent |
-|--------------|------------|
-| **Total** | **1h 39m 33s** |
-| [[Wk 34 000 Downloading youtube songs on my LineageOS phone over termux]] | **1h 39m 33s** |
-
+|Note/Heading|Time Spent|
+|------------|----------|
+|**Total**|**1h 39m 33s**|
+|[Wk 34 000 Downloading youtube songs on my LineageOS phone over termux](../../../../../../lan/topics/tooling/mobile/tasks/weekly/2025/Wk%2034%20000%20Downloading%20youtube%20songs%20on%20my%20LineageOS%20phone%20over%20termux.md)|**1h 39m 33s**|

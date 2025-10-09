@@ -1,27 +1,27 @@
 ---
-parent: "[[000 Note Repo Migration Sept 8]]"
-spawned_by: "[[005 Create Spawn Note Command]]"
+parent: '[[000 Note Repo Migration Sept 8]]'
+spawned_by: '[[005 Create Spawn Note Command]]'
 context_type: task
 status: todo
 ---
 
-Parent: [[000 Note Repo Migration Sept 8]]
+Parent: [000 Note Repo Migration Sept 8](../000%20Note%20Repo%20Migration%20Sept%208.md)
 
-Spawned by: [[005 Create Spawn Note Command]]
+Spawned by: [005 Create Spawn Note Command](005%20Create%20Spawn%20Note%20Command.md)
 
-Spawned in: [[005 Create Spawn Note Command#^spawn-task-d5eb50|^spawn-task-d5eb50]]
+Spawned in: [<a name="spawn-task-d5eb50" />^spawn-task-d5eb50](005%20Create%20Spawn%20Note%20Command.md#spawn-task-d5eb50)
 
 # 1 Journal
 
 2025-10-07 Wk 41 Tue - 10:31 +03:00
 
-We want to generate both an `Index` H1 heading which just lists the peripheral notes grouped by type, and also a `Spawn Trees` H1 heading that uses bullet points to visually indicate tree level. It's plural `Trees` because there are possibly multiple roots, 
+We want to generate both an `Index` H1 heading which just lists the peripheral notes grouped by type, and also a `Spawn Trees` H1 heading that uses bullet points to visually indicate tree level. It's plural `Trees` because there are possibly multiple roots,
 
 Spawns may come from outside the cluster. For the spawn trees, we want to go over all peripheral notes and ask for their spawner, and then using commonality, we build trees.
 
 2025-10-07 Wk 41 Tue - 10:49 +03:00
 
-```ts
+````ts
 // in main.ts
 import * as update_cluster_index_command from "./update_cluster_index_command";
 
@@ -33,9 +33,9 @@ this.addCommand({
 	name: "Update Cluster Index",
 	editorCallback: update_cluster_index_command.run,
 });
-```
+````
 
-```ts
+````ts
 // in update_cluster_index_command.ts
 import {
 	Editor,
@@ -45,7 +45,7 @@ import {
 export async function run(editor: Editor, view: MarkdownView) {
     throw new Error("unimplemented");
 }
-```
+````
 
 2025-10-07 Wk 41 Tue - 11:20 +03:00
 
@@ -55,7 +55,7 @@ then we keep deleting, until we encounter a different H1 heading.
 
 2025-10-07 Wk 41 Tue - 12:02 +03:00
 
-It seems unlikely that a core note will have `# Index` or `# Spawn Trees`  in codeblocks, so no need to handle that. If this causes issues, it will likely be visible to the user immediately. 
+It seems unlikely that a core note will have `# Index` or `# Spawn Trees`  in codeblocks, so no need to handle that. If this causes issues, it will likely be visible to the user immediately.
 
 2025-10-07 Wk 41 Tue - 12:26 +03:00
 

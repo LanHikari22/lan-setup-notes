@@ -1,13 +1,14 @@
 ---
 status: done
 ---
+
 # 1 Objective
 
 To get some book pdfs transferred to my phone, and to listen to them on the go.
 
 # 2 Related
 
-[[Wk 34 000 Downloading youtube songs on my LineageOS phone over termux]]
+[Wk 34 000 Downloading youtube songs on my LineageOS phone over termux](../../weekly/2025/Wk%2034%20000%20Downloading%20youtube%20songs%20on%20my%20LineageOS%20phone%20over%20termux.md)
 
 # 3 Journal
 
@@ -17,23 +18,23 @@ Usually I use eReader Prestigio and I also tried ReadEra or . There should be a 
 
 2025-10-02 Wk 40 Thu - 07:32 +03:00
 
-Similar to [[Wk 34 000 Downloading youtube songs on my LineageOS phone over termux]],
+Similar to [Wk 34 000 Downloading youtube songs on my LineageOS phone over termux](../../weekly/2025/Wk%2034%20000%20Downloading%20youtube%20songs%20on%20my%20LineageOS%20phone%20over%20termux.md),
 
 In the phone Termux app,
 
-```sh
+````sh
 sshd
 su
 ip addr | grep 192 # get the ip
-```
+````
 
-Ensure there is also a password is set or set one with `passwd`. 
+Ensure there is also a password is set or set one with `passwd`.
 
 Then we can send the pdf over:
 
-```sh
+````sh
 scp -P 8022 {file} {user}@{ip}:/sdcard/Download
-```
+````
 
 2025-10-02 Wk 40 Thu - 08:03 +03:00
 

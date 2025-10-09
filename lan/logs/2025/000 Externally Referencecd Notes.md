@@ -1,5 +1,3 @@
-
-
 # 1 What is this?
 
 To protect against broken links, anywhere notes are referenced externally will be recorded here.
@@ -12,25 +10,27 @@ To protect against broken links, anywhere notes are referenced externally will b
 
 Those are usually copied to repositories. They reference
 
-[the technical journal](<https://github.com/LanHikari22/lan-setup-notes/blob/main/lan/by%20topic/tooling/obsidian/entries/2025/000%20Setting%20up%20time%20logging%20in%20Obsidian.md>).
+[the technical journal](https://github.com/LanHikari22/lan-setup-notes/blob/main/lan/by%20topic/tooling/obsidian/entries/2025/000%20Setting%20up%20time%20logging%20in%20Obsidian.md).
 
 ## 2.2 Navigating note repositories
 
 2025-07-18 Wk 29 Fri - 00:30
 
-[entry](<https://github.com/delta-domain-rnd/delta-trace/blob/main/lan/docs/2025/000%20Navigating%20Note%20Repositories.md>).
+[entry](https://github.com/delta-domain-rnd/delta-trace/blob/main/lan/docs/2025/000%20Navigating%20Note%20Repositories.md).
 
 Linked by:
-- [dism-exe entry On the folder structure of Lan's notes](<https://github.com/dism-exe/dism-exe-notes/blob/main/lan/entries/2025/000%20On%20the%20folder%20structure%20of%20Lan's%20notes.md>)
+
+* [dism-exe entry On the folder structure of Lan's notes](https://github.com/dism-exe/dism-exe-notes/blob/main/lan/entries/2025/000%20On%20the%20folder%20structure%20of%20Lan's%20notes.md)
 
 ## 2.3 Box000 Development Journal
 
 2025-07-19 Wk 29 Sat - 04:11
 
-[[002 Creating base system for installation testing]].
+[002 Creating base system for installation testing](../../topics/tooling/linux/tasks/2025/002%20Creating%20base%20system%20for%20installation%20testing.md).
 
 Referenced in:
-- [box000 README](https://github.com/delta-domain-rnd/delta-box/tree/main/box/box000_blank_system)
+
+* [box000 README](https://github.com/delta-domain-rnd/delta-box/tree/main/box/box000_blank_system)
 
 ## 2.4 Rust Parquet serialize and deserialize
 
@@ -39,8 +39,9 @@ Referenced in:
 [entry](https://github.com/dism-exe/dism-exe-notes/blob/main/lan/llm/weekly/2025/Wk%2025%20003%20Rust%20Parquet%20serialize%20and%20deserialize.md).
 
 Referenced in:
-- [gh #7732](https://github.com/apache/arrow-rs/issues/7732)
-- [so #79674663](https://stackoverflow.com/questions/75124404/creating-datafusions-dataframe-from-vecstruct-in-rust/79674663#79674663)
+
+* [gh #7732](https://github.com/apache/arrow-rs/issues/7732)
+* [so #79674663](https://stackoverflow.com/questions/75124404/creating-datafusions-dataframe-from-vecstruct-in-rust/79674663#79674663)
 
 ## 2.5 Making Greasemonkey Scripts
 
@@ -48,7 +49,8 @@ Referenced in:
 
 [entry](https://github.com/LanHikari22/lan-setup-notes/blob/3fbc4bad0a8e4f49739119f1acd88bf23f039bfb/lan/topics/tooling/web/entries/latest/000%20Making%20Greasemonkey%20scripts.md#16-creating-command-code-that-runs-every-t-ms).
 
-[[000 Making Greasemonkey scripts|internal]].
+[internal](../../topics/tooling/web/entries/2025/000%20Making%20Greasemonkey%20scripts.md).
 
 Referenced in:
-- [delta trace entry](https://github.com/delta-domain-rnd/delta-trace/blob/main/lan/topics/practice/ctf/topic/entries/2025/000%20Solving%20Mountain%20and%20Dragon%20CTF.md)
+
+* [delta trace entry](https://github.com/delta-domain-rnd/delta-trace/blob/main/lan/topics/practice/ctf/topic/entries/2025/000%20Solving%20Mountain%20and%20Dragon%20CTF.md)

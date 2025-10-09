@@ -1,21 +1,20 @@
-
-
 # 1 Add script for opening obsidian note quickly
+
 # 2 Objective
 
-For general setup, see [[000 Setting up time logging in Obsidian]].
+For general setup, see [000 Setting up time logging in Obsidian](../../../topics/tooling/obsidian/entries/2025/000%20Setting%20up%20time%20logging%20in%20Obsidian.md).
 
 I have `Lan Start Log` which logs to `scripts/templater/data/lan`. It uses `start_log.js` in `scripts/templater/` and the `Lan Start Log.md` basically passes it an identity like so:
 
-```
+````
 <%*	await tp.user.start_log(tp, "lan");%>
-```
+````
 
 So there will be a `Lan Open Timeline Log.md` that basically is like this, it uses `open_timeline_log.js` to open the log file corresponding to the last week log, like `scripts/templater/data/lan/Timeline-2025-06-Wk25`
 
 The goal is for `Lan Open Timeline Log` to open the latest timeline file corresponding to this week, and if it doesn't exist, to create one with the the following template:
 
-```
+````
 # 1 Time Logs
 
 ` ` `simple-time-tracker
@@ -25,16 +24,16 @@ The goal is for `Lan Open Timeline Log` to open the latest timeline file corresp
 }
 ` ` `
 
-```
+````
 
 Remove the spaces in the backticks, these were added for formatting here only.
 
 # 3 LLM Instructions
-- This is a diagnostic document and not a conversation. Everything shared is context. Address the questions tagged (Q#) like (Q1) for example. If you see something like (~1), assume it part of the archive and not a latest set of questions.
-	- Since it keeps occurring, I ask Again
-	- !!! NEVER RESPOND TO (~1), (~2), etc.
-	- ONLY respond to the tagged questions. Nothing else.
 
+* This is a diagnostic document and not a conversation. Everything shared is context. Address the questions tagged (Q#) like (Q1) for example. If you see something like (~1), assume it part of the archive and not a latest set of questions.
+  * Since it keeps occurring, I ask Again
+  * !!! NEVER RESPOND TO (~1), (~2), etc.
+  * ONLY respond to the tagged questions. Nothing else.
 
 # 4 Journal
 
@@ -46,7 +45,7 @@ Code for `start_log.js` will be provided.
 
 Using LLM (chatgpt-4o),
 
-```js
+````js
 async function openTimelineLog(tp, identity) {
 	const fs = tp.app.vault.adapter;
 
@@ -58,26 +57,26 @@ async function openTimelineLog(tp, identity) {
 }
 
 module.exports = openTimelineLog;
-```
-
+````
 
 ### 4.1.1 Common work between scripts
 
-(~2) There is shared work between the different scripts. Extract this into a common library file: `timeline_log_common.js` and use its functions here. 
+(~2) There is shared work between the different scripts. Extract this into a common library file: `timeline_log_common.js` and use its functions here.
 
 A new common script file was created with shared functions between start, stop, and open. But I cannot import it in those scripts.
 
 (~1) Error:
 
-```
+````
 Templater Error: Failed to load user script at "scripts/templater/open_timeline_log.js". 
  Cannot find module './timeline_log_common'
 Require stack:
 - electron/js2c/renderer_init
-```
+````
 
 (~2) Error:
-```
+
+````
 QuickAdd: (ERROR) Error running capture choice "Untitled Capture Choice": Failed to load user script at "scripts/templater/timeline_log_common.js". Default export is not a function. O: Error running capture choice "Untitled Capture Choice": Failed to load user script at "scripts/templater/timeline_log_common.js". Default export is not a function.
     at hi.load_user_script_function (plugin:templater-obsidian:17:236)
     at async hi.generate_user_script_functions (plugin:templater-obsidian:16:6635)
@@ -90,31 +89,32 @@ QuickAdd: (ERROR) Error running capture choice "Untitled Capture Choice": Failed
     at async b2.onChooseCaptureType (plugin:quickadd:50:1848)
     at async b2.execute (plugin:quickadd:50:1574)
 logError @ plugin:quickadd:37
-```
-^error-obsidian-load1
+````
+
+<a name="error-obsidian-load1" />^error-obsidian-load1
 
 2025-06-23 Wk 26 Mon - 14:19
 
-Can't seem to find a way to include. This does not support ES6 module imports, nor `require`. 
+Can't seem to find a way to include. This does not support ES6 module imports, nor `require`.
 
 We can still achieve this via C++ preproc help.
 
 Glue `.hpp` files like `start_log.js.hpp` can be used:
 
-```cpp
+````cpp
 #include ".timeline_log_common.js"
 #include "start_log.js.preproc"
-```
+````
 
 Then the final files are generated on build via `run_timeline_log_preproc_build.sh`:
 
-```sh
+````sh
 cpp -P start_log.js.hpp -o start_log.js
 cpp -P stop_log.js.hpp -o stop_log.js
 cpp -P open_timeline_log.js.hpp -o open_timeline_log.js
-```
+````
 
-Vscode is still able to recognize `start_log.js.preproc` as a javascript file. The reason why `.timeline_log_common.js` starts with a dot is that otherwise the above error [[#^error-obsidian-load1]] would occur.
+Vscode is still able to recognize `start_log.js.preproc` as a javascript file. The reason why `.timeline_log_common.js` starts with a dot is that otherwise the above error [^error-obsidian-load1](Wk%2026%20000%20Add%20script%20for%20opening%20obsidian%20note%20quickly.md#error-obsidian-load1) would occur.
 
 # 5 Issues
 
@@ -126,14 +126,13 @@ Ideally, should only see dedicated templates or comands.
 
 But when setting `Template folder location`, it will show even the js files. This can be solved by creating a `commands` folder:  `scripts/templater/commands/*.md`
 
-
-
 # 6 References
-1. https://silentvoid13.github.io/Templater/ ^docs1
-2.  https://shbgm.ca/blog/obsidian/how-to-use-templater-js-scripts ^tut1
-3. https://obsidian.md/publish ^1
 
-```mermaid
+1. https://silentvoid13.github.io/Templater/ <a name="docs1" />^docs1
+1. https://shbgm.ca/blog/obsidian/how-to-use-templater-js-scripts <a name="tut1" />^tut1
+1. https://obsidian.md/publish ^1
+
+````mermaid
 graph TD
 
 %% Nodes
@@ -161,4 +160,4 @@ N_A1_A3 -.-> |supplements*| A3
 
 N_A2_1 -.-> |about| A2
 
-```
+````

@@ -1,42 +1,41 @@
 # 1 Time Summary – 000 Note Repo Migration Sept 8
 
-| Note/Heading | Time Spent |
-|--------------|------------|
-| **Total** | **77h 31m 30s** |
-| [[000 Note Repo Migration Sept 8]] | **77h 31m 30s** |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[001 Parse through all notes and classify as core - peripheral - partial]] | 15h 28m 53s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[001 pulldown cmark to cmark escapes first obsidian tag on writeback]] | 8h 4m 43s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[011 Create integration tests for obsidian patch fixes for sept 8 migration]] | 7h 13m 43s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[013 Change all delta-trace old format notes into note clusters without applying link fixing]] | 6h 3m 14s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[014 impl get_note_old_format_entries_from_content]] | 4h 52m 52s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[005 Create Spawn Note Command]] | 3h 45m 0s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[003 LinkExtractError due to token including a comma when it should end in brackets]] | 3h 45m 0s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[007 Debugging no old format records found in expt004]] | 3h 35m 58s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[006 Debugging through expt004 not terminating]] | 2h 40m 21s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[004 Parse parent frontmatter property for time log summaries]] | 2h 26m 33s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[009 Impl and carry out cluster note migration]] | 2h 11m 13s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[010 Investigate pulldown-cmark-to-cmark adding 3 spaces for list items instead of 4]] | 2h 2m 0s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[006 Regenerate cluster core note index heading]] | 1h 58m 21s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[008 Search for and fix old format Spawn strings for easier migration]] | 1h 49m 46s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[004 Writing events back to file with pulldown cmark]] | 1h 40m 3s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[004 Debugging through migration expt003 errors]] | 1h 15m 49s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[015 Update spawn convention for mountain and dragon CTF notes]] | 0h 56m 4s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[000 Precommit errors prior to expt004 commit]] | 0h 52m 40s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[003 Make everything under lan_rs_common featured for very minimal includes]] | 0h 42m 31s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[008 How does obsidian-export export pulldown-cmark back to markdown?]] | 0h 40m 30s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[002 Parse a single obsidian markdown file with pulldown cmark]] | 0h 40m 22s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[009 Investigate pulldown_cmark_to_cmark incorrectly converting item lists and bullet style]] | 0h 35m 53s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[000 Include all crate features in build and vscode]] | 0h 32m 27s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[000 To perform the file-level old record transformations for migration using low level string splitting]] | 0h 29m 28s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[010 Apply markdown writeback on delta-trace vault]] | 0h 28m 39s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[000 Break down lan-exp-scripts into an org]] | 0h 27m 24s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[001 How does obsidian-export parse markdown in postprocessors?]] | 0h 24m 27s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[012 Ensure spawned by line does not end with space after spawn command]] | 0h 21m 18s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[002 What's a directory entry from folder.read_dir in rust?]] | 0h 20m 8s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[000 Create Obsidian extension for actions]] | 0h 18m 35s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[005 Count substring occurances in string in rust]] | 0h 13m 33s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[003 Investigating frontmatter to markdown event mappings with pulldown_cmark]] | 0h 11m 33s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[003 Rename github origin master branch to main]] | 0h 10m 55s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[001 Specifying arguments and returns in rust function docs]] | 0h 7m 2s |
-| &nbsp;&nbsp;&nbsp;&nbsp;[[002 vscode rust analyzer does not work in integration test directory]] | 0h 4m 29s |
-
+|Note/Heading|Time Spent|
+|------------|----------|
+|**Total**|**77h 31m 30s**|
+|[000 Note Repo Migration Sept 8](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/000%20Note%20Repo%20Migration%20Sept%208.md)|**77h 31m 30s**|
+|    [001 Parse through all notes and classify as core - peripheral - partial](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/tasks/001%20Parse%20through%20all%20notes%20and%20classify%20as%20core%20-%20peripheral%20-%20partial.md)|15h 28m 53s|
+|    [001 pulldown cmark to cmark escapes first obsidian tag on writeback](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/issues/001%20pulldown%20cmark%20to%20cmark%20escapes%20first%20obsidian%20tag%20on%20writeback.md)|8h 4m 43s|
+|    [011 Create integration tests for obsidian patch fixes for sept 8 migration](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/tasks/011%20Create%20integration%20tests%20for%20obsidian%20patch%20fixes%20for%20sept%208%20migration.md)|7h 13m 43s|
+|    [013 Change all delta-trace old format notes into note clusters without applying link fixing](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/tasks/013%20Change%20all%20delta-trace%20old%20format%20notes%20into%20note%20clusters%20without%20applying%20link%20fixing.md)|6h 3m 14s|
+|    [014 impl get_note_old_format_entries_from_content](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/tasks/014%20impl%20get_note_old_format_entries_from_content.md)|4h 52m 52s|
+|    [005 Create Spawn Note Command](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/tasks/005%20Create%20Spawn%20Note%20Command.md)|3h 45m 0s|
+|    [003 LinkExtractError due to token including a comma when it should end in brackets](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/issues/003%20LinkExtractError%20due%20to%20token%20including%20a%20comma%20when%20it%20should%20end%20in%20brackets.md)|3h 45m 0s|
+|    [007 Debugging no old format records found in expt004](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/investigations/007%20Debugging%20no%20old%20format%20records%20found%20in%20expt004.md)|3h 35m 58s|
+|    [006 Debugging through expt004 not terminating](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/investigations/006%20Debugging%20through%20expt004%20not%20terminating.md)|2h 40m 21s|
+|    [004 Parse parent frontmatter property for time log summaries](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/tasks/004%20Parse%20parent%20frontmatter%20property%20for%20time%20log%20summaries.md)|2h 26m 33s|
+|    [009 Impl and carry out cluster note migration](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/tasks/009%20Impl%20and%20carry%20out%20cluster%20note%20migration.md)|2h 11m 13s|
+|    [010 Investigate pulldown-cmark-to-cmark adding 3 spaces for list items instead of 4](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/investigations/010%20Investigate%20pulldown-cmark-to-cmark%20adding%203%20spaces%20for%20list%20items%20instead%20of%204.md)|2h 2m 0s|
+|    [006 Regenerate cluster core note index heading](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/tasks/006%20Regenerate%20cluster%20core%20note%20index%20heading.md)|1h 58m 21s|
+|    [008 Search for and fix old format Spawn strings for easier migration](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/tasks/008%20Search%20for%20and%20fix%20old%20format%20Spawn%20strings%20for%20easier%20migration.md)|1h 49m 46s|
+|    [004 Writing events back to file with pulldown cmark](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/howtos/004%20Writing%20events%20back%20to%20file%20with%20pulldown%20cmark.md)|1h 40m 3s|
+|    [004 Debugging through migration expt003 errors](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/investigations/004%20Debugging%20through%20migration%20expt003%20errors.md)|1h 15m 49s|
+|    [015 Update spawn convention for mountain and dragon CTF notes](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/tasks/015%20Update%20spawn%20convention%20for%20mountain%20and%20dragon%20CTF%20notes.md)|0h 56m 4s|
+|    [000 Precommit errors prior to expt004 commit](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/issues/000%20Precommit%20errors%20prior%20to%20expt004%20commit.md)|0h 52m 40s|
+|    [003 Make everything under lan_rs_common featured for very minimal includes](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/tasks/003%20Make%20everything%20under%20lan_rs_common%20featured%20for%20very%20minimal%20includes.md)|0h 42m 31s|
+|    [008 How does obsidian-export export pulldown-cmark back to markdown?](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/investigations/008%20How%20does%20obsidian-export%20export%20pulldown-cmark%20back%20to%20markdown%3F.md)|0h 40m 30s|
+|    [002 Parse a single obsidian markdown file with pulldown cmark](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/tasks/002%20Parse%20a%20single%20obsidian%20markdown%20file%20with%20pulldown%20cmark.md)|0h 40m 22s|
+|    [009 Investigate pulldown_cmark_to_cmark incorrectly converting item lists and bullet style](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/investigations/009%20Investigate%20pulldown_cmark_to_cmark%20incorrectly%20converting%20item%20lists%20and%20bullet%20style.md)|0h 35m 53s|
+|    [000 Include all crate features in build and vscode](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/howtos/000%20Include%20all%20crate%20features%20in%20build%20and%20vscode.md)|0h 32m 27s|
+|    [000 To perform the file-level old record transformations for migration using low level string splitting](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/judgments/000%20To%20perform%20the%20file-level%20old%20record%20transformations%20for%20migration%20using%20low%20level%20string%20splitting.md)|0h 29m 28s|
+|    [010 Apply markdown writeback on delta-trace vault](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/tasks/010%20Apply%20markdown%20writeback%20on%20delta-trace%20vault.md)|0h 28m 39s|
+|    [000 Break down lan-exp-scripts into an org](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/entries/000%20Break%20down%20lan-exp-scripts%20into%20an%20org.md)|0h 27m 24s|
+|    [001 How does obsidian-export parse markdown in postprocessors?](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/investigations/001%20How%20does%20obsidian-export%20parse%20markdown%20in%20postprocessors%3F.md)|0h 24m 27s|
+|    [012 Ensure spawned by line does not end with space after spawn command](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/tasks/012%20Ensure%20spawned%20by%20line%20does%20not%20end%20with%20space%20after%20spawn%20command.md)|0h 21m 18s|
+|    [002 What's a directory entry from folder.read_dir in rust?](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/investigations/002%20What's%20a%20directory%20entry%20from%20folder.read_dir%20in%20rust%3F.md)|0h 20m 8s|
+|    [000 Create Obsidian extension for actions](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/tasks/000%20Create%20Obsidian%20extension%20for%20actions.md)|0h 18m 35s|
+|    [005 Count substring occurances in string in rust](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/howtos/005%20Count%20substring%20occurances%20in%20string%20in%20rust.md)|0h 13m 33s|
+|    [003 Investigating frontmatter to markdown event mappings with pulldown_cmark](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/investigations/003%20Investigating%20frontmatter%20to%20markdown%20event%20mappings%20with%20pulldown_cmark.md)|0h 11m 33s|
+|    [003 Rename github origin master branch to main](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/howtos/003%20Rename%20github%20origin%20master%20branch%20to%20main.md)|0h 10m 55s|
+|    [001 Specifying arguments and returns in rust function docs](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/howtos/001%20Specifying%20arguments%20and%20returns%20in%20rust%20function%20docs.md)|0h 7m 2s|
+|    [002 vscode rust analyzer does not work in integration test directory](../../../../../../lan/tasks/2025/000%20Note%20Repo%20Migration%20Sept%208/issues/002%20vscode%20rust%20analyzer%20does%20not%20work%20in%20integration%20test%20directory.md)|0h 4m 29s|

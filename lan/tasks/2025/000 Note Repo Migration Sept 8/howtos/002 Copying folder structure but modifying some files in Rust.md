@@ -1,15 +1,16 @@
 ---
-parent: "[[000 Note Repo Migration Sept 8]]"
-spawned_by: "[[001 Parse through all notes and classify as core - peripheral - partial]]"
+parent: '[[000 Note Repo Migration Sept 8]]'
+spawned_by: '[[001 Parse through all notes and classify as core - peripheral - partial]]'
 context_type: howto
 status: done
 resolved: partial
 ---
-Parent: [[000 Note Repo Migration Sept 8]]
 
-Spawned by: [[001 Parse through all notes and classify as core - peripheral - partial]]
+Parent: [000 Note Repo Migration Sept 8](../000%20Note%20Repo%20Migration%20Sept%208.md)
 
-Spawned in: [[001 Parse through all notes and classify as core - peripheral - partial#^spawn-howto-9a69d0|^spawn-howto-9a69d0]]
+Spawned by: [001 Parse through all notes and classify as core - peripheral - partial](../tasks/001%20Parse%20through%20all%20notes%20and%20classify%20as%20core%20-%20peripheral%20-%20partial.md)
+
+Spawned in: [<a name="spawn-howto-9a69d0" />^spawn-howto-9a69d0](../tasks/001%20Parse%20through%20all%20notes%20and%20classify%20as%20core%20-%20peripheral%20-%20partial.md#spawn-howto-9a69d0)
 
 # 1 Objective
 
@@ -21,7 +22,7 @@ Instead of globbing, we should consider taking a repository and outputting a rep
 
 This [blog post](https://nick.groenen.me/notes/recursively-copy-files-in-rust/) and [stackoverflow answer](https://stackoverflow.com/a/65192210/6944447) point to a similar example:
 
-```rust
+````rust
 /// Copy files from source to destination recursively.
 pub fn copy_recursively(source: impl AsRef<Path>, destination: impl AsRef<Path>) -> io::Result<()> {
     fs::create_dir_all(&destination)?;
@@ -36,9 +37,9 @@ pub fn copy_recursively(source: impl AsRef<Path>, destination: impl AsRef<Path>)
     }
     Ok(())
 }
-```
+````
 
-But this doesn't resolve our issue alone. 
+But this doesn't resolve our issue alone.
 
 For our use case,
 

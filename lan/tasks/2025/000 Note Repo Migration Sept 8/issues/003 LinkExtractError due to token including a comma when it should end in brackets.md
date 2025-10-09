@@ -1,24 +1,24 @@
 ---
-parent: "[[000 Note Repo Migration Sept 8]]"
-spawned_by: "[[013 Change all delta-trace old format notes into note clusters without applying link fixing]]"
+parent: '[[000 Note Repo Migration Sept 8]]'
+spawned_by: '[[013 Change all delta-trace old format notes into note clusters without applying link fixing]]'
 context_type: issue
 status: done
 ---
 
-Parent: [[000 Note Repo Migration Sept 8]]
+Parent: [000 Note Repo Migration Sept 8](../000%20Note%20Repo%20Migration%20Sept%208.md)
 
-Spawned by: [[013 Change all delta-trace old format notes into note clusters without applying link fixing]]
+Spawned by: [013 Change all delta-trace old format notes into note clusters without applying link fixing](../tasks/013%20Change%20all%20delta-trace%20old%20format%20notes%20into%20note%20clusters%20without%20applying%20link%20fixing.md)
 
-Spawned in: [[013 Change all delta-trace old format notes into note clusters without applying link fixing#^spawn-issue-b66790|^spawn-issue-b66790]]
+Spawned in: [<a name="spawn-issue-b66790" />^spawn-issue-b66790](../tasks/013%20Change%20all%20delta-trace%20old%20format%20notes%20into%20note%20clusters%20without%20applying%20link%20fixing.md#spawn-issue-b66790)
 
 # 1 Journal
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration
 cargo run --bin app -- writeback /home/lan/src/cloned/gh/deltatraced/delta-trace/
-```
+````
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration
 cargo run --release --bin app -- extract_old_format_records /home/lan/src/cloned/gh/deltatraced/delta-trace/
 
@@ -29,19 +29,19 @@ cargo run --release --bin app -- extract_old_format_records /home/lan/src/cloned
 thread 'main' panicked at src/bin/app.rs:98:64:
 Could not process links: LinkExtractError(NoBracketsFound("[[018 σ-additive|σ-additivity]], "))
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
-```
+````
 
 2025-09-30 Wk 40 Tue - 10:27 +03:00
 
 When parsing links we expected
 
-```diff
+````diff
 // in impl FromStr for ObsidianLink
 if !s.starts_with("[[") || !s.ends_with("]]") {
 -	return Err(ObsidianLinkParseError::NoBracketsFound(s.to_owned()));
 +   return Err(ObsidianLinkParseError::NotEnclosedInBrackets(s.to_owned()));
 }
-```
+````
 
 But in this case `,`  came along. This error name should also be clarified. There are brackets, but it is true that it's not enclosed in them.
 
@@ -49,7 +49,7 @@ But in this case `,`  came along. This error name should also be clarified. Ther
 
 Adding some traces,
 
-```rust
+````rust
 // in fn parse_multiple_obsidian_links
 let tokens = s
 	.split("[[")
@@ -68,9 +68,9 @@ let tokens = s
 		Ok(format!("[[{stripped}"))
 	})
 	.collect::<Result<Vec<_>, ObsidianLinkParseError>>()?;
-```
+````
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration
 cargo run --release --bin app -- -vv  extract_old_format_records /home/lan/src/cloned/gh/deltatraced/delta-trace/
 
@@ -81,22 +81,22 @@ cargo run --release --bin app -- -vv  extract_old_format_records /home/lan/src/c
 thread 'main' panicked at src/bin/app.rs:98:64:
 Could not process links: LinkExtractError(NotEnclosedInBrackets("[[018 σ-additive|σ-additivity]], "))
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
-```
+````
 
 2025-10-06 Wk 41 Mon - 04:51 +03:00
 
-So we're trying to understand why the comma with `[[018 σ-additive|σ-additivity]],`. 
+So we're trying to understand why the comma with `[[018 σ-additive|σ-additivity]],`.
 
 The logic that tokenizes is in `fn parse_multiple_obsidian_links`
 
-```rust
+````rust
 // in fn parse_multiple_obsidian_links
 let end_idx = s_split
 	.find("]]")
 	.ok_or(ObsidianLinkParseAssertError::FilteredForEndBracketsMustBeFound)?;
 
 let stripped = s_split.chars().take(end_idx + "]]".len()).join("");
-```
+````
 
 2025-10-06 Wk 41 Mon - 04:59 +03:00
 
@@ -104,13 +104,14 @@ I thought Maybe this logic is flawed given that there's unicode there, but the e
 
 Also curiously [doc.rs str](https://docs.rs/rustc-std-workspace-std/latest/std/str/index.html) module doesn't include this find, although in the code on my machine it's somewhere under a str module. But not std, instead rustlib?
 
-[docs.rs rustLib](https://docs.rs/rustLib/latest/rustLib/) seems to be just a template. In my machine, the code is found in `/home/lan/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/mod.rs`. 
+[docs.rs rustLib](https://docs.rs/rustLib/latest/rustLib/) seems to be just a template. In my machine, the code is found in `/home/lan/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/mod.rs`.
 
 2025-10-06 Wk 41 Mon - 05:14 +03:00
 
 Okay it was in the core library [docs.rs core](https://doc.rust-lang.org/stable/core/) as [fn find](https://doc.rust-lang.org/stable/core/primitive.str.html#method.find)
 
-> Returns the byte index of the first character of this string slice that matches the pattern.
+ > 
+ > Returns the byte index of the first character of this string slice that matches the pattern.
 
 Let's do some tests.
 
@@ -124,7 +125,7 @@ Our unit under test now is `fn get_obsidian_link_token_from_open_bracket_split` 
 
 2025-10-06 Wk 41 Mon - 06:12 +03:00
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration
 cargo test --lib
 
@@ -148,13 +149,13 @@ cargo test --lib
 
 thread 'common::tests::test_get_obsidian_link_token_from_open_bracket_split' panicked at src/common.rs:1025:25:
 case-003: Output is not as expected
-```
+````
 
 So this issue reproduces even for the unicode examples they had.
 
 2025-10-06 Wk 41 Mon - 06:19 +03:00
 
-```rust
+````rust
 // in fn get_obsidian_link_token_from_open_bracket_split
 pub fn get_obsidian_link_token_from_open_bracket_split(
     s_split: &str,
@@ -172,9 +173,9 @@ pub fn get_obsidian_link_token_from_open_bracket_split(
     // It will already include ]], but we have to put the [[ back
     Ok(format!("[[{stripped}"))
 }
-```
+````
 
-```sh
+````sh
 [2025-10-06T03:18:37Z TRACE migration_rs::common] end_idx: 4
 [2025-10-06T03:18:37Z TRACE migration_rs::common] s: beep]]
 [2025-10-06T03:18:37Z TRACE migration_rs::common] stripped: beep]]
@@ -182,13 +183,13 @@ pub fn get_obsidian_link_token_from_open_bracket_split(
 [2025-10-06T03:18:37Z TRACE migration_rs::common] end_idx: 29
 [2025-10-06T03:18:37Z TRACE migration_rs::common] s: Löwe 老虎 Léopard Gepardi]],
 [2025-10-06T03:18:37Z TRACE migration_rs::common] stripped: Löwe 老虎 Léopard Gepardi]],
-```
+````
 
 Assuming each unicode character is 2 bytes here, the end index of 29 should be 27, this would be at the start of the pattern `]]`.  29 is the comma after. Why is it overcounting by 2?
 
 2025-10-06 Wk 41 Mon - 06:27 +03:00
 
-```python
+````python
 >>> s
 'Löwe 老虎 Léopard Gepardi'
 >>> n = 1; s[n], hex(ord(s[n]))
@@ -199,7 +200,7 @@ Assuming each unicode character is 2 bytes here, the end index of 29 should be 2
 ('老', '0x8001')
 >>> n = 6; s[n], hex(ord(s[n]))
 ('虎', '0x864e')
-```
+````
 
 So only two characters are 2-byte according to python, but then it would mean that we expect `[[` to be at byte index 25, and yet we're getting a reading of 29. That's overshooting by 4.
 
@@ -207,7 +208,7 @@ So only two characters are 2-byte according to python, but then it would mean th
 
 It fails even with just `[[ö]]` and `[[老]]`
 
-```sh
+````sh
 [2025-10-06T03:37:25Z TRACE migration_rs::common] end_idx: 2
 [2025-10-06T03:37:25Z TRACE migration_rs::common] s: ö]],
 [2025-10-06T03:37:25Z TRACE migration_rs::common] stripped: ö]],
@@ -215,13 +216,13 @@ It fails even with just `[[ö]]` and `[[老]]`
 [2025-10-06T03:36:58Z TRACE migration_rs::common] end_idx: 3
 [2025-10-06T03:36:58Z TRACE migration_rs::common] s: 老]],
 [2025-10-06T03:36:58Z TRACE migration_rs::common] stripped: 老]],
-```
+````
 
 2025-10-06 Wk 41 Mon - 06:44 +03:00
 
 For the traces in
 
-```rust
+````rust
 pub fn get_obsidian_link_token_from_open_bracket_split(
     s_split: &str,
 ) -> Result<String, ObsidianLinkParseError> {
@@ -242,9 +243,9 @@ pub fn get_obsidian_link_token_from_open_bracket_split(
     // It will already include ]], but we have to put the [[ back
     Ok(format!("[[{stripped}"))
 }
-```
+````
 
-```
+````
 [2025-10-06T03:44:25Z TRACE migration_rs::common] 0 b
 [2025-10-06T03:44:25Z TRACE migration_rs::common] 1 e
 [2025-10-06T03:44:25Z TRACE migration_rs::common] 2 e
@@ -270,7 +271,7 @@ pub fn get_obsidian_link_token_from_open_bracket_split(
 [2025-10-06T03:46:31Z TRACE migration_rs::common] end_idx: 3
 [2025-10-06T03:46:31Z TRACE migration_rs::common] s: 老]],
 [2025-10-06T03:46:31Z TRACE migration_rs::common] stripped: 老]],
-```
+````
 
 [fn char_indices](https://doc.rust-lang.org/stable/core/primitive.str.html#method.char_indices) indicates that it is using UTF-8 encoding.
 
@@ -278,43 +279,43 @@ We can confirm the character lengths searching [utf-8 chartable](https://www.utf
 
 From [utf-8 chartable start=246 (0xF6)](https://www.utf8-chartable.de/unicode-utf8-table.pl?start=246),
 
-| Unicode  <br>code point | character | UTF-8  <br>(hex.) | name                                |
-| ----------------------- | --------- | ----------------- | ----------------------------------- |
-| U+00F6                  | ö         | c3 b6             | LATIN SMALL LETTER O WITH DIAERESIS |
+|Unicode  <br>code point|character|UTF-8  <br>(hex.)|name|
+|-------------------|---------|-------------|----|
+|U+00F6|ö|c3 b6|LATIN SMALL LETTER O WITH DIAERESIS|
 
 And from [utf-8 chartable start=32769 (0x8001)](https://www.utf8-chartable.de/unicode-utf8-table.pl?start=32769),
 
-| Unicode  <br>code point | character | UTF-8  <br>(hex.) | name |
-| ----------------------- | --------- | ----------------- | ---- |
-| U+8001                  | 老         | e8 80 81          |      |
+|Unicode  <br>code point|character|UTF-8  <br>(hex.)|name|
+|-------------------|---------|-------------|----|
+|U+8001|老|e8 80 81||
 
 2025-10-06 Wk 41 Mon - 07:40 +03:00
 
 Anyway the real problem is using a byte index in a chars iterator. The latter doesn't care about the underlying UTF-8 encoding details, and should NOT be given byte indices!
 
-```rust
+````rust
 // in fn get_obsidian_link_token_from_open_bracket_split
 let end_idx = s_split
 	.find("]]")
 	.ok_or(ObsidianLinkParseAssertError::FilteredForEndBracketsMustBeFound)?;
 
 let stripped = s_split.chars().take(end_idx + "]]".len()).join("");
-```
+````
 
 2025-10-06 Wk 41 Mon - 08:19 +03:00
 
-Replacing 
+Replacing
 
-```rust
+````rust
 // in fn get_obsidian_link_token_from_open_bracket_split
 let end_idx = s_split
 	.find("]]")
 	.ok_or(ObsidianLinkParseAssertError::FilteredForEndBracketsMustBeFound)?;
-```
+````
 
 With
 
-```rust
+````rust
 // in fn get_obsidian_link_token_from_open_bracket_split
 let end_idx = s_split
 	.chars()
@@ -337,27 +338,26 @@ let end_idx = s_split
 	.next()
 	.ok_or(ObsidianLinkParseAssertError::FilteredForEndBracketsMustBeFound)?
 	.0;
-```
+````
 
 Yields
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration
 cargo test --lib
 
 # out (error, relevant)
 thread 'common::tests::test_get_obsidian_link_token_from_open_bracket_split' panicked at src/common.rs:1081:26:
 case-002: Failed to tokenize: AssertError(FilteredForEndBracketsMustBeFound)
-```
+````
 
-This is also a flawed idea since you don't know whether the pattern exists at an odd or even index.  `a]]` would give the chunks `a] ]` and not `a ]]`. 
-
+This is also a flawed idea since you don't know whether the pattern exists at an odd or even index.  `a]]` would give the chunks `a] ]` and not `a ]]`.
 
 2025-10-06 Wk 41 Mon - 08:34 +03:00
 
 This passes the tests:
 
-```rust
+````rust
 // in fn get_obsidian_link_token_from_open_bracket_split
 let s_split_chars = s_split.chars().collect_vec();
 
@@ -374,9 +374,9 @@ let end_idx = (0..s_split_chars.len())
 		s == "]]"
 	})
 	.ok_or(ObsidianLinkParseAssertError::FilteredForEndBracketsMustBeFound)?;
-```
+````
 
-```sh
+````sh
 # in /home/lan/src/cloned/gh/deltachives/2025-Wk37-000-obsidian-migration
 cargo test --lib
 
@@ -389,4 +389,4 @@ running 1 test
 test common::tests::test_get_obsidian_link_token_from_open_bracket_split ... ok
 
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
-```
+````

@@ -6,22 +6,21 @@ status: done
 
 I would like to have full control of one of my phones at least. I have...
 
-| Device                     | Specs                                                                                                                                       | EOL |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | --- |
-| Galaxy A54 5G, SM-A546E/DS | [spec2](https://www.phonemore.com/specs/samsung/galaxy-a54/sm-a546eds-256gb/)                                                               |     |
-| Pixel 3                    | [spec1](https://deviceguides.ee.co.uk/google/pixel-3-android-9-0/specifications/), [spec2](https://www.phonemore.com/specs/google/pixel-3/) | Yes |
-| Galaxy Tab A6 SM-T280      |                                                                                                                                             | Yes |
-^phone-spec-table
+|Device|Specs|EOL|
+|------|-----|---|
+|Galaxy A54 5G, SM-A546E/DS|[spec2](https://www.phonemore.com/specs/samsung/galaxy-a54/sm-a546eds-256gb/)||
+|Pixel 3|[spec1](https://deviceguides.ee.co.uk/google/pixel-3-android-9-0/specifications/), [spec2](https://www.phonemore.com/specs/google/pixel-3/)|Yes|
+|Galaxy Tab A6 SM-T280||Yes|
+|<a name="phone-spec-table" />^phone-spec-table|||
 
 [Spec comparison](https://www.phonemore.com/compare/phones/samsung-galaxy-a54-sm-a546eds-256gb-vs-google-pixel-3-64gb/23084726).
 
-
 I need to pick an open source OS and install it on one of them.
 
-- [x] Installed an open source OS on at least one of my phones
+* [x] Installed an open source OS on at least one of my phones
 
 Related,
-[[003 Achieve Obsidian Notes Sync between my mobile phone and PC]].
+[003 Achieve Obsidian Notes Sync between my mobile phone and PC](../../../obsidian/tasks/2025/003%20Achieve%20Obsidian%20Notes%20Sync%20between%20my%20mobile%20phone%20and%20PC.md).
 
 # 2 Journal
 
@@ -35,18 +34,18 @@ But also unlike my [Galaxy A54](https://www.phonemore.com/specs/samsung/galaxy-a
 
 ## 3.1 Install GrapheneOS on my Pixel 3
 
-- [x] Out of support. See [[#3.2 Install LineageOS on my Pixel 3]]
+* [x] Out of support. See [3.2 Install LineageOS on my Pixel 3](000%20Install%20open%20source%20mobile%20OS%20on%20my%20phone.md#32-install-lineageos-on-my-pixel-3)
 
 2025-08-16 Wk 33 Sat - 12:24
 
 I backed up and factory reset the device. We should be able to install now.
 
-[GrapheneOS Install guide](https://grapheneos.org/install/). 
+[GrapheneOS Install guide](https://grapheneos.org/install/).
 
 2025-08-16 Wk 33 Sat - 12:32
 
 Android version: 12
-Android security update: October 5, 2021.  
+Android security update: October 5, 2021.
 
 There are no more updates, security or otherwise by Google for this.
 
@@ -54,55 +53,55 @@ There are no more updates, security or otherwise by Google for this.
 
 Following [GrapheneOS cli install guide](https://grapheneos.org/install/cli),
 
-```sh
+````sh
 sudo apt install libarchive-tools
 curl -O https://dl.google.com/android/repository/platform-tools_r35.0.2-linux.zip
 echo 'acfdcccb123a8718c46c46c059b2f621140194e5ec1ac9d81715be3d6ab6cd0a  platform-tools_r35.0.2-linux.zip' | sha256sum -c
 bsdtar xvf platform-tools_r35.0.2-linux.zip
-```
+````
 
-```sh
+````sh
 export PATH="$PWD/platform-tools:$PATH"
-```
+````
 
-```sh
+````sh
 fastboot --version
 
 # out
 fastboot version 35.0.2-12147458
 Installed as /home/lan/platform-tools/fastboot
-```
+````
 
-```sh
+````sh
 sudo apt install android-sdk-platform-tools-common
-```
+````
 
-```sh
+````sh
 sudo systemctl stop fwupd.service
-```
+````
 
 2025-08-16 Wk 33 Sat - 12:42
 
 Ooh rebooting my phone and holding the volume down button put me in Fastboot Mode!
 
-```sh
+````sh
 fastboot flashing unlock
 
 # out
 < waiting for any device >
-```
+````
 
 Hmm nothing. The guide did mention that using the front USB-C panel is often broken for installations like this, let's try connecting USB-C to the back of the PC
 
 2025-08-16 Wk 33 Sat - 12:56
 
-```sh
+````sh
 fastboot flashing unlock                          
 
 # out
 OKAY [  0.083s]
 Finished. Total time: 0.083s
-```
+````
 
 This changed the view on my phone, to the message `"If you unlock the bootloader, you will be able to install custom operating system software on this phone. [...]`
 
@@ -110,30 +109,30 @@ Unlocking with volume button up and power button...
 
 Now it says
 
-```
+````
 Device state: unlocked
-```
+````
 
 Was locked before.
 
 I have this already, but
 
-```sh
+````sh
 sudo apt install openssh-client
-```
+````
 
-```sh
+````sh
 curl -O https://releases.grapheneos.org/allowed_signers
 
-```
+````
 
-```sh
+````sh
 echo "contact@grapheneos.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIUg/m5CoP83b0rfSCzYSVA4cw4ir49io5GPoxbgxdJE" > expected
 diff -u allowed_signers expected
 
 # out
 [nothing: files are identical]
-```
+````
 
 2025-08-16 Wk 33 Sat - 13:04
 
@@ -143,38 +142,37 @@ It has many string matches in the rather long changelogs... It's beyond legacy s
 
 Pixel 4 has those links:
 
-```
+````
 https://releases.grapheneos.org/flame-factory-2025012701.zip
 https://releases.grapheneos.org/flame-factory-2025012701.zip.sig
 https://releases.grapheneos.org/flame-ota_update-2025012701.zip
-```
+````
 
 Searching `Pixel 3`, the first result leads us to github releases [SP1A.210812.016.C2.2022081800](https://github.com/GrapheneOS/platform_manifest/releases/tag/SP1A.210812.016.C2.2022081800)
 
 Doesn't seem like what we want.
 
-Right they do say in [device support](https://grapheneos.org/faq#device-support) that 
+Right they do say in [device support](https://grapheneos.org/faq#device-support) that
 
-```
+````
  The following end-of-life devices are no longer supported:
 - Pixel 3a XL (bonito)
 - Pixel 3a (sargo)
 - Pixel 3 XL (crosshatch)
 - Pixel 3 (blueline)
-```
+````
 
 I know I have blueline for this...
 
-It's no longer supported, and even if we were to experiment with the device and see what GrapheneOS is like, the OS itself will be out of date. 
+It's no longer supported, and even if we were to experiment with the device and see what GrapheneOS is like, the OS itself will be out of date.
 
-Let's try another option. 
+Let's try another option.
 
-[[#3.2 Install LineageOS on my Pixel 3]]
-
+[3.2 Install LineageOS on my Pixel 3](000%20Install%20open%20source%20mobile%20OS%20on%20my%20phone.md#32-install-lineageos-on-my-pixel-3)
 
 ## 3.2 Install LineageOS on my Pixel 3
 
-- [x] 
+* [x] 
 
 2025-08-16 Wk 33 Sat - 14:06
 
@@ -184,14 +182,14 @@ From [Installing Lineage Recovery using `fastboot`](https://wiki.lineageos.org/d
 
 [Downloading boot.img](https://mirrorbits.lineageos.org/full/blueline/20250811/boot.img).
 
-```sh
+````sh
 fastboot flash boot ~/Downloads/boot.img
 
 # out
 Sending 'boot_b' (65536 KB)                        OKAY [  1.640s]
 Writing 'boot_b'                                   OKAY [  0.412s]
 Finished. Total time: 2.370s
-```
+````
 
 Selecting `Recovery Mode` option on the device
 
@@ -201,9 +199,9 @@ We can see the logo of LineageOS on the device.
 
 Select this from the device first (Apply Update -> Apply from ADB) then do
 
-```
+````
 adb -d sideload ~/Downloads/lineage-22.2-20250811-nightly-blueline-signed.zip
-```
+````
 
 When it asks about rebooting the bootloader to install some packages say yes and reado this step to sideload
 
@@ -243,15 +241,15 @@ So we need the boot.img from before in our device now...
 
 Not able to `adb pull` the patched boot.img...
 
-```
+````
 adb: error: failed to get feature set: no devices/emulators found
-```
+````
 
 In the bootloader when enabling ADB it says
 
-```
+````
 adb: error: failed to stat remote object '/storage/emulated/0/Download/magisk_patched-{random string}.img': No such file or directory
-```
+````
 
 Even though that's the link it reported.
 
@@ -263,17 +261,17 @@ I can get the file myself on my pc through file transfer USB setting.
 
 Reboot back into fastboot mode and
 
-```
+````
 fastboot flash boot /path/to/magisk_patched_[random_strings].img
-```
+````
 
 Now android just says
 
-```
+````
 No command
-```
+````
 
-![[Pasted image 20250816160539.png]]
+![Pasted image 20250816160539.png](../../../../../../attachments/Pasted%20image%2020250816160539.png)
 [image source](https://www.gtricks.com/android/how-to-fix-android-no-command-error/)
 
 After trying to restart the bootloader...
@@ -302,15 +300,14 @@ They have instructions for cloning also in [contributing-apps](https://wiki.line
 
 [here](https://wiki.lineageos.org/emulator#initialize-the-lineageos-source-repository) they mention
 
-```sh
+````sh
 cd ~/android/lineage
 repo init -u https://github.com/LineageOS/android.git -b lineage-22.2 --git-lfs --no-clone-bundle
-```
-
+````
 
 ## 3.3 Getting SSH remote access to my Pixel 3
 
-- [x] 
+* [x] 
 
 2025-08-16 Wk 33 Sat - 16:18
 
@@ -322,12 +319,11 @@ Installing and uninstalling tsu, does not seem to recognize we're rooted. Was re
 
 `pkg i termux-services` is also a shorthand for the `runit` service manager.
 
-Those are the openssh instructions. 
+Those are the openssh instructions.
 
 2025-08-16 Wk 33 Sat - 16:32
 
 [termux remote access guide](https://wiki.termux.com/wiki/Remote_Access)
-
 
 2025-08-17 Wk 33 Sun - 03:17
 
@@ -341,12 +337,11 @@ With setting `passwd`, and seeing the user with `ls -al`, and realizing this is 
 
 2025-08-16 Wk 33 Sat - 15:24
 
-[Magisk releases],
+\[Magisk releases\],
 
-> - [Core] Migrate module implementation to Rust
+ > 
+ > * \[Core\] Migrate module implementation to Rust
 
 They use Rust!
 
 # 6 References
-
-
