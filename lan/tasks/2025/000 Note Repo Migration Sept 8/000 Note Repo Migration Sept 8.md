@@ -52,6 +52,14 @@ Spawn [[001 Some ideas encountered during note repo migration sept 8]] ^spawn-id
 
 Turns out if we have a `main.rs`, it's included in the `cargo run --bin` options as the name of the crate. In our case, `migration_rs`. But we created an `app` under bin. Let's remove `main.rs` since we can use `--bin app`. 
 
+2025-10-06 Wk 41 Mon - 05:41 +03:00
+
+Spawn [[002 Side notes taken during note repo migration]] ^spawn-entry-92491b
+
+2025-10-07 Wk 41 Tue - 07:15 +03:00
+
+Spawn [[003 Objective reminders noted during sept 8 migration]] ^spawn-entry-cddf08
+
 # 4 External Links
 
 # 5 References
